@@ -1,7 +1,7 @@
 require("Comment").setup {
-
+        --
         -- LHS of operator-pending mapping in NORMAL + VISUAL mode
-        opleader = {
+         opleader = {
           -- line-comment keymap
           line = "gc",
           -- block-comment keymap

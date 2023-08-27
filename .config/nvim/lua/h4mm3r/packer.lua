@@ -15,7 +15,6 @@ return require('packer').startup(function(use)
   use { 'tjdevries/colorbuddy.nvim' }
   use { 'norcalli/nvim-colorizer.lua' }
   use { 'nvim-lualine/lualine.nvim' }
-  use { 'ryanoasis/vim-devicons' }
   use {'nvim-tree/nvim-web-devicons'}
   use {'akinsho/nvim-bufferline.lua'}
   use { 'folke/which-key.nvim',
@@ -60,9 +59,10 @@ return require('packer').startup(function(use)
 
   -- Other Utility
   use {'ThePrimeagen/vim-be-good'}
-  use {'manzeloth/live-server'}
   use {'Eandrju/cellular-automaton.nvim'}
   use {'alec-gibson/nvim-tetris'}
   use {'tpope/vim-surround'}
+  use {'MunifTanjim/nui.nvim'}
+  use {'rktjmp/lush.nvim'}
 end)
 

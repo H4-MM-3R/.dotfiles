@@ -124,11 +124,6 @@ _G.packer_plugins = {
     path = "/home/hemram/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/ThePrimeagen/harpoon"
   },
-  ["live-server"] = {
-    loaded = true,
-    path = "/home/hemram/.local/share/nvim/site/pack/packer/start/live-server",
-    url = "https://github.com/manzeloth/live-server"
-  },
   ["lsp-zero.nvim"] = {
     loaded = true,
     path = "/home/hemram/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
@@ -149,6 +144,11 @@ _G.packer_plugins = {
     path = "/home/hemram/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
+  ["lush.nvim"] = {
+    loaded = true,
+    path = "/home/hemram/.local/share/nvim/site/pack/packer/start/lush.nvim",
+    url = "https://github.com/rktjmp/lush.nvim"
+  },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
     path = "/home/hemram/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim",
@@ -168,6 +168,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hemram/.local/share/nvim/site/pack/packer/start/neosolarized.nvim",
     url = "https://github.com/svrana/neosolarized.nvim"
+  },
+  ["nui.nvim"] = {
+    loaded = true,
+    path = "/home/hemram/.local/share/nvim/site/pack/packer/start/nui.nvim",
+    url = "https://github.com/MunifTanjim/nui.nvim"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -253,11 +258,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hemram/.local/share/nvim/site/pack/packer/start/vim-be-good",
     url = "https://github.com/ThePrimeagen/vim-be-good"
-  },
-  ["vim-devicons"] = {
-    loaded = true,
-    path = "/home/hemram/.local/share/nvim/site/pack/packer/start/vim-devicons",
-    url = "https://github.com/ryanoasis/vim-devicons"
   },
   ["vim-fugitive"] = {
     loaded = true,

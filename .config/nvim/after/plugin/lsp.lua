@@ -13,7 +13,7 @@ local cmp = require("cmp")
 --#                       LSP Configuration                        #
 --##################################################################
 
-require("mason").setup()
+require("mason").setup({})
 require("mason-lspconfig").setup({})
 capabilities.offsetEncoding = 'utf-8'
 
@@ -33,9 +33,6 @@ require('lspconfig').emmet_ls.setup({
 require('lspconfig').sqlls.setup({
     capabilities = capabilities,
 })
-require('lspconfig').eslint.setup({
-    capabilities = capabilities,
-})
 require('lspconfig').stylelint_lsp.setup({
     capabilities = capabilities,
 })
@@ -45,9 +42,9 @@ require('lspconfig').bashls.setup({
 require('lspconfig').svelte.setup({
     capabilities = capabilities,
 })
-require('lspconfig').tailwindcss.setup({
-    capabilities = capabilities,
-})
+-- require('lspconfig').tailwindcss.setup({
+    -- capabilities = capabilities,
+-- })
 require('lspconfig').pyright.setup({
     capabilities = capabilities,
 })
@@ -82,33 +79,6 @@ require('lspconfig').ruby_ls.setup({
     capabilities = capabilities,
 })
 
-protocol.CompletionItemKind = {
-  '', -- Text
-  '', -- Method
-  '', -- Function
-  '', -- Constructor
-  '', -- Field
-  '', -- Variable
-  '', -- Class
-  'ﰮ', -- Interface
-  '', -- Module
-  '', -- Property
-  '', -- Unit
-  '', -- Value
-  '', -- Enum
-  '', -- Keyword
-  '﬌', -- Snippet
-  '', -- Color
-  '', -- File
-  '', -- Reference
-  '', -- Folder
-  '', -- EnumMember
-  '', -- Constant
-  '', -- Struct
-  '', -- Event
-  'ﬦ', -- Operator
-  '', -- TypeParameter
-}
 
 --##################################################################
 --#                 Formatter Configuration                        #
@@ -168,9 +138,8 @@ cmp.setup({
   },
   formatting = {
     format = lspkind.cmp_format({
-      mode = 'text_symbol',
+      wirth_text = false, 
       maxwidth = 50,
-      ellipsis_char = '...',
     })
   }
 })
@@ -178,6 +147,41 @@ cmp.setup({
 --##################################################################
 --#                            LSP-UI                              #
 --##################################################################
+
+
+
+lspkind.init({
+    mode = 'symbol_text',
+    preset = 'codicons',
+    symbol_map = {
+      Text = "󰉿",
+      Method = "󰆧",
+      Function = "󰊕",
+      Constructor = "",
+      Field = "󰜢",
+      Variable = "󰀫",
+      Class = "󰠱",
+      Interface = "",
+      Module = "",
+      Property = "󰜢",
+      Unit = "󰑭",
+      Value = "󰎠",
+      Enum = "",
+      Keyword = "󰌋",
+      Snippet = "",
+      Color = "󰏘",
+      File = "󰈙",
+      Reference = "󰈇",
+      Folder = "󰉋",
+      EnumMember = "",
+      Constant = "󰏿",
+      Struct = "󰙅",
+      Event = "",
+      Operator = "󰆕",
+      TypeParameter = "",
+    }
+})
+
 
 
 saga.setup({
@@ -193,4 +197,16 @@ saga.setup({
   }
 })
 
+local diagnostic = require("lspsaga.diagnostic")
+local opts = { noremap = true, silent = true }
+vim.keymap.set('n', 'gn', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
+vim.keymap.set('n', 'gl', '<Cmd>Lspsaga show_line_diagnostics<CR>', opts)
+vim.keymap.set('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
+vim.keymap.set('n', 'gd', '<Cmd>Lspsaga lsp_finder<CR>', opts)
+-- vim.keymap.set('i', '<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
+vim.keymap.set('i', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+vim.keymap.set('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
+vim.keymap.set('n', 'gr', '<Cmd>Lspsaga rename<CR>', opts)
 
+-- code action
+vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
