@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+read -p "Text: " text 
+curl qrenco.de/$text
