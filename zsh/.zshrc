@@ -107,13 +107,27 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # ALIASES
+
+# Sessions
+alias s="sessionizer"
+alias sp="project-session"
+alias sc="config_session"
+
 # fuzzy finding scripts
- alias s="sessionizer"
- alias cs="cheatsheet"
- alias ex="extractor"
-# tmux Shortcuts
-alias tks="tmux kill-server"
+alias cs="cheatsheet"
+alias ex="extractor"
+alias ff="fdfind --type f --hidden --exclude .git --max-depth 1 | fzf | xargs nvim"
+alias ffr="fdfind --type f --hidden --exclude .git | fzf | xargs nvim"
+alias fw="whole_grep"
+alias df="source better_cd"
+
+# Tmux Shortcuts
+alias tks-"tmux kill-server"
 alias tls="tmux list-sessions"
+
+# Other
+alias qr="qrgenerator"
+
 
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 

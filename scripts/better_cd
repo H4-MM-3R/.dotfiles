@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+command=$(fdfind --type d | fzf)
+
+cd $command
