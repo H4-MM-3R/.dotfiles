@@ -4,7 +4,6 @@ local null_ls = require("null-ls")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local formatter = null_ls.builtins.formatting
-local linter = null_ls.builtins.diagnostics
 local cmp = require("cmp")
 local luasnip = require("luasnip")
 local has_words_before = function()
@@ -46,16 +45,7 @@ require('lspconfig').bashls.setup({
 require('lspconfig').pyright.setup({
     capabilities = capabilities,
 })
-require('lspconfig').cssmodules_ls.setup({
-    capabilities = capabilities,
-})
 require('lspconfig').yamlls.setup({
-    capabilities = capabilities,
-})
-require('lspconfig').jsonls.setup({
-    capabilities = capabilities,
-})
-require('lspconfig').taplo.setup({
     capabilities = capabilities,
 })
 require('lspconfig').clangd.setup({
@@ -64,9 +54,10 @@ require('lspconfig').clangd.setup({
 require('lspconfig').tsserver.setup({
     capabilities = capabilities,
 })
-require('lspconfig').ruby_ls.setup({
+require('lspconfig').lemminx.setup({
     capabilities = capabilities,
 })
+
 
 
 --##################################################################
@@ -98,7 +89,7 @@ null_ls.setup({
     formatter.google_java_format,
     formatter.prettier,
     formatter.black,
-    formatter.standardrb,
+    formatter.xmlformat,
   },
 })
 

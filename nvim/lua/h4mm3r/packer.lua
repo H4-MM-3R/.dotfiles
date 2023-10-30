@@ -17,10 +17,7 @@ return require('packer').startup(function(use)
   use { 'nvim-lualine/lualine.nvim' }
   use {'nvim-tree/nvim-web-devicons'}
   use {'akinsho/nvim-bufferline.lua'}
-  use { 'folke/which-key.nvim',
-    require("which-key").setup {
-    }
-  }
+  use { 'folke/which-key.nvim'}
 
   -- Treesitter 
   use { 'nvim-treesitter/nvim-treesitter' }
@@ -34,6 +31,9 @@ return require('packer').startup(function(use)
   use { 'williamboman/mason.nvim' }
   use {'williamboman/mason-lspconfig.nvim'}
 
+  -- Java LSP
+  use 'mfussenegger/nvim-jdtls'
+
   -- Autocompletion
   use {'hrsh7th/nvim-cmp'}
   use {'hrsh7th/cmp-nvim-lsp'}
@@ -42,7 +42,8 @@ return require('packer').startup(function(use)
   use {'hrsh7th/cmp-buffer'}
   use {'hrsh7th/cmp-path'}
   use {'saadparwaiz1/cmp_luasnip'}
-  use {'onsails/lspkind.nvim'} use {'nvimdev/lspsaga.nvim'}
+  use {'onsails/lspkind.nvim'}
+  use {'nvimdev/lspsaga.nvim'}
   use {'VonHeikemen/lsp-zero.nvim'}
   use {'jay-babu/mason-null-ls.nvim'}
   use {'jose-elias-alvarez/null-ls.nvim'}
@@ -61,7 +62,6 @@ return require('packer').startup(function(use)
   use {'Eandrju/cellular-automaton.nvim'}
   use {'alec-gibson/nvim-tetris'}
   use {'tpope/vim-surround'}
-  use {'MunifTanjim/nui.nvim'}
-  use {'rktjmp/lush.nvim'}
+  use {'folke/trouble.nvim'}
 end)
 
