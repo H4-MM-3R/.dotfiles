@@ -41,4 +41,3 @@ require("telescope").setup {
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension("harpoon")
 require("telescope").load_extension("live_grep_args")
-

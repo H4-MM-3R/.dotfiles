@@ -141,4 +141,3 @@ vim.keymap.set('n', "<C-K>", function ()
         end
     end
 end, {desc = "Next Trouble/ quickfix item"})
-

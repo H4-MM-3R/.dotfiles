@@ -61,10 +61,3 @@ wk.register({
         a = { "Action" },
     },
 }, { prefix = "<Leader>" })
-
--------------------------------------------------
-
-wk.register({
-    b = "File Browser",
-}, { prefix = "<Leader>"})
-

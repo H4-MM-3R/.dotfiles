@@ -4,6 +4,7 @@
   })
 
   local cb = require('colorbuddy.init')
+
   local Color = cb.Color
   local colors = cb.colors
   local Group = cb.Group
@@ -19,7 +20,6 @@
   Color.new('black', '#000000')
 
   Group.new('Visual', colors.none, colors.base03, styles.reverse)
-
 
   Group.new("DiagnosticVirtualTextError", cError, cError:dark():dark():dark():dark(), styles.NONE)
   Group.new("DiagnosticVirtualTextInfo", cInfo, cInfo:dark():dark():dark(), styles.NONE)

@@ -15,7 +15,6 @@ end
 --##################################################################
 --#                       LSP Configuration                        #
 --##################################################################
-
 require("mason").setup({})
 require("mason-lspconfig").setup({})
 capabilities.offsetEncoding = 'utf-8'
@@ -32,6 +31,7 @@ require('lspconfig').lua_ls.setup({
 })
 require('lspconfig').jdtls.setup({
     capabilities = capabilities,
+
 })
 require('lspconfig').emmet_ls.setup({
     capabilities = capabilities,
@@ -57,7 +57,6 @@ require('lspconfig').tsserver.setup({
 require('lspconfig').lemminx.setup({
     capabilities = capabilities,
 })
-
 
 
 --##################################################################
@@ -187,7 +186,6 @@ lspkind.init({
 })
 
 
-
 saga.setup({
   ui = {
     winblend = 10,
@@ -197,7 +195,8 @@ saga.setup({
     }
   },
   symbol_in_winbar = {
-    enable = false
+    enable = true,
+    separator = ' / ',
+    folder_level = 0,
   }
 })
-

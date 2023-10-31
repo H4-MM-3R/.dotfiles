@@ -1,12 +1,13 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-  -- Packer can manage itself 
+  -- Packer can manage itself 38 plugins
   use 'wbthomason/packer.nvim'
 
   -- Navigation 
-  use { "nvim-telescope/telescope-file-browser.nvim" }
   use { "nvim-telescope/telescope.nvim"}
+  use { "nvim-telescope/telescope-file-browser.nvim" }
+  use { "nvim-telescope/telescope-live-grep-args.nvim" }
   use { "nvim-lua/plenary.nvim"}
   use { "ThePrimeagen/harpoon" }
 
@@ -16,8 +17,7 @@ return require('packer').startup(function(use)
   use { 'norcalli/nvim-colorizer.lua' }
   use { 'nvim-lualine/lualine.nvim' }
   use {'nvim-tree/nvim-web-devicons'}
-  use {'akinsho/nvim-bufferline.lua'}
-  use { 'folke/which-key.nvim'}
+  use {'folke/which-key.nvim'}
 
   -- Treesitter 
   use { 'nvim-treesitter/nvim-treesitter' }
@@ -62,6 +62,7 @@ return require('packer').startup(function(use)
   use {'Eandrju/cellular-automaton.nvim'}
   use {'alec-gibson/nvim-tetris'}
   use {'tpope/vim-surround'}
-  use {'folke/trouble.nvim'}
+  use {"folke/trouble.nvim"}
 end)
+
 

@@ -12,7 +12,7 @@ lualine.setup {
     globalstatus = false,
   },
   sections = {
-    lualine_a = { 
+    lualine_a = {
 	    { 'mode',
 	    color = function(insert)
                return { fg = "eee8d5", bg = '#b58900' or '#839496' }
@@ -21,7 +21,6 @@ lualine.setup {
     	    }
     },
     lualine_b = {
-
     },
     lualine_c = { {
       'filename',
@@ -29,13 +28,13 @@ lualine.setup {
       path = 0 -- 0 = just filename, 1 = relative path, 2 = absolute path
     } },
     lualine_x = {
-      { 'diagnostics', 
-      	sources = { "nvim_diagnostic" }, 
+      { 'diagnostics',
+      	sources = { "nvim_diagnostic" },
 	symbols = { error = ' ', warn = ' ', info = ' ', hint = ' ' } },
       	'encoding',
       	'fileformat',
     },
-    lualine_y = { 
+    lualine_y = {
 	    {
 		    'filetype',
 		    colored = false,
@@ -60,7 +59,7 @@ lualine.setup {
 			fzf = 'FZF',
 			alpha = 'Alpha',
 		},
-	    }, 
+	    },
     },
     lualine_c = { {
       'filename',
