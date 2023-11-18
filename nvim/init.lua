@@ -1,1 +1,2 @@
-require("h4mm3r")
+require("hemram.core")
+require("hemram.lazy")

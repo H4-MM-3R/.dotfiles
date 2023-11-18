@@ -1,16 +1,43 @@
+local opts = { noremap = true, silent = true }
+
+
+-- function _G.custom_fold_text()
+--     local line = vim.fn.getline(vim.v.foldstart)
+--     local line_count = vim.v.foldend - vim.v.foldstart + 1
+--
+--     return line .. "  " .. line_count .. " lines"
+-- end
+--
+-- vim.opt.foldtext = 'v:lua.custom_fold_text()'
+
 -- Numbering 
 vim.opt.nu = true
 vim.opt.rnu = true
 
+-- vim.cmd[[colorscheme solarized-osaka]]
 -- Encoding
 vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
+
 -- Tab
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+
+-- RigGrep for grep
+vim.opt.grepprg = "rg --vimgrep"
+
+vim.opt.ignorecase = true
+-- Confirm
+vim.opt.confirm = true
+
+-- CursorLine
+vim.opt.cursorline = true
+
+-- Pop-Up Blending
+vim.opt.pumblend = 10
 
 -- Indentation
 vim.opt.smartindent = false
@@ -27,6 +54,10 @@ vim.opt.undofile = true
 -- Searching
 vim.opt.hlsearch = false
 vim.opt.incsearch = true
+
+-- Mode Show
+vim.opt.showmode = true
+vim.opt.cmdheight = 1
 
 -- Minimum Scroll-length
 vim.opt.scrolloff = 8
@@ -50,6 +81,8 @@ vim.opt.splitbelow = true
 
 -- Best keymaps for me 
 vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {})
+
+vim.keymap.set("n", 'cn', '*``cgn', opts)
 vim.keymap.set("v", '<Leader>y', '"+y', {})
 vim.keymap.set("n", '<Leader>v', 'ggVG', {})
 vim.keymap.set("n", '<Leader>p', '"+P', { desc = "Paste from ClipBoard"})
@@ -63,29 +96,7 @@ vim.keymap.set("n", '<C-d>', "<C-d>zz", {})
 vim.keymap.set("n", 'n', "nzzzv", {})
 vim.keymap.set("n", 'N', "Nzzzv", {})
 vim.keymap.set("v", 'p', '"_dp',{})
-vim.keymap.set("v", 'p', '"_dp',{})
 
--- Harpoon
-vim.keymap.set("n", "<leader>ha", require("harpoon.mark").add_file)
-vim.keymap.set("n", "<leader>hm", require("harpoon.ui").toggle_quick_menu)
-vim.keymap.set("n", "<C-o>", require("harpoon.ui").nav_next)
-vim.keymap.set("n", "<C-i>", require("harpoon.ui").nav_prev)
-
-
--- Telescope
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
-vim.keymap.set('n', '<leader>fl', require('telescope.builtin').live_grep, {})
-vim.keymap.set('n', '<leader>fbf', require('telescope.builtin').buffers, {})
-vim.keymap.set('n', '<leader>ft', require('telescope.builtin').help_tags, {})
-vim.keymap.set('n', '<leader>fg', require('telescope.builtin').git_files, {})
-vim.keymap.set('n', '<leader>fc', require('telescope.builtin').current_buffer_fuzzy_find, {})
-vim.keymap.set('n', '<leader>fk', require('telescope.builtin').keymaps, {})
-vim.keymap.set('n', '<leader>fb', require('telescope.builtin').builtin, {})
-vim.keymap.set('n', '<leader>fm', require('telescope.builtin').marks, {})
-vim.keymap.set('n', '<leader>fh', "<Cmd>:Telescope harpoon marks<CR>|<C-q>" , {})
-
-
-local opts = { noremap = true, silent = true }
 
 -- LspSaga
 vim.keymap.set('n', '<leader>lf', '<Cmd>Lspsaga finder<CR>', opts)
@@ -114,30 +125,36 @@ vim.keymap.set('n', '<leader>z', '<Cmd>ZenMode<CR>', {})
 -- Code 
 vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 vim.keymap.set( 'n', '<Leader>cl', "<Cmd>LspInfo<CR>", { desc = "Lsp Info" } )
-vim.keymap.set( 'n', '<Leader>cr', "<Cmd>Lspsaga rename<CR>", { desc = "Rename" }, opts )
+vim.keymap.set( 'n', '<Leader>cc', ":update<CR>:make<CR>", { desc = "Compile" }, opts )
+vim.keymap.set( 'n', '<Leader>cr', ":update<CR>@g", { desc = "Run" }, opts )
+vim.keymap.set( 'n', '<Leader>wr', "<Cmd>Lspsaga rename<CR>", { desc = "Rename" }, opts )
 
 -- Trouble
-vim.keymap.set('n', '<Leader>xx', "<Cmd>TroubleToggle<CR>")
-vim.keymap.set('n', '<Leader>xd', "<Cmd>TroubleToggle document_diagnostics<CR>")
-vim.keymap.set('n', '<Leader>xq', "<Cmd>TroubleToggle quickfix<CR>")
-vim.keymap.set('n', '<Leader>xl', "<Cmd>TroubleToggle lsp_references<CR>")
-vim.keymap.set('n', "<C-J>", function ()
-    if require("trouble").is_open() then
-        require("trouble").previous({ skip_groups = true, jump = true })
-    else
-        local ok = pcall(vim.cmd.cprev)
+
+-- Quickfix
+vim.keymap.set('n', '<leader>qo', "<cmd>copen<CR>", {desc = "open quickfix list"})
+vim.keymap.set('n', '<leader>qq', "<cmd>cclose<CR>", {desc = "close quickfix list"})
+vim.keymap.set('n', '<leader>lo', "<cmd>lopen<CR>", {desc = "open quickfix list"})
+vim.keymap.set('n', '<leader>lq', "<cmd>lclose<CR>", {desc = "close quickfix list"})
+
+
+vim.keymap.set('n', "<c-i>", function ()
+        local ok = pcall(vim.cmd.lprev)
         if not ok then
-            pcall(vim.cmd.clast)
-        end
-    end
-end, {desc = "Previous Trouble/ quickfix item"})
-vim.keymap.set('n', "<C-K>", function ()
-    if require("trouble").is_open() then
-        require("trouble").next({skip_groups = true, jump = true })
-    else
-        local ok = pcall(vim.cmd.cnext)
+            pcall(vim.cmd.llast)
+       end
+end, {desc = "previous locationlist item"})
+
+vim.keymap.set('n', "<c-o>", function ()
+        local ok = pcall(vim.cmd.lnext)
         if not ok then
-            pcall(vim.cmd.cfirst)
+            pcall(vim.cmd.lfirst)
         end
-    end
-end, {desc = "Next Trouble/ quickfix item"})
+end, {desc = "next locationlist item"})
+
+
+-- Notify
+vim.keymap.set('n', '<leader>n', function ()
+    require("notify").dismiss({ silent = true, pending = true })
+end)
+
