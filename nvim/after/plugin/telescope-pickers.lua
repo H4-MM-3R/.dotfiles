@@ -1,14 +1,15 @@
-local trouble = require("trouble.providers.telescope")
-
+local actions = require("telescope.actions")
 require("telescope").setup {
   defaults = {
       mappings = {
-          ["n"] = {
-              ["<c-t>"] = trouble.open_with_trouble,
+          n = {
+              ["<C-q>"] = actions.smart_send_to_qflist,
+              ["<C-l>"] = actions.smart_send_to_loclist,
           },
-          ["i"] = {
-              ["<c-t>"] = trouble.open_with_trouble,
-          }
+          i = {
+              ["<C-q>"] = actions.smart_send_to_qflist,
+              ["<C-l>"] = actions.smart_send_to_loclist,
+          },
       },
       prompt_prefix = "   ",
       sorting_strategy = "ascending",
@@ -40,5 +41,15 @@ require("telescope").setup {
 
 require("telescope").load_extension "file_browser"
 require("telescope").load_extension("harpoon")
-require("telescope").load_extension("live_grep_args")
+
+
+
+
+
+
+
+
+
+
+
 

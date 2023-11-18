@@ -2,6 +2,7 @@ local saga = require("lspsaga")
 local lspkind = require("lspkind")
 local null_ls = require("null-ls")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+local capabilities_new = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local formatter = null_ls.builtins.formatting
 local cmp = require("cmp")
@@ -27,16 +28,17 @@ require('lspconfig').lua_ls.setup({
         diagnostics = {
           globals = { 'vim' },
         },
+        completion = {
+            callSnippet = "Replace",
+        },
+
+        workspace = {
+            checkThirdParty = false,
+        },
       }
     }
 })
 require('lspconfig').jdtls.setup({
-    capabilities = capabilities,
-})
-require('lspconfig').emmet_ls.setup({
-    capabilities = capabilities,
-})
-require('lspconfig').sqlls.setup({
     capabilities = capabilities,
 })
 require('lspconfig').bashls.setup({
@@ -48,15 +50,28 @@ require('lspconfig').pyright.setup({
 require('lspconfig').yamlls.setup({
     capabilities = capabilities,
 })
+require('lspconfig').jsonls.setup({
+    capabilities = capabilities,
+})
 require('lspconfig').clangd.setup({
     capabilities = capabilities,
 })
 require('lspconfig').tsserver.setup({
     capabilities = capabilities,
 })
-require('lspconfig').lemminx.setup({
-    capabilities = capabilities,
+require('lspconfig').tsserver.setup({
+    capabilities = capabilities_new,
 })
+require('lspconfig').tailwindcss.setup({
+    capabilities = capabilities_new,
+})
+require('lspconfig').cssmodules_ls.setup({
+    capabilities = capabilities_new,
+})
+require('lspconfig').cssls.setup({
+    capabilities = capabilities_new,
+})
+
 
 
 
@@ -89,7 +104,6 @@ null_ls.setup({
     formatter.google_java_format,
     formatter.prettier,
     formatter.black,
-    formatter.xmlformat,
   },
 })
 
@@ -197,7 +211,9 @@ saga.setup({
     }
   },
   symbol_in_winbar = {
-    enable = false
+    enable = true,
+    seperator = '/',
+    folder_level = 0,
   }
 })
 
