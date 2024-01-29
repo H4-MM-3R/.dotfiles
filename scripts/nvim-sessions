@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# Function to display the menu
+display_menu() {
+    echo "Select a command:"
+    echo "p for Projects"
+    echo "s for Normal"
+    echo "c for Configuration"
+}
+
+# Function to execute the selected command
+execute_command() {
+    case $1 in
+        s) sessionizer;;
+        c) config_session;;
+        p) project-sessions;;
+        *) echo "Exiting..."; exit 0;;
+    esac
+}
+
+# Run an infinite loop to display the menu
+    display_menu
+
+    # Read user input
+    read -n 1 -p "Enter your choice: " choice
+
+    # Clear the screen
+    clear
+
+    # Execute the selected command
+    execute_command $choice

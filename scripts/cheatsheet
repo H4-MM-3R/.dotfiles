@@ -6,7 +6,7 @@ if [[ -z $selected ]]; then
     exit 0
 fi
 
-read -p "Query: " query
+read -p "query: " query
 
 if grep -qa "$selected" ~/.tmux-cht-languages; then
     query=`echo $query | tr ' ' '+'`
