@@ -6,6 +6,9 @@ return {
         "Eandrju/cellular-automaton.nvim"
     },
     {
+
         "alec-gibson/nvim-tetris"
     },
 }
+
+
