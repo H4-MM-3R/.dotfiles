@@ -7,11 +7,6 @@ return {
         terminal_colors = true,
 
     },
-    sidebars = {},
-    styles = {
-        keywords = { italics = false },
-        comments = { italics = false },
-    },
     init =  function()
         vim.cmd([[colorscheme solarized-osaka]])
         vim.api.nvim_set_hl(0, "TelescopeBorder", { bg = "none", fg = "none"})
