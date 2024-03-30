@@ -11,4 +11,4 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("hemram.plugins" )
+require("lazy").setup("hemram.plugins")

@@ -1,24 +1,13 @@
 local opts = { noremap = true, silent = true }
 
-
--- function _G.custom_fold_text()
---     local line = vim.fn.getline(vim.v.foldstart)
---     local line_count = vim.v.foldend - vim.v.foldstart + 1
---
---     return line .. "  " .. line_count .. " lines"
--- end
---
--- vim.opt.foldtext = 'v:lua.custom_fold_text()'
-
--- Numbering 
+-- Numbering
 vim.opt.nu = true
 vim.opt.rnu = true
 
--- vim.cmd[[colorscheme solarized-osaka]]
 -- Encoding
-vim.scriptencoding = 'utf-8'
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencoding = 'utf-8'
+vim.scriptencoding = "utf-8"
+vim.opt.encoding = "utf-8"
+vim.opt.fileencoding = "utf-8"
 
 -- Tab
 vim.opt.tabstop = 4
@@ -79,82 +68,90 @@ vim.opt.splitbelow = true
 --######################## KEYMAPS ###########################
 --############################################################
 
--- Best keymaps for me 
-vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {})
+-- Best keymaps for me
 
-vim.keymap.set("n", 'cn', '*``cgn', opts)
-vim.keymap.set("v", '<Leader>y', '"+y', {})
-vim.keymap.set("n", '<Leader>v', 'ggVG', {})
-vim.keymap.set("n", '<Leader>p', '"+P', { desc = "Paste from ClipBoard"})
-vim.keymap.set("n", '<Leader>d', '"+d', { desc = "Delete to ClipBoard"})
-vim.keymap.set("v", 'J', ":m '>+1<CR>gv=gv", {})
-vim.keymap.set("v", 'K', ":m '<-2<CR>gv=gv", {})
-vim.keymap.set("n", 'H', "^", {})
-vim.keymap.set("n", 'L', "$", {})
-vim.keymap.set("n", '<C-u>', "<C-u>zz", {})
-vim.keymap.set("n", '<C-d>', "<C-d>zz", {})
-vim.keymap.set("n", 'n', "nzzzv", {})
-vim.keymap.set("n", 'N', "Nzzzv", {})
-vim.keymap.set("v", 'p', '"_dp',{})
+-- btw, I use <M-;> for changing to Normal Mode
 
+vim.keymap.set("n", "<Leader>ss", ":silent !tmux neww sessionizer<CR>", {})
+vim.keymap.set("n", "<Leader>sc", ":silent !tmux neww config_session<CR>", {})
+vim.keymap.set("n", "cn", "*``cgn", opts)
+vim.keymap.set("v", "<Leader>y", '"+y', {})
+vim.keymap.set("n", "<Leader>v", "ggVG", {})
+vim.keymap.set("n", "<Leader>p", '"+P', { desc = "Paste from ClipBoard" })
+vim.keymap.set("n", "<Leader>d", '"+d', { desc = "Delete to ClipBoard" })
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {})
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {})
+vim.keymap.set("v", "H", "^", {})
+vim.keymap.set("v", "L", "$", {})
+vim.keymap.set("n", "H", "^", {})
+vim.keymap.set("n", "L", "$", {})
+vim.keymap.set("n", "<C-u>", "<C-u>zz", {})
+vim.keymap.set("n", "<C-d>", "<C-d>zz", {})
+vim.keymap.set("n", "n", "nzzzv", {})
+vim.keymap.set("n", "N", "Nzzzv", {})
+vim.keymap.set("v", "p", '"_dp', {})
 
 -- LspSaga
-vim.keymap.set('n', '<leader>lf', '<Cmd>Lspsaga finder<CR>', opts)
-vim.keymap.set('n', '<leader>ls', '<Cmd>Lspsaga outline<CR>', opts)
-vim.keymap.set('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
-vim.keymap.set('n', '<leader>ld', '<Cmd>Lspsaga show_buf_diagnostics<CR>', opts)
-vim.keymap.set('n', 'gp','<Cmd>Lspsaga peek_definition<CR>', opts)
+vim.keymap.set("n", "<leader>lf", "<Cmd>Lspsaga finder<CR>", opts)
+vim.keymap.set("n", "<leader>ls", "<Cmd>Lspsaga outline<CR>", opts)
+vim.keymap.set("n", "]d", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+vim.keymap.set("n", "[d", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+vim.keymap.set("n", "K", "<Cmd>Lspsaga hover_doc<CR>", opts)
+vim.keymap.set("n", "<leader>ld", "<Cmd>Lspsaga show_buf_diagnostics<CR>", opts)
+vim.keymap.set("n", "<leader>lp", "<Cmd>Lspsaga peek_definition<CR>", opts)
+vim.keymap.set("n", "<leader>lg", "<Cmd>Lspsaga goto_definition<CR>", opts)
 
 -- WhichKey
-vim.keymap.set('n', '<C-h>', '<Cmd>WhichKey<CR>', {})
+vim.keymap.set("n", "<C-h>", "<Cmd>WhichKey<CR>", {})
 
 -- Toggle
-vim.keymap.set('n', '<Leader>t', '<Cmd>Lspsaga term_toggle<CR>', {desc = "Toggle Terminal"})
-vim.keymap.set('n', '<Leader>b', '<Cmd>Telescope file_browser<CR>', { desc = "Toggle File Browser"})
-
+vim.keymap.set("n", "<Leader>t", "<Cmd>Lspsaga term_toggle<CR>", { desc = "Toggle Terminal" })
+vim.keymap.set("n", "<Leader>b", "<Cmd>Telescope file_browser<CR>", { desc = "Toggle File Browser" })
+vim.keymap.set("n", "<Leader>l", "<Cmd>Lazy<CR>", { desc = "Toggle Lazy" })
+vim.keymap.set("n", "<Leader>m", "<Cmd>Mason<CR>", { desc = "Toggle Mason" })
 
 -- Games
-vim.keymap.set('n', '<leader>gv', '<Cmd>VimBeGood<CR>', {})
-vim.keymap.set('n', '<leader>gr', '<Cmd>CellularAutomaton make_it_rain<CR>', {})
-vim.keymap.set('n', '<leader>gg', '<Cmd>CellularAutomaton game_of_life<CR>', {})
-vim.keymap.set('n', '<leader>gt', '<Cmd>Tetris<CR>', {})
+vim.keymap.set("n", "<leader>gv", "<Cmd>VimBeGood<CR>", {desc = "Vim be Good"})
+vim.keymap.set("n", "<leader>gr", "<Cmd>CellularAutomaton make_it_rain<CR>", {desc = "Make it Rain"})
+vim.keymap.set("n", "<leader>gg", "<Cmd>CellularAutomaton game_of_life<CR>", {desc = "Game of Life"})
+vim.keymap.set("n", "<leader>gt", "<Cmd>Tetris<CR>", {})
 
 -- Zen Mode
-vim.keymap.set('n', '<leader>z', '<Cmd>ZenMode<CR>', {})
+vim.keymap.set("n", "<leader>z", "<Cmd>ZenMode<CR>", {})
 
--- Code 
-vim.keymap.set({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
-vim.keymap.set( 'n', '<Leader>cl', "<Cmd>LspInfo<CR>", { desc = "Lsp Info" } )
-vim.keymap.set( 'n', '<Leader>cc', ":update<CR>:make<CR>", { desc = "Compile" }, opts )
-vim.keymap.set( 'n', '<Leader>cr', ":update<CR>@g", { desc = "Run" }, opts )
-vim.keymap.set( 'n', '<Leader>wr', "<Cmd>Lspsaga rename<CR>", { desc = "Rename" }, opts )
-
--- Trouble
+-- Code
+vim.keymap.set({ "n", "v" }, "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
+vim.keymap.set("n", "<Leader>cf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = "Code Format" })
+vim.keymap.set("n", "<Leader>cl", "<Cmd>LspInfo<CR>", { desc = "Lsp Info" })
+vim.keymap.set("n", "<Leader>cc", ":update<CR>:make<CR>", { desc = "Compile" }, opts)
+vim.keymap.set("n", "<Leader>cr", ":update<CR>@g", { desc = "Run" }, opts)
+vim.keymap.set("n", "<Leader>wr", "<Cmd>Lspsaga rename<CR>", { desc = "Rename" }, opts)
 
 -- Quickfix
-vim.keymap.set('n', '<leader>qo', "<cmd>copen<CR>", {desc = "open quickfix list"})
-vim.keymap.set('n', '<leader>qq', "<cmd>cclose<CR>", {desc = "close quickfix list"})
-vim.keymap.set('n', '<leader>lo', "<cmd>lopen<CR>", {desc = "open quickfix list"})
-vim.keymap.set('n', '<leader>lq', "<cmd>lclose<CR>", {desc = "close quickfix list"})
+vim.keymap.set("n", "<leader>qo", "<cmd>copen<CR>", { desc = "open quickfix list" })
+vim.keymap.set("n", "<leader>qq", "<cmd>cclose<CR>", { desc = "close quickfix list" })
+vim.keymap.set("n", "<leader>lo", "<cmd>lopen<CR>", { desc = "open quickfix list" })
+vim.keymap.set("n", "<leader>lq", "<cmd>lclose<CR>", { desc = "close quickfix list" })
 
-
-vim.keymap.set('n', "<c-i>", function ()
-        local ok = pcall(vim.cmd.lprev)
-        if not ok then
-            pcall(vim.cmd.llast)
-       end
-end, {desc = "previous locationlist item"})
-
-vim.keymap.set('n', "<c-o>", function ()
-        local ok = pcall(vim.cmd.lnext)
-        if not ok then
-            pcall(vim.cmd.lfirst)
-        end
-end, {desc = "next locationlist item"})
-
-
--- Notify
-vim.keymap.set('n', '<leader>n', function ()
+-- Notification
+vim.keymap.set("n", "<leader>n", function()
     require("notify").dismiss({ silent = true, pending = true })
+end, {desc = "Notify Dismiss"})
+
+-- Harpoon for Terminal
+vim.keymap.set("n", "<leader>hn", function()
+    require("harpoon.tmux").gotoTerminal("{last}")
+    require("harpoon.tmux").sendCommand("{last}", "ls")
+end)
+vim.keymap.set("n", "<leader>hc", function()
+    require("harpoon.cmd-ui").toggle_quick_menu()
 end)
 
+-- Faster Navigation for me
+vim.keymap.set("n", "<leader>j", "`c", { desc = "Go to Current position Mark" })
+vim.keymap.set("n", "<leader>k", "`m", { desc = "Go to Marked position Mark" })
+
+-- Luasnip select mode pasting Bug
+vim.keymap.set("s", "p", function()
+  vim.api.nvim_feedkeys("p", "n", false)
+end, { silent = true, remap = false, desc = "Don't paste in select mode" })
