@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-command=$(fdfind --type d | fzf)
+command=$(fdfind --type d --exclude .git| fzf)
 
 cd $command

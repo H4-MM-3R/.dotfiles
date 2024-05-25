@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-session_name="_config"
-directory="/home/hemram/.config/nvim"
+session_name="leet"
+directory="/home/hemram/leet"
 
 # Check if the tmux session exists
 if ! tmux has-session -t "$session_name" 2> /dev/null; then
@@ -12,7 +12,5 @@ fi
 tmux switch-client -t "$session_name"
 
 # Execute the ls command after switching to the session
-tmux send-keys -t "$session_name" 'fdfind --type f --hidden --exclude .git | fzf | xargs nvim' C-m
-
-
+tmux send-keys -t "$session_name" 'nvim leetcode.nvim' C-m
 

@@ -5,8 +5,6 @@ vim.opt.nu = true
 vim.opt.rnu = true
 
 -- Encoding
-vim.scriptencoding = "utf-8"
-vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
 
 -- Tab
@@ -19,6 +17,7 @@ vim.opt.expandtab = true
 vim.opt.grepprg = "rg --vimgrep"
 
 vim.opt.ignorecase = true
+
 -- Confirm
 vim.opt.confirm = true
 
@@ -78,7 +77,6 @@ vim.keymap.set("n", "cn", "*``cgn", opts)
 vim.keymap.set("v", "<Leader>y", '"+y', {})
 vim.keymap.set("n", "<Leader>v", "ggVG", {})
 vim.keymap.set("n", "<Leader>p", '"+P', { desc = "Paste from ClipBoard" })
-vim.keymap.set("n", "<Leader>d", '"+d', { desc = "Delete to ClipBoard" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {})
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {})
 vim.keymap.set("v", "H", "^", {})
@@ -103,6 +101,7 @@ vim.keymap.set("n", "<leader>lg", "<Cmd>Lspsaga goto_definition<CR>", opts)
 
 -- WhichKey
 vim.keymap.set("n", "<C-h>", "<Cmd>WhichKey<CR>", {})
+vim.keymap.set("i", "<C-h>", "<Cmd>WhichKey<CR>", {})
 
 -- Toggle
 vim.keymap.set("n", "<Leader>t", "<Cmd>Lspsaga term_toggle<CR>", { desc = "Toggle Terminal" })
