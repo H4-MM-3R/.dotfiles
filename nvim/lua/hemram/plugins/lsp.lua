@@ -29,6 +29,7 @@ return {
 					"cssls",
                     "tsserver",
 					"emmet_language_server",
+                    "lua_ls"
 				},
 			})
 		end,

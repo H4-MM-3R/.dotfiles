@@ -1,6 +1,6 @@
 return {
     {
-        "nvim-telecope/telescope.nvim",
+        "nvim-telescope/telescope.nvim",
         init = function()
             require("telescope").setup({
                 defaults = {
@@ -18,19 +18,20 @@ return {
                     },
                     prompt_prefix = "   ",
                     sorting_strategy = "ascending",
-                    layout_strategy = "horizontal",
+                    layout_strategy = "flex",
                     layout_config = {
                         horizontal = {
                             prompt_position = "top",
                             preview_width = 0.55,
-                            results_width = 0.8,
                         },
                         vertical = {
                             mirror = false,
+                            preview_cutoff = 10,
                         },
-                        width = 0.87,
-                        height = 0.80,
-                        preview_cutoff = 120,
+                        flex = {
+                            flip_columns = 100,
+                        },
+                        preview_cutoff = 90,
                     },
                 },
                 extensions = {
@@ -146,5 +147,20 @@ return {
     },
     {
         "tpope/vim-fugitive",
+    },
+    {
+        "kawre/leetcode.nvim",
+        opts = {
+            lang = "java",
+        },
+        init = function()
+            if vim.v.argv[3] == "leetcode.nvim" then
+                vim.keymap.set("n", "<leader>dl", ":silent Leet list<CR>", { desc = "LeetCode List" })
+                vim.keymap.set("n", "<leader>dt", ":silent Leet test<CR>", { desc = "LeetCode Test" })
+                vim.keymap.set("n", "<leader>dd", ":silent Leet submit<CR>", { desc = "LeetCode Submit" })
+                vim.keymap.set("n", "<leader>dc", ":silent Leet console<CR>", { desc = "LeetCode Console" })
+                vim.keymap.set("n", "<leader>di", ":silent Leet info<CR>", { desc = "LeetCode Information" })
+            end
+        end,
     },
 }
