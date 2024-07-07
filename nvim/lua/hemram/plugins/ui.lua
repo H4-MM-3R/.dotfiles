@@ -320,6 +320,13 @@ return {
                         },
                         view = "mini",
                     },
+                    {
+                        filter = {
+                            event = "notify",
+                            find = "No information available",
+                        },
+                        skip = true,
+                    }
                 },
             })
         end,
@@ -345,12 +352,13 @@ return {
         "stevearc/dressing.nvim",
         lazy = true,
         init = function()
+            local lazy = require("lazy")
             vim.ui.select = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
+                lazy.load({ plugins = { "dressing.nvim" } })
                 return vim.ui.select(...)
             end
             vim.ui.input = function(...)
-                require("lazy").load({ plugins = { "dressing.nvim" } })
+                lazy.load({ plugins = { "dressing.nvim" } })
                 return vim.ui.input(...)
             end
         end,

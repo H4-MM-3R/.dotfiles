@@ -16,7 +16,7 @@ return {
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-                    "jdtls",
+					"jdtls",
 					"rust_analyzer",
 					"bashls",
 					"pyright",
@@ -27,9 +27,9 @@ return {
 					"cssmodules_ls",
 					"lemminx",
 					"cssls",
-                    "tsserver",
+					"tsserver",
 					"emmet_language_server",
-                    "lua_ls"
+					"lua_ls",
 				},
 			})
 		end,
@@ -40,6 +40,11 @@ return {
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			local capabilities_new = require("cmp_nvim_lsp").default_capabilities(capabilities)
 			capabilities.offsetEncoding = "utf-8"
+
+			local handlers = {
+				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+			}
 
 			require("lspconfig").lua_ls.setup({
 				capabilities = capabilities,
@@ -57,49 +62,64 @@ return {
 						},
 					},
 				},
+				handlers = handlers,
 			})
 			require("lspconfig").rust_analyzer.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			require("lspconfig").bashls.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").pyright.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").yamlls.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").jsonls.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").clangd.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").tsserver.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").tailwindcss.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			require("lspconfig").cssmodules_ls.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			require("lspconfig").lemminx.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			require("lspconfig").cssls.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			require("lspconfig").emmet_language_server.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			-- require("lspconfig").jdtls.setup({
 			-- 	capabilities = capabilities_new,
+			-- 	handlers = handlers,
 			-- })
-            require("lspconfig").solidity_ls.setup({
-                capabilities = capabilities_new,
-            })
+			require("lspconfig").solidity_ls.setup({
+				capabilities = capabilities_new,
+				handlers = handlers,
+			})
 		end,
 	},
 	{
@@ -111,13 +131,13 @@ return {
 		},
 		config = function()
 			require("mason-null-ls").setup({
-                ensure_installed = {
+				ensure_installed = {
 					"google_java_format",
 					"prettier",
 					"black",
 					"xmlformat",
 					"stylua",
-                },
+				},
 				automatic_setup = true,
 			})
 		end,
@@ -135,7 +155,7 @@ return {
 					}),
 					formatter.google_java_format,
 					formatter.prettier.with({
-                        extra_filetypes = { "graphql", "solidity" },
+						extra_filetypes = { "graphql", "solidity" },
 					}),
 					formatter.black,
 					formatter.xmlformat,
@@ -155,16 +175,6 @@ return {
 		"hrsh7th/nvim-cmp",
 		config = function()
 			local cmp = require("cmp")
-			local types = require("cmp.types")
-			local function deprioritize_snippet(entry1, entry2)
-				if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then
-					return false
-				end
-				if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then
-					return true
-				end
-			end
-
 			local luasnip = require("luasnip")
 			local has_words_before = function()
 				unpack = unpack or table.unpack
@@ -177,6 +187,15 @@ return {
 				sources = {
 					{ name = "luasnip" },
 					{ name = "nvim_lsp" },
+					{ name = "path" },
+					{
+						name = "buffer",
+						get_buffers = function()
+							return vim.api.nvim_list_bufs()
+						end,
+						priority = 1,
+						max_item_count = 5,
+					},
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -194,7 +213,7 @@ return {
 						elseif has_words_before() then
 							cmp.complete()
 						else
-							fallback()
+							fallback(fallback)
 						end
 					end, { "i", "s" }),
 
@@ -221,6 +240,15 @@ return {
 				},
 				sorting = {
 					priority_weight = 2,
+				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
+			})
+			cmp.setup.cmdline("/", {
+				sources = {
+					{ name = "buffer", max_item_count = 10 },
 				},
 			})
 		end,

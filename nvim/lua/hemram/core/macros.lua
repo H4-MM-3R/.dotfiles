@@ -1,5 +1,5 @@
-vim.cmd [[ let @r="\y:%s/\<C-r>\"//g\<Left>\<Left>" ]] -- replace all occurences ( replaced with treesitter )
-vim.cmd [[ let @t="\y:'<,'>s//g\<Left>\<Left>" ]] -- replace all occurences ( replaced with treesitter )
+vim.cmd [[ let @r=":%s/\<C-r>\"//g\<Left>\<Left>" ]] -- replace all occurences ( replaced with treesitter )
+vim.cmd [[ let @t=":'<,'>s//g\<Left>\<Left>" ]] -- replace all occurences ( replaced with treesitter )
 vim.cmd [[ let @l=":vimgrep//**\<Left>\<Left>\<left>" ]] -- replace all occurences ( replaced with treesitter )
 
 vim.cmd [[
