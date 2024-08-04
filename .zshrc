@@ -5,19 +5,26 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#
+#Kubernetes
+source <(kubectl completion zsh)
+
 #If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.config/zsh/.oh-my-zsh"
 export PATH="$HOME/.local/bin:$PATH"
+export XDG_CONFIG_HOME="$HOME/.config"
+
+# # Spring-boot-Specific
+# export OKTA_OAUTH2_CLIENT_ID="0oa1hj6j7bQrFzVpZ5d7"
+# export OKTA_OAUTH2_CLIENT_SECRET="Jk1soeTF3xdWoM5szibDGFhnS117cdUeFmiGIgpq5oYZ98DmdMnrZZExRoFbTWG6"
+
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Set list of themes to pick from when loading at random
@@ -80,7 +87,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(zsh-syntax-highlighting zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -109,29 +116,39 @@ source $ZSH/oh-my-zsh.sh
 # ALIASES
 
 # Sessions
- alias s="sessionizer"
- alias sp="project-sessions"
- alias sc="config_session"
+alias s="sessionizer"
+alias sc="config_session"
+alias slc="leetcode_nvim"
 
 # fuzzy finding scripts
- alias cs="cheatsheet"
- alias ex="extractor"
- alias ff="fd --type f --hidden --exclude .git --max-depth 1 | fzf | xargs nvim"
- alias ffr="fd --type f --hidden --exclude .git | fzf | xargs nvim"
- alias fw="whole_grep"
- alias df="fd --type d | fzf"
+alias cs="cheatsheet"
+alias ex="extractor"
+alias ff="fdfind --type f --hidden --exclude .git --max-depth 1 | fzf | xargs nvim"
+alias ffr="fdfind --type f --hidden --exclude .git | fzf | xargs nvim"
+alias fw="whole_grep"
+alias fd="source better_cd"
+alias fgr="source git_root_cd"
 
-# tmux Shortcuts
+# Tmux Shortcuts
+alias tt="tmux new-session -s hemram"
 alias tks="tmux kill-server"
 alias tls="tmux list-sessions"
 
-# leetcode shortcuts
-alias lc="leetcode"
+# Git
+alias gs="git status"
+alias lg="lazygit"
 
-# qrgenerator
+# Other
 alias qr="qrgenerator"
+
 
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

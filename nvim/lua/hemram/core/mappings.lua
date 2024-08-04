@@ -4,8 +4,6 @@ local opts = { noremap = true, silent = true }
 vim.opt.nu = true
 vim.opt.rnu = true
 
--- hover
-
 -- Encoding
 vim.opt.fileencoding = "utf-8"
 
@@ -17,7 +15,6 @@ vim.opt.expandtab = true
 
 -- RigGrep for grep
 vim.opt.grepprg = "rg --vimgrep"
-
 vim.opt.ignorecase = true
 
 -- Confirm
@@ -26,18 +23,14 @@ vim.opt.confirm = true
 -- CursorLine
 vim.opt.cursorline = true
 
--- Pop-Up Blending
-vim.opt.pumblend = 10
-
 -- Indentation
-vim.opt.smartindent = false
+vim.opt.smartindent = true
 
 -- wrapping greater than screen-size
 vim.opt.wrap = false
 
 -- file saving
 vim.opt.swapfile = false
-vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
@@ -51,11 +44,9 @@ vim.opt.cmdheight = 1
 
 -- Minimum Scroll-length
 vim.opt.scrolloff = 8
+
 -- Sign-Column
 vim.opt.signcolumn = "yes"
-
--- Saving time in milliseconds
-vim.opt.updatetime = 50
 
 --highlight 80 columns after text-width
 vim.colorcolumn = "80"
@@ -142,7 +133,7 @@ end, { desc = "Notify Dismiss" })
 -- Harpoon for Terminal
 vim.keymap.set("n", "<leader>hn", function()
 	require("harpoon.tmux").gotoTerminal("{last}")
-	require("harpoon.tmux").sendCommand("{last}", "lr<CR>")
+	require("harpoon.tmux").sendCommand("{last}", 1)
 end)
 vim.keymap.set("n", "<leader>hc", function()
 	require("harpoon.cmd-ui").toggle_quick_menu()
@@ -156,10 +147,3 @@ vim.keymap.set("n", "<leader>k", "`m", { desc = "Go to Marked position Mark" })
 vim.keymap.set("s", "p", function()
 	vim.api.nvim_feedkeys("p", "n", false)
 end, { silent = true, remap = false, desc = "Don't paste in select mode" })
-
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-    vim.lsp.handlers.hover, {
-        border = "rounded",
-        title = "nigga"
-    }
-)

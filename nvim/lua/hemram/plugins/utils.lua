@@ -1,7 +1,7 @@
 return {
 	{
 		"nvim-telescope/telescope.nvim",
-		init = function()
+		config = function()
 			require("telescope").setup({
 				defaults = {
 					mappings = {
@@ -134,36 +134,36 @@ return {
 			},
 		},
 	},
-	{
-		"folke/todo-comments.nvim",
-		opts = {
-			keywords = {
-				TODO = { icon = " " },
-				NOTE = { icon = "󱞁 " },
-				TEST = { icon = " " },
-			},
-			search = {
-				command = "rg",
-				args = {
-					"--glob=!node_modules/",
-					"--color=never",
-					"--no-heading",
-					"--with-filename",
-					"--line-number",
-					"--column",
-				},
-			},
-		},
-	},
-	{
-		"tpope/vim-fugitive",
-	},
+	-- {
+	-- 	"folke/todo-comments.nvim",
+	-- 	opts = {
+	-- 		keywords = {
+	-- 			TODO = { icon = " " },
+	-- 			NOTE = { icon = "󱞁 " },
+	-- 			TEST = { icon = " " },
+	-- 		},
+	-- 		search = {
+	-- 			command = "rg",
+	-- 			args = {
+	-- 				"--glob=!node_modules/",
+	-- 				"--color=never",
+	-- 				"--no-heading",
+	-- 				"--with-filename",
+	-- 				"--line-number",
+	-- 				"--column",
+	-- 			},
+	-- 		},
+	-- 	},
+	-- },
+	-- {
+	-- 	"tpope/vim-fugitive",
+	-- },
 	{
 		"kawre/leetcode.nvim",
 		opts = {
 			lang = "java",
 		},
-		init = function()
+		config = function()
 			if vim.v.argv[3] == "leetcode.nvim" then
 				vim.keymap.set("n", "<leader>dl", ":silent Leet list<CR>", { desc = "LeetCode List" })
 				vim.keymap.set("n", "<leader>dt", ":silent Leet test<CR>", { desc = "LeetCode Test" })
