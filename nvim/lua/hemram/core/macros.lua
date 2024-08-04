@@ -1,5 +1,5 @@
-vim.cmd [[ let @r="\y:%s/\<C-r>\"//g\<Left>\<Left>" ]] -- replace all occurences ( replaced with treesitter )
-vim.cmd [[ let @t="\y:'<,'>s//g\<Left>\<Left>" ]] -- replace all occurences ( replaced with treesitter )
+vim.cmd [[ let @r="y:%s/\<C-r>\"//g\<Left>\<Left>" ]] -- replace all occurences ( replaced with treesitter )
+vim.cmd [[ let @t="y:'<,'>s//g\<Left>\<Left>" ]] -- replace all occurences ( replaced with treesitter )
 vim.cmd [[ let @l=":vimgrep//**\<Left>\<Left>\<left>" ]] -- replace all occurences ( replaced with treesitter )
 
 vim.cmd [[
@@ -20,25 +20,25 @@ autocmd FileType javascript setlocal makeprg=node\ %
 augroup end
 ]]
 
-vim.cmd [[ 
-augroup RetainFolds
-autocmd!
-autocmd BufWinLeave *.java mkview
-autocmd BufWinLeave *.cpp mkview
-autocmd BufWinLeave *.js mkview
-autocmd BufWinLeave *.jsx mkview
-autocmd BufWinLeave *.py mkview
-autocmd BufWinLeave *.md mkview
-autocmd BufWinLeave *.ino mkview
-autocmd BufWinLeave *.rs mkview
-autocmd BufWinEnter *.java silent! loadview
-autocmd BufWinEnter *.cpp silent! loadview
-autocmd BufWinEnter *.js silent! loadview
-autocmd BufWinEnter *.jsx silent! loadview
-autocmd BufWinEnter *.py silent! loadview
-autocmd BufWinEnter *.md silent! loadview
-autocmd BufWinEnter *.rs silent! loadview
-]]
+-- vim.cmd [[ 
+-- augroup RetainFolds
+-- autocmd!
+-- autocmd BufWinLeave *.java mkview
+-- autocmd BufWinLeave *.cpp mkview
+-- autocmd BufWinLeave *.js mkview
+-- autocmd BufWinLeave *.jsx mkview
+-- autocmd BufWinLeave *.py mkview
+-- autocmd BufWinLeave *.md mkview
+-- autocmd BufWinLeave *.ino mkview
+-- autocmd BufWinLeave *.rs mkview
+-- autocmd BufWinEnter *.java silent! loadview
+-- autocmd BufWinEnter *.cpp silent! loadview
+-- autocmd BufWinEnter *.js silent! loadview
+-- autocmd BufWinEnter *.jsx silent! loadview
+-- autocmd BufWinEnter *.py silent! loadview
+-- autocmd BufWinEnter *.md silent! loadview
+-- autocmd BufWinEnter *.rs silent! loadview
+-- ]]
 
 
 vim.api.nvim_create_autocmd('TextYankPost', {

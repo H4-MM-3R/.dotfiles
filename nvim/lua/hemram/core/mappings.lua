@@ -15,7 +15,6 @@ vim.opt.expandtab = true
 
 -- RigGrep for grep
 vim.opt.grepprg = "rg --vimgrep"
-
 vim.opt.ignorecase = true
 
 -- Confirm
@@ -24,18 +23,14 @@ vim.opt.confirm = true
 -- CursorLine
 vim.opt.cursorline = true
 
--- Pop-Up Blending
-vim.opt.pumblend = 10
-
 -- Indentation
-vim.opt.smartindent = false
+vim.opt.smartindent = true
 
 -- wrapping greater than screen-size
 vim.opt.wrap = false
 
 -- file saving
 vim.opt.swapfile = false
-vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 
@@ -49,11 +44,9 @@ vim.opt.cmdheight = 1
 
 -- Minimum Scroll-length
 vim.opt.scrolloff = 8
+
 -- Sign-Column
 vim.opt.signcolumn = "yes"
-
--- Saving time in milliseconds
-vim.opt.updatetime = 50
 
 --highlight 80 columns after text-width
 vim.colorcolumn = "80"
@@ -94,7 +87,7 @@ vim.keymap.set("n", "<leader>lf", "<Cmd>Lspsaga finder<CR>", opts)
 vim.keymap.set("n", "<leader>ls", "<Cmd>Lspsaga outline<CR>", opts)
 vim.keymap.set("n", "]d", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 vim.keymap.set("n", "[d", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-vim.keymap.set("n", "K", "<Cmd>Lspsaga hover_doc<CR>", opts)
+vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
 vim.keymap.set("n", "<leader>ld", "<Cmd>Lspsaga show_buf_diagnostics<CR>", opts)
 vim.keymap.set("n", "<leader>lp", "<Cmd>Lspsaga peek_definition<CR>", opts)
 vim.keymap.set("n", "<leader>lg", "<Cmd>Lspsaga goto_definition<CR>", opts)
@@ -110,9 +103,9 @@ vim.keymap.set("n", "<Leader>l", "<Cmd>Lazy<CR>", { desc = "Toggle Lazy" })
 vim.keymap.set("n", "<Leader>m", "<Cmd>Mason<CR>", { desc = "Toggle Mason" })
 
 -- Games
-vim.keymap.set("n", "<leader>gv", "<Cmd>VimBeGood<CR>", {desc = "Vim be Good"})
-vim.keymap.set("n", "<leader>gr", "<Cmd>CellularAutomaton make_it_rain<CR>", {desc = "Make it Rain"})
-vim.keymap.set("n", "<leader>gg", "<Cmd>CellularAutomaton game_of_life<CR>", {desc = "Game of Life"})
+vim.keymap.set("n", "<leader>gv", "<Cmd>VimBeGood<CR>", { desc = "Vim be Good" })
+vim.keymap.set("n", "<leader>gr", "<Cmd>CellularAutomaton make_it_rain<CR>", { desc = "Make it Rain" })
+vim.keymap.set("n", "<leader>gg", "<Cmd>CellularAutomaton game_of_life<CR>", { desc = "Game of Life" })
 vim.keymap.set("n", "<leader>gt", "<Cmd>Tetris<CR>", {})
 
 -- Zen Mode
@@ -134,16 +127,16 @@ vim.keymap.set("n", "<leader>lq", "<cmd>lclose<CR>", { desc = "close quickfix li
 
 -- Notification
 vim.keymap.set("n", "<leader>n", function()
-    require("notify").dismiss({ silent = true, pending = true })
-end, {desc = "Notify Dismiss"})
+	require("notify").dismiss({ silent = true, pending = true })
+end, { desc = "Notify Dismiss" })
 
 -- Harpoon for Terminal
 vim.keymap.set("n", "<leader>hn", function()
-    require("harpoon.tmux").gotoTerminal("{last}")
-    require("harpoon.tmux").sendCommand("{last}", "ls")
+	require("harpoon.tmux").gotoTerminal("{last}")
+	require("harpoon.tmux").sendCommand("{last}", 1)
 end)
 vim.keymap.set("n", "<leader>hc", function()
-    require("harpoon.cmd-ui").toggle_quick_menu()
+	require("harpoon.cmd-ui").toggle_quick_menu()
 end)
 
 -- Faster Navigation for me
@@ -152,5 +145,5 @@ vim.keymap.set("n", "<leader>k", "`m", { desc = "Go to Marked position Mark" })
 
 -- Luasnip select mode pasting Bug
 vim.keymap.set("s", "p", function()
-  vim.api.nvim_feedkeys("p", "n", false)
+	vim.api.nvim_feedkeys("p", "n", false)
 end, { silent = true, remap = false, desc = "Don't paste in select mode" })

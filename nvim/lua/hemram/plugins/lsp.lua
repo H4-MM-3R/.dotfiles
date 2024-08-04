@@ -1,45 +1,75 @@
+local opts = {
+	layouts = {
+		{
+			elements = {
+				{
+					id = "scopes",
+					size = 0.25,
+				},
+				{
+					id = "breakpoints",
+					size = 0.25,
+				},
+				{
+					id = "stacks",
+					size = 0.25,
+				},
+				{
+					id = "watches",
+					size = 0.25,
+				},
+			},
+			position = "right",
+			size = 40,
+		},
+		{
+			elements = {
+				{
+					id = "repl",
+					size = 0.5,
+				},
+				{
+					id = "console",
+					size = 0.5,
+				},
+			},
+			position = "bottom",
+			size = 20,
+		},
+	},
+}
 return {
 	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup({
-				ui = {
-					keymaps = {
-						apply_language_filter = "f?",
-					},
-				},
-			})
-		end,
-	},
-	{
-		"williamboman/mason-lspconfig.nvim",
-		config = function()
-			require("mason-lspconfig").setup({
-				ensure_installed = {
-                    "jdtls",
-					"rust_analyzer",
-					"bashls",
-					"pyright",
-					"yamlls",
-					"jsonls",
-					"clangd",
-					"tailwindcss",
-					"cssmodules_ls",
-					"lemminx",
-					"cssls",
-                    "tsserver",
-					"emmet_language_server",
-                    "lua_ls"
-				},
-			})
-		end,
-	},
-	{
 		"neovim/nvim-lspconfig",
+		dependencies = {
+			"L3MON4D3/LuaSnip",
+			"hrsh7th/nvim-cmp",
+			"hrsh7th/cmp-nvim-lsp",
+            "williamboman/mason-lspconfig.nvim",
+			"hrsh7th/cmp-path",
+			"onsails/lspkind.nvim",
+			"nvimdev/lspsaga.nvim",
+			"mfussenegger/nvim-dap",
+			"nvim-neotest/nvim-nio",
+			"williamboman/mason.nvim",
+			"saadparwaiz1/cmp_luasnip",
+			"jay-babu/mason-null-ls.nvim",
+			"jay-babu/mason-nvim-dap.nvim",
+			"rafamadriz/friendly-snippets",
+			"jose-elias-alvarez/null-ls.nvim",
+			"theHamsta/nvim-dap-virtual-text",
+			"nvim-telescope/telescope-dap.nvim",
+            "rcarriga/nvim-dap-ui",
+		},
 		config = function()
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			local capabilities_new = require("cmp_nvim_lsp").default_capabilities(capabilities)
 			capabilities.offsetEncoding = "utf-8"
+
+			local handlers = {
+				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
+			}
 
 			require("lspconfig").lua_ls.setup({
 				capabilities = capabilities,
@@ -57,74 +87,158 @@ return {
 						},
 					},
 				},
+				handlers = handlers,
 			})
 			require("lspconfig").rust_analyzer.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			require("lspconfig").bashls.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").pyright.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").yamlls.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").jsonls.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").clangd.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").tsserver.setup({
 				capabilities = capabilities,
+				handlers = handlers,
 			})
 			require("lspconfig").tailwindcss.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
-			require("lspconfig").cssmodules_ls.setup({
-				capabilities = capabilities_new,
-			})
+			-- require("lspconfig").cssmodules_ls.setup({
+			-- 	capabilities = capabilities_new,
+			-- 	handlers = handlers,
+			-- })
 			require("lspconfig").lemminx.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			require("lspconfig").cssls.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			require("lspconfig").emmet_language_server.setup({
 				capabilities = capabilities_new,
+				handlers = handlers,
 			})
 			-- require("lspconfig").jdtls.setup({
 			-- 	capabilities = capabilities_new,
+			-- 	handlers = handlers,
 			-- })
-            require("lspconfig").solidity_ls.setup({
-                capabilities = capabilities_new,
-            })
-		end,
-	},
-	{
-		"jay-babu/mason-null-ls.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		dependencies = {
-			"williamboman/mason.nvim",
-			"jose-elias-alvarez/null-ls.nvim",
-		},
-		config = function()
-			require("mason-null-ls").setup({
-                ensure_installed = {
-					"google_java_format",
-					"prettier",
-					"black",
-					"xmlformat",
-					"stylua",
-                },
-				automatic_setup = true,
+			-- require("lspconfig").solidity_ls.setup({
+			-- 	capabilities = capabilities_new,
+			-- 	handlers = handlers,
+			-- })
+
+			require("mason").setup({
+				ui = {
+					keymaps = {
+						apply_language_filter = "f?",
+					},
+				},
 			})
-		end,
-	},
-	{
-		"jose-elias-alvarez/null-ls.nvim",
-		config = function()
+
+			require("mason-lspconfig").setup({
+				ensure_installed = {
+					"jdtls",
+					"rust_analyzer",
+					"bashls",
+					"pyright",
+					"yamlls",
+					"jsonls",
+					"clangd",
+					"tailwindcss",
+					"lemminx",
+					"cssls",
+					"tsserver",
+					"emmet_language_server",
+					"lua_ls",
+				},
+			})
+			require("mason-nvim-dap").setup({
+				ensure_installed = { "java-test, java-debug-adapter" },
+			})
+			local dap = require("dap")
+			require("dapui").setup(opts)
+
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				local bufnr = vim.api.nvim_get_current_buf()
+				local breakpoints = require("dap.breakpoints").get(bufnr)
+				local itemslength = breakpoints[bufnr]
+				if #itemslength == 0 then
+					require("dapui").float_element("console")
+				else
+					require("dapui").open(1)
+					require("dapui").open(2)
+				end
+			end
+
+			dap.configurations.java = {
+				{
+					type = "java",
+					request = "launch",
+					name = "Debug Launch (2GB)",
+					program = "${file}",
+				},
+			}
+
+			local keymap = vim.keymap
+			keymap.set("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
+			keymap.set(
+				"n",
+				"<leader>bc",
+				"<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>"
+			)
+			keymap.set(
+				"n",
+				"<leader>bl",
+				"<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>"
+			)
+			keymap.set("n", "<leader>br", "<cmd>lua require'dap'.clear_breakpoints()<cr>")
+			keymap.set("n", "<leader>ba", "<cmd>Telescope dap list_breakpoints<cr>")
+			keymap.set("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>")
+			keymap.set("n", "<leader>dj", "<cmd>lua require'dap'.step_over()<cr>")
+			keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.step_into()<cr>")
+			keymap.set("n", "<leader>do", "<cmd>lua require'dap'.step_out()<cr>")
+			keymap.set("n", "<leader>dd", function()
+				require("dap").disconnect()
+				require("dapui").close()
+			end)
+			keymap.set("n", "<leader>dt", function()
+				require("dap").terminate()
+				require("dapui").close()
+			end)
+			keymap.set("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
+			keymap.set("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
+			keymap.set("n", "<leader>di", function()
+				require("dap.ui.widgets").hover()
+			end)
+			keymap.set("n", "<leader>d?", function()
+				local widgets = require("dap.ui.widgets")
+				widgets.centered_float(widgets.scopes)
+			end)
+			keymap.set("n", "<leader>df", "<cmd>Telescope dap frames<cr>")
+			keymap.set("n", "<leader>dh", "<cmd>Telescope dap commands<cr>")
+			keymap.set("n", "<leader>de", function()
+				require("telescope.builtin").diagnostics({ default_text = ":E:" })
+			end)
+
 			local null_ls = require("null-ls")
 			local formatter = null_ls.builtins.formatting
 
@@ -135,36 +249,15 @@ return {
 					}),
 					formatter.google_java_format,
 					formatter.prettier.with({
-                        extra_filetypes = { "graphql", "solidity" },
+						extra_filetypes = { "graphql", "solidity" },
 					}),
 					formatter.black,
 					formatter.xmlformat,
 					formatter.stylua,
 				},
 			})
-		end,
-	},
-	{
-		"L3MON4D3/LuaSnip",
-		dependencies = { "rafamadriz/friendly-snippets" },
-		config = function()
 			require("luasnip.loaders.from_vscode").lazy_load()
-		end,
-	},
-	{
-		"hrsh7th/nvim-cmp",
-		config = function()
 			local cmp = require("cmp")
-			local types = require("cmp.types")
-			local function deprioritize_snippet(entry1, entry2)
-				if entry1:get_kind() == types.lsp.CompletionItemKind.Snippet then
-					return false
-				end
-				if entry2:get_kind() == types.lsp.CompletionItemKind.Snippet then
-					return true
-				end
-			end
-
 			local luasnip = require("luasnip")
 			local has_words_before = function()
 				unpack = unpack or table.unpack
@@ -177,6 +270,7 @@ return {
 				sources = {
 					{ name = "luasnip" },
 					{ name = "nvim_lsp" },
+					{ name = "path" },
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
@@ -194,7 +288,7 @@ return {
 						elseif has_words_before() then
 							cmp.complete()
 						else
-							fallback()
+							fallback(fallback)
 						end
 					end, { "i", "s" }),
 
@@ -222,16 +316,12 @@ return {
 				sorting = {
 					priority_weight = 2,
 				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
 			})
-		end,
-	},
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{ "hrsh7th/cmp-buffer" },
-	{ "hrsh7th/cmp-path" },
-	{ "saadparwaiz1/cmp_luasnip" },
-	{
-		"onsails/lspkind.nvim",
-		init = function()
+
 			require("lspkind").init({
 				mode = "symbol_text",
 				preset = "codicons",
@@ -277,11 +367,6 @@ return {
 					Variable = "󰀫 ",
 				},
 			})
-		end,
-	},
-	{
-		"nvimdev/lspsaga.nvim",
-		config = function()
 			require("lspsaga").setup({
 				ui = {
 					winblend = 10,
@@ -304,5 +389,26 @@ return {
 			})
 		end,
 	},
-	{ "thePrimeagen/refactoring.nvim" },
+
+	{
+		"jay-babu/mason-null-ls.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"jose-elias-alvarez/null-ls.nvim",
+		},
+		config = function()
+			require("mason-null-ls").setup({
+				ensure_installed = {
+					"google_java_format",
+					"prettier",
+					"black",
+					"xmlformat",
+					"stylua",
+				},
+				automatic_setup = true,
+			})
+		end,
+	},
 }
+
