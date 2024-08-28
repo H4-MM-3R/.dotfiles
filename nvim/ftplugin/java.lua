@@ -1,32 +1,49 @@
-local jdtls = require("jdtls")
 local lombok_path = vim.fn.stdpath("data") .. "/mason/packages/jdtls/lombok.jar"
-local config_path = vim.fn.stdpath("cache") .. "jdtls/config"
-local data_path = vim.fn.stdpath("cache") .. "jdtls/workspace"
+local data_path = vim.fn.stdpath("cache") .. "/jdtls/workspace"
+local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls/config"
 local bundles_path = {
     vim.fn.glob(vim.env.HOME .. '/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar')
-}
-local handlers = {
-    ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
-    ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 }
 
 local config = {
     cmd = {
-        "jdtls",
+        'jdtls',
         "--jvm-arg=-javaagent:" .. lombok_path,
-        "-config",
-        config_path,
+        "configuration",
+        workspace_dir,
         "-data",
         data_path,
-    },
-    handlers = handlers,
+},
+    root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw', "pom.xml"}, { upward = true })[1]),
     init_options = {
         bundles = bundles_path,
     },
+	on_attach = function(client, bufnr)
+		require("jdtls").setup_dap({ hotcodereplace = "auto" })
+		-- require("jdtls.dap").setup_dap_main_class_configs()
+	end,
+    settings = {
+        java = {
+            -- format = {
+            --     enabled = true,
+            --     settings = {
+            --         profile = "google_format",
+            --     },
+            -- },
+            inlayHints = {
+                parameterNames = {
+                    enabled = "all",
+                },
+                -- parameterTypes = {
+                --     enabled = true,
+                -- },
+                -- variableTypes = {
+                --     enabled = true,
+                -- },
+            },
+        },
+    },
 }
+require('jdtls').start_or_attach(config)
 
-config['on-attach'] = function(client, bufnr)
-    jdtls.setup_dap({ hotcodereplace = "auto" })
-    require("jdtls.dap").setup_dap_main_class_configs()
-end
-require("jdtls").start_or_attach(config)
+

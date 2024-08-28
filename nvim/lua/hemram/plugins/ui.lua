@@ -319,11 +319,12 @@ return {
 						filter = {
 							event = "msg_show",
 							any = {
-								{ find = "%d+L, %d+B" },
-								{ find = "; after #%d+" },
-								{ find = "; before #%d+" },
-								{ find = "%d+ lines yanked" },
-								{ find = "W [%d+/%d+]" },
+								{ find = "%d+L, %d+B" }, -- for file saved
+								{ find = "; after #%d+" }, -- for after save state
+								{ find = "; before #%d+" }, -- for before save state
+								{ find = "%d+ lines yanked" }, -- for yank
+								{ find = "W [%d+/%d+]" }, -- for search pattern
+                                { find = "fewer lines"}
 							},
 						},
 						view = "mini",
@@ -331,10 +332,22 @@ return {
 					{
 						filter = {
 							event = "notify",
-							find = "No information available",
+							find = "no information available",
 						},
 						skip = true,
 					},
+					{
+						filter = { event = "msg_show", min_height = 20 },
+						view = "cmdline_output",
+					},
+					-- {
+					-- 	filter = {
+					-- 		event = "msg_show",
+					-- 		kind = "",
+					-- 		find = "{",
+					-- 	},
+					-- 	view = "popup",
+					-- },
 				},
 			})
 		end,

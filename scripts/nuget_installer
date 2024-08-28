@@ -1,0 +1,26 @@
+#!/bin/bash
+
+read -p "Enter the name of the package to install: " package_name
+
+# Fetch data from NuGet API
+json_data=$(curl -s "https://azuresearch-ussc.nuget.org/query?q=${package_name}&prerelease=true" | jq '.')
+
+# Extract package IDs and versions
+packages=$(echo "$json_data" | jq -r '.data[] | "\(.id) (\(.version))"')
+
+# Use fzf to select multiple packages
+selected=$(echo "$packages" | fzf --height 50% --layout=reverse --border --multi)
+
+if [ -n "$selected" ]; then
+    # Loop through each selected package
+    echo "$selected" | while read -r package; do
+        # Extract package ID from the selection
+        package_id=$(echo "$package" | cut -d' ' -f1)
+        
+        # Install the selected package using dotnet nuget
+        dotnet add package "$package_id"
+        echo "Package $package_id added successfully."
+    done
+else
+    echo "No packages selected."
+fi

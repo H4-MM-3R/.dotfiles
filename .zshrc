@@ -127,12 +127,13 @@ alias ff="fdfind --type f --hidden --exclude .git --max-depth 1 | fzf | xargs nv
 alias ffr="fdfind --type f --hidden --exclude .git | fzf | xargs nvim"
 alias fw="whole_grep"
 alias fd="source better_cd"
-alias fgr="source git_root_cd"
 
 # Tmux Shortcuts
 alias tt="tmux new-session -s hemram"
 alias tks="tmux kill-server"
 alias tls="tmux list-sessions"
+alias ta="tmux attach"
+alias td="tmux detach"
 
 # Git
 alias gs="git status"
@@ -147,8 +148,10 @@ alias qr="qrgenerator"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.config/zsh/.p10k.zsh ]] || source ~/.config/zsh/.p10k.zsh
 
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+eval "$(zoxide init zsh)"

@@ -132,8 +132,13 @@ end, { desc = "Notify Dismiss" })
 
 -- Harpoon for Terminal
 vim.keymap.set("n", "<leader>hn", function()
-	require("harpoon.tmux").gotoTerminal("{last}")
-	require("harpoon.tmux").sendCommand("{last}", 1)
+	-- complete the function
+	--  HERE
+ --    local window_id = require("customs.harpoon_terminal").new_term()
+    local window_id = require('customs.harpoon_terminal').new_term_with_pane()
+	-- require("customs.harpoon_terminal").gotoTerminal(window_id)
+	require("customs.harpoon_terminal").gotoSplitTerminal(window_id)
+	require("customs.harpoon_terminal").sendCommand(window_id, 1)
 end)
 vim.keymap.set("n", "<leader>hc", function()
 	require("harpoon.cmd-ui").toggle_quick_menu()
@@ -147,3 +152,5 @@ vim.keymap.set("n", "<leader>k", "`m", { desc = "Go to Marked position Mark" })
 vim.keymap.set("s", "p", function()
 	vim.api.nvim_feedkeys("p", "n", false)
 end, { silent = true, remap = false, desc = "Don't paste in select mode" })
+
+vim.keymap.set("n", "<leader>lr", "<Cmd>luafile %<CR>", { desc = "Lua file Runner"})

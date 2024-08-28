@@ -33,6 +33,15 @@ return {
 						},
 						preview_cutoff = 90,
 					},
+					file_ignore_patterns = {
+						"%.git",
+						"%.cache",
+						"^node_modules/",
+						"^build/",
+						"^target/",
+						"^bin/",
+						"^obj/",
+					},
 				},
 				extensions = {
 					file_browser = {

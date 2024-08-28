@@ -2,4 +2,4 @@
 
 command=$(fdfind --type d --exclude .git| fzf)
 
-cd $command
+z $command

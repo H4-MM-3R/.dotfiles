@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Get the list of installed packages
+installed_packages=$(dotnet list package | grep '>' | awk '{print $2 " " $3}')
+
+# Use fzf to select multiple packages to uninstall
+selected=$(echo "$installed_packages" | fzf --height 50% --layout=reverse --border --multi --header="Select packages to uninstall (use TAB to select multiple)")
+
+if [ -n "$selected" ]; then
+    # Loop through each selected package
+    echo "$selected" | while read -r package; do
+        # Extract package ID from the selection
+        package_id=$(echo "$package" | cut -d' ' -f1)
+        
+        # Uninstall the selected package using dotnet remove package
+        dotnet remove package "$package_id"
+        echo "Package $package_id removed successfully."
+    done
+
+    echo "Restoring packages..."
+    dotnet restore
+    echo "Package restore complete."
+else
+    echo "No packages selected for uninstallation."
+fi

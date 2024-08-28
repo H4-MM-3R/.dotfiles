@@ -1,43 +1,3 @@
-local opts = {
-	layouts = {
-		{
-			elements = {
-				{
-					id = "scopes",
-					size = 0.25,
-				},
-				{
-					id = "breakpoints",
-					size = 0.25,
-				},
-				{
-					id = "stacks",
-					size = 0.25,
-				},
-				{
-					id = "watches",
-					size = 0.25,
-				},
-			},
-			position = "right",
-			size = 40,
-		},
-		{
-			elements = {
-				{
-					id = "repl",
-					size = 0.5,
-				},
-				{
-					id = "console",
-					size = 0.5,
-				},
-			},
-			position = "bottom",
-			size = 20,
-		},
-	},
-}
 return {
 	{
 		"neovim/nvim-lspconfig",
@@ -45,7 +5,7 @@ return {
 			"L3MON4D3/LuaSnip",
 			"hrsh7th/nvim-cmp",
 			"hrsh7th/cmp-nvim-lsp",
-            "williamboman/mason-lspconfig.nvim",
+			"williamboman/mason-lspconfig.nvim",
 			"hrsh7th/cmp-path",
 			"onsails/lspkind.nvim",
 			"nvimdev/lspsaga.nvim",
@@ -53,13 +13,12 @@ return {
 			"nvim-neotest/nvim-nio",
 			"williamboman/mason.nvim",
 			"saadparwaiz1/cmp_luasnip",
-			"jay-babu/mason-null-ls.nvim",
 			"jay-babu/mason-nvim-dap.nvim",
 			"rafamadriz/friendly-snippets",
 			"jose-elias-alvarez/null-ls.nvim",
 			"theHamsta/nvim-dap-virtual-text",
 			"nvim-telescope/telescope-dap.nvim",
-            "rcarriga/nvim-dap-ui",
+			"rcarriga/nvim-dap-ui",
 		},
 		config = function()
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -137,6 +96,26 @@ return {
 				capabilities = capabilities_new,
 				handlers = handlers,
 			})
+			require("lspconfig").omnisharp.setup({
+				capabilities = capabilities_new,
+				handlers = {
+					["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
+					["textDocument/signatureHelp"] = vim.lsp.with(
+						vim.lsp.handlers.signature_help,
+						{ border = "rounded" }
+					),
+					["textDocument/definition"] = vim.lsp.with(require("omnisharp_extended").definition_handler),
+					["textDocument/typeDefinition"] = require("omnisharp_extended").type_definition_handler,
+					["textDocument/references"] = require("omnisharp_extended").references_handler,
+					["textDocument/implementation"] = require("omnisharp_extended").implementation_handler,
+				},
+				enable_roslyn_analysers = true,
+				enable_import_completion = true,
+				organize_imports_on_format = true,
+				enable_decompilation_support = true,
+				filetypes = { "cs", "vb", "csproj", "sln", "slnx", "props", "csx", "targets" },
+				cmd = { "dotnet", "/home/hemram/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
+			})
 			-- require("lspconfig").jdtls.setup({
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = handlers,
@@ -156,8 +135,9 @@ return {
 
 			require("mason-lspconfig").setup({
 				ensure_installed = {
-					"jdtls",
 					"rust_analyzer",
+					"omnisharp",
+					"jdtls",
 					"bashls",
 					"pyright",
 					"yamlls",
@@ -171,11 +151,47 @@ return {
 					"lua_ls",
 				},
 			})
-			require("mason-nvim-dap").setup({
-				ensure_installed = { "java-test, java-debug-adapter" },
-			})
 			local dap = require("dap")
-			require("dapui").setup(opts)
+			require("dapui").setup({
+				layouts = {
+					{
+						elements = {
+							{
+								id = "scopes",
+								size = 0.25,
+							},
+							{
+								id = "breakpoints",
+								size = 0.25,
+							},
+							{
+								id = "stacks",
+								size = 0.25,
+							},
+							{
+								id = "watches",
+								size = 0.25,
+							},
+						},
+						position = "right",
+						size = 40,
+					},
+					{
+						elements = {
+							{
+								id = "repl",
+								size = 0.5,
+							},
+							{
+								id = "console",
+								size = 0.5,
+							},
+						},
+						position = "bottom",
+						size = 20,
+					},
+				},
+			})
 
 			dap.listeners.after.event_initialized["dapui_config"] = function()
 				local bufnr = vim.api.nvim_get_current_buf()
@@ -195,6 +211,23 @@ return {
 					request = "launch",
 					name = "Debug Launch (2GB)",
 					program = "${file}",
+				},
+			}
+
+			dap.adapters.coreclr = {
+				type = "executable",
+				command = "/home/hemram/.local/share/nvim/mason/bin/netcoredbg",
+				args = { "--interpreter=vscode" },
+			}
+
+			dap.configurations.cs = {
+				{
+					type = "coreclr",
+					name = "launch - netcoredbg",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
+					end,
 				},
 			}
 
@@ -245,7 +278,7 @@ return {
 			null_ls.setup({
 				sources = {
 					formatter.clang_format.with({
-						filetypes = { "c", "cpp", "cs" },
+						filetypes = { "c", "cpp" },
 					}),
 					formatter.google_java_format,
 					formatter.prettier.with({
@@ -254,6 +287,7 @@ return {
 					formatter.black,
 					formatter.xmlformat,
 					formatter.stylua,
+					formatter.csharpier,
 				},
 			})
 			require("luasnip.loaders.from_vscode").lazy_load()
@@ -410,5 +444,17 @@ return {
 			})
 		end,
 	},
-}
 
+	{
+		"jay-babu/mason-nvim-dap.nvim",
+		dependencies = {
+			"williamboman/mason.nvim",
+			"mfussenegger/nvim-dap",
+		},
+		config = function()
+			require("mason-nvim-dap").setup({
+				ensure_installed = { "java-test, java-debug-adapter" },
+			})
+		end,
+	},
+}

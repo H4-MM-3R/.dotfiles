@@ -7,8 +7,9 @@ return {
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				-- Automatically install missing parsers when entering buffer
+				-- Automaticalldy install missing parsers when entering buffer
 				-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+				ensure_installed = {"lua", "vimdoc", "query", "markdown_inline", "markdown", "java"},
 				auto_install = true,
 
 				highlight = { enable = true },
