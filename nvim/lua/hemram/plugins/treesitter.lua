@@ -1,6 +1,14 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
+		opts = function()
+			vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+				pattern = { "*.component.html", "*.container.html" },
+				callback = function()
+					vim.treesitter.start(nil, "angular")
+				end,
+			})
+		end,
 	},
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
@@ -9,7 +17,16 @@ return {
 			require("nvim-treesitter.configs").setup({
 				-- Automaticalldy install missing parsers when entering buffer
 				-- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-				ensure_installed = {"lua", "vimdoc", "query", "markdown_inline", "markdown", "java"},
+				ensure_installed = {
+					"lua",
+					"vimdoc",
+					"query",
+					"markdown_inline",
+					"markdown",
+					"java",
+					"angular",
+					"scss",
+				},
 				auto_install = true,
 
 				highlight = { enable = true },

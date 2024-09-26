@@ -1,5 +1,4 @@
 local opts = { noremap = true, silent = true }
-
 -- Numbering
 vim.opt.nu = true
 vim.opt.rnu = true
@@ -72,10 +71,12 @@ vim.keymap.set("n", "<Leader>v", "ggVG", {})
 vim.keymap.set("n", "<Leader>p", '"+P', { desc = "Paste from ClipBoard" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {})
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {})
-vim.keymap.set("v", "H", "^", {})
-vim.keymap.set("v", "L", "$", {})
 vim.keymap.set("n", "H", "^", {})
 vim.keymap.set("n", "L", "$", {})
+vim.keymap.set("v", "H", "^", {})
+vim.keymap.set("v", "L", "$", {})
+vim.keymap.set("s", "H", "H", {})
+vim.keymap.set("s", "L", "L", {})
 vim.keymap.set("n", "<C-u>", "<C-u>zz", {})
 vim.keymap.set("n", "<C-d>", "<C-d>zz", {})
 vim.keymap.set("n", "n", "nzzzv", {})
@@ -131,18 +132,22 @@ vim.keymap.set("n", "<leader>n", function()
 end, { desc = "Notify Dismiss" })
 
 -- Harpoon for Terminal
-vim.keymap.set("n", "<leader>hn", function()
-	-- complete the function
-	--  HERE
- --    local window_id = require("customs.harpoon_terminal").new_term()
-    local window_id = require('customs.harpoon_terminal').new_term_with_pane()
-	-- require("customs.harpoon_terminal").gotoTerminal(window_id)
-	require("customs.harpoon_terminal").gotoSplitTerminal(window_id)
-	require("customs.harpoon_terminal").sendCommand(window_id, 1)
-end)
+local window_id
+
+for i = 1, 5 do
+	vim.keymap.set("n", "<leader>h" .. i, function()
+		if require("customs.harpoon_terminal").terminal_exists(1) == false then
+			window_id = require("customs.harpoon_terminal").new_term_with_pane()
+		end
+		require("customs.harpoon_terminal").gotoSplitTerminal(window_id)
+		require("customs.harpoon_terminal").sendCommand(window_id, i)
+		require("customs.harpoon_terminal").gotoSplitTerminal("0")
+	end, { desc = "Harpoon Run Command " .. i })
+end
+
 vim.keymap.set("n", "<leader>hc", function()
 	require("harpoon.cmd-ui").toggle_quick_menu()
-end)
+end, { desc = "Harpoon Terminal Command Menu" })
 
 -- Faster Navigation for me
 vim.keymap.set("n", "<leader>j", "`c", { desc = "Go to Current position Mark" })
@@ -153,4 +158,4 @@ vim.keymap.set("s", "p", function()
 	vim.api.nvim_feedkeys("p", "n", false)
 end, { silent = true, remap = false, desc = "Don't paste in select mode" })
 
-vim.keymap.set("n", "<leader>lr", "<Cmd>luafile %<CR>", { desc = "Lua file Runner"})
+vim.keymap.set("n", "<leader>lr", "<Cmd>luafile %<CR>", { desc = "Lua file Runner" })

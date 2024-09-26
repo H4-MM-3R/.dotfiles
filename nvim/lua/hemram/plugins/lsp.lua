@@ -1,3 +1,7 @@
+local languageServerPath = "/home/hemram/angular/myFirstAngularProject"
+local angular_cmd =
+	{ "ngserver", "--stdio", "--tsProbeLocations", languageServerPath, "--ngProbeLocations", languageServerPath }
+
 return {
 	{
 		"neovim/nvim-lspconfig",
@@ -80,10 +84,10 @@ return {
 				capabilities = capabilities_new,
 				handlers = handlers,
 			})
-			-- require("lspconfig").cssmodules_ls.setup({
-			-- 	capabilities = capabilities_new,
-			-- 	handlers = handlers,
-			-- })
+			require("lspconfig").cssmodules_ls.setup({
+				capabilities = capabilities_new,
+				handlers = handlers,
+			})
 			require("lspconfig").lemminx.setup({
 				capabilities = capabilities_new,
 				handlers = handlers,
@@ -115,6 +119,17 @@ return {
 				enable_decompilation_support = true,
 				filetypes = { "cs", "vb", "csproj", "sln", "slnx", "props", "csx", "targets" },
 				cmd = { "dotnet", "/home/hemram/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
+			})
+			require("lspconfig").angularls.setup({
+				on_attach = function(client, bufnr)
+					client.server_capabilities.renameProvider = false
+				end,
+				capabilities = capabilities_new,
+				handlers = handlers,
+				cmd = angular_cmd,
+				on_new_config = function(new_config, new_root_dir)
+					new_config.cmd = angular_cmd
+				end,
 			})
 			-- require("lspconfig").jdtls.setup({
 			-- 	capabilities = capabilities_new,
@@ -232,19 +247,8 @@ return {
 			}
 
 			local keymap = vim.keymap
-			keymap.set("n", "<leader>bb", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
-			keymap.set(
-				"n",
-				"<leader>bc",
-				"<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>"
-			)
-			keymap.set(
-				"n",
-				"<leader>bl",
-				"<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>"
-			)
-			keymap.set("n", "<leader>br", "<cmd>lua require'dap'.clear_breakpoints()<cr>")
-			keymap.set("n", "<leader>ba", "<cmd>Telescope dap list_breakpoints<cr>")
+			keymap.set("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
+			keymap.set("n", "<leader>da", "<cmd>Telescope dap list_breakpoints<cr>")
 			keymap.set("n", "<leader>dc", "<cmd>lua require'dap'.continue()<cr>")
 			keymap.set("n", "<leader>dj", "<cmd>lua require'dap'.step_over()<cr>")
 			keymap.set("n", "<leader>dk", "<cmd>lua require'dap'.step_into()<cr>")
@@ -253,12 +257,6 @@ return {
 				require("dap").disconnect()
 				require("dapui").close()
 			end)
-			keymap.set("n", "<leader>dt", function()
-				require("dap").terminate()
-				require("dapui").close()
-			end)
-			keymap.set("n", "<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
-			keymap.set("n", "<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
 			keymap.set("n", "<leader>di", function()
 				require("dap.ui.widgets").hover()
 			end)
@@ -266,11 +264,7 @@ return {
 				local widgets = require("dap.ui.widgets")
 				widgets.centered_float(widgets.scopes)
 			end)
-			keymap.set("n", "<leader>df", "<cmd>Telescope dap frames<cr>")
 			keymap.set("n", "<leader>dh", "<cmd>Telescope dap commands<cr>")
-			keymap.set("n", "<leader>de", function()
-				require("telescope.builtin").diagnostics({ default_text = ":E:" })
-			end)
 
 			local null_ls = require("null-ls")
 			local formatter = null_ls.builtins.formatting
@@ -290,8 +284,9 @@ return {
 					formatter.csharpier,
 				},
 			})
-			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip.loaders.from_vscode").load({ paths = vim.fn.stdpath("config") .. "/snippets" })
 			local cmp = require("cmp")
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 			local luasnip = require("luasnip")
 			local has_words_before = function()
 				unpack = unpack or table.unpack
@@ -300,6 +295,31 @@ return {
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
+            local pair_handlers = require('nvim-autopairs.completion.handlers')
+
+			cmp.event:on(
+				"confirm_done",
+				cmp_autopairs.on_confirm_done({
+					filetypes = {
+						java = {
+							["<"] = {
+								kind = {
+									cmp.lsp.CompletionItemKind.Class,
+								},
+								handler = pair_handlers["*"],
+							},
+						},
+						cs = {
+							["<"] = {
+								kind = {
+									cmp.lsp.CompletionItemKind.Class,
+								},
+								handler = pair_handlers["*"],
+							},
+						},
+					},
+				})
+			)
 			cmp.setup({
 				sources = {
 					{ name = "luasnip" },
@@ -311,18 +331,26 @@ return {
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
 					["<C-Space>"] = cmp.mapping.complete(),
 					["<C-e>"] = cmp.mapping.abort(),
-					["<CR>"] = cmp.mapping.confirm({ select = true }),
+					["<CR>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+							if luasnip.expandable() then
+								luasnip.expand()
+							else
+								cmp.confirm({ select = true })
+							end
+						else
+							fallback()
+						end
+					end),
 					["<Tab>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							cmp.select_next_item()
-							-- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-							-- they way you will only jump inside the snippet region
-						elseif luasnip.expand_or_jumpable() then
-							luasnip.expand_or_jump()
+						elseif luasnip.jumpable(1) then
+							luasnip.jump(1)
 						elseif has_words_before() then
 							cmp.complete()
 						else
-							fallback(fallback)
+							fallback()
 						end
 					end, { "i", "s" }),
 
@@ -331,9 +359,17 @@ return {
 							cmp.select_prev_item()
 						elseif luasnip.jumpable(-1) then
 							luasnip.jump(-1)
+						elseif has_words_before() then
+							cmp.complete()
 						else
 							fallback()
 						end
+					end, { "i", "s" }),
+					["<C-n>"] = cmp.mapping(function()
+						luasnip.jump(1)
+					end, { "i", "s" }),
+					["<C-p>"] = cmp.mapping(function()
+						luasnip.jump(-1)
 					end, { "i", "s" }),
 				}),
 				snippet = {

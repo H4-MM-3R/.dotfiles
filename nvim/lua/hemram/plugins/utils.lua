@@ -50,6 +50,10 @@ return {
 						hijack_netrw = true,
 						theme = false,
 						hide_parent_dir = true,
+                        follow_symlinks = true,
+                        display_stat = {
+                            mode = false,
+                        }
 					},
 					fzf = {
 						fuzzy = true,
@@ -74,24 +78,24 @@ return {
 		},
 		keys = function()
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-			vim.keymap.set("n", "<leader>fl", builtin.live_grep, {})
+			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
+			vim.keymap.set("n", "<leader>fl", builtin.live_grep, { desc = "Live Grep" })
 			vim.keymap.set("n", "<leader>fs", function()
 				builtin.grep_string({ search = vim.fn.input("Grep > ") })
-			end)
+			end, { desc = "Grep String" })
 			vim.keymap.set("n", "<leader>fws", function()
 				local word = vim.fn.expand("<cword>")
 				builtin.grep_string({ search = word })
-			end)
+			end, { desc = "Grep Word w" })
 			vim.keymap.set("n", "<leader>fWs", function()
 				local word = vim.fn.expand("<cWORD>")
 				builtin.grep_string({ search = word })
-			end)
-			vim.keymap.set("n", "<leader>ft", builtin.help_tags, {})
-			vim.keymap.set("n", "<leader>fg", builtin.git_files, {})
-			vim.keymap.set("n", "<leader>fc", builtin.current_buffer_fuzzy_find, {})
-			vim.keymap.set("n", "<leader>fk", builtin.keymaps, {})
-			vim.keymap.set("n", "<leader>fb", builtin.builtin, {})
+			end, { desc = "Grep Word W" })
+			vim.keymap.set("n", "<leader>ft", builtin.help_tags, { desc = "Help Tags" })
+			vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Git Files" })
+			vim.keymap.set("n", "<leader>fc", builtin.current_buffer_fuzzy_find, { desc = "Current Buffer Fuzzy Find" })
+			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Keymaps" })
+			vim.keymap.set("n", "<leader>fb", builtin.builtin, { desc = "Builtin" })
 			vim.keymap.set("n", "<leader>fa", builtin.autocommands, { desc = "AutoCommands" })
 			vim.keymap.set("n", "<leader>fo", builtin.vim_options, { desc = "Vim_Options" })
 			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Diagnostics" })

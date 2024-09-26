@@ -44,7 +44,6 @@ M.csharp_namespace_init = function(pathopts)
 	end
 	table.insert(parents, "")
 
-    vim.print(parents)
 
 	local result = {}
 	local curr_directory = directory
@@ -66,7 +65,6 @@ M.csharp_namespace_init = function(pathopts)
 		end
 	end
 
-    vim.print(result)
 	return result
 end
 

@@ -324,10 +324,19 @@ return {
 								{ find = "; before #%d+" }, -- for before save state
 								{ find = "%d+ lines yanked" }, -- for yank
 								{ find = "W [%d+/%d+]" }, -- for search pattern
-                                { find = "fewer lines"}
+								{ find = "fewer lines" },
 							},
 						},
 						view = "mini",
+					},
+					{
+						filter = {
+							event = "msg_show",
+							any = {
+								{ find = "is not accessible by the current user!" },
+							},
+						},
+						skip = true,
 					},
 					{
 						filter = {
@@ -357,10 +366,10 @@ return {
 		config = function()
 			vim.keymap.set("n", "<leader>ha", function()
 				require("harpoon.mark").add_file()
-			end)
+			end, { desc = "Harpoon Add File" })
 			vim.keymap.set("n", "<leader>hm", function()
 				require("harpoon.ui").toggle_quick_menu()
-			end)
+			end, { desc = "Harpoon Menu" })
 			vim.keymap.set("n", "<C-p>", function()
 				require("harpoon.ui").nav_prev()
 			end, { desc = "Harpoon Previous" })
