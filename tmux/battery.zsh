@@ -1,10 +1,6 @@
 #!/usr/bin/env zsh
 
-# Enable prompt expansion
-setopt PROMPT_SUBST
-
-# Match powerlevel10k configuration
-typeset -g BATTERY_LOW_THRESHOLD=30
+typeset -g BATTERY_LOW_THRESHOLD=20
 typeset -g BATTERY_STAGES=(
   $'\UF008E' # 0%
   $'\UF007A' # 10%
@@ -19,94 +15,79 @@ typeset -g BATTERY_STAGES=(
   $'\UF0079' # 100%
 )
 
-# Define custom colors using ANSI escape codes
-# typeset -gA colors=(
-#   [charging]=$(printf '\e[38;2;133;153;0m')    
-#   [charged]=$(printf '\e[38;2;133;153;0m')     
-#   [disconnected]=$(printf '\e[38;2;220;50;47m')
-#   [low]=$(printf '\e[38;2;181;136;0m')          
-#   [bg]=$(printf '\e[48;2;21;22;30m')           
-#   [reset]=$(printf '\e[0m')                    
-# )
-
-# Define custom colors using hexadecimal values for tmux
 typeset -gA colors=(
-  [charging]="fg=#859900"       # #859900 (green)
-  [charged]="fg=#859900"        # #859900 (green)
-  [disconnected]="fg=#dc322f"   # #dc322f (red)
-  [low]="fg=#b58900"            # #b58900 (yellow)
-  [bg]="bg=#073642"             # #15161e (background)
-  [reset]="default"          # reset colors
+  [charging]="fg=#859900"
+  [charged]="fg=#859900"
+  [disconnected]="fg=#dc322f"
+  [low]="fg=#b58900"
+  [bg]="bg=#073642"
+  [reset]="default"
 )
 
-function get_battery_info() {
-  local bat_percent is_charging=0
-
-  if [[ "$OSTYPE" == linux* && -d "/sys/class/power_supply" ]]; then
-    # Try reading from /sys first (more reliable)
-    for battery in /sys/class/power_supply/BAT*; do
-      if [[ -d $battery ]]; then
-        if [[ -f "$battery/capacity" ]]; then
-          bat_percent=$(cat "$battery/capacity")
+# Cache the battery path to avoid repeated glob operations
+function get_battery_path() {
+    typeset -g BATTERY_PATH
+    if [[ -z $BATTERY_PATH ]]; then
+        if [[ "$OSTYPE" == linux* && -d "/sys/class/power_supply" ]]; then
+            for battery in /sys/class/power_supply/BAT*; do
+                if [[ -d $battery ]]; then
+                    BATTERY_PATH=$battery
+                    break
+                fi
+            done
         fi
-        if [[ -f "$battery/status" ]]; then
-            local battery_status=$(cat "$battery/status")
-            if [[ "$battery_status" == "Charging" ]]; then
-                is_charging=1
-            fi
-        fi
-        break
-      fi
-    done
-  elif (( $+commands[acpi] )); then
-    local raw_data=$(acpi -b 2>/dev/null)
-    if [[ -n $raw_data ]]; then
-      bat_percent=$(echo $raw_data | grep -o "[0-9]*%" | tr -d %)
-      local state_raw=$(echo $raw_data | grep -o "Charging")
-      if [[ -n $state_raw ]]; then  
-          is_charging=1
-      fi
     fi
-  fi
+    echo $BATTERY_PATH
+}
 
-  if [[ -n $bat_percent ]]; then
-    echo "$bat_percent"
-  fi
+# Read both status and capacity in one function to reduce I/O
+function read_battery_info() {
+    local battery_path=$(get_battery_path)
+    if [[ -n $battery_path ]]; then
+        local capacity_file="$battery_path/capacity"
+        local status_file="$battery_path/status"
+        
+        if [[ -f $capacity_file && -f $status_file ]]; then
+            # Read both files at once to reduce I/O operations
+            local capacity=$(< $capacity_file)
+            local statusf=$(< $status_file)
+            echo "$capacity:$statusf"
+        fi
+    fi
 }
 
 function get_battery_stage() {
-  local bat_percent=$1
-  local stage_index=$(( (bat_percent * $#BATTERY_STAGES) / 100 ))
-  (( stage_index = stage_index < 1 ? 1 : stage_index ))
-  (( stage_index = stage_index > $#BATTERY_STAGES ? $#BATTERY_STAGES : stage_index ))
-  echo ${BATTERY_STAGES[stage_index]}
+    local bat_percent=$1
+    local stage_idx=$(( (bat_percent * $#BATTERY_STAGES) / 100 ))
+    (( stage_idx = stage_idx < 1 ? 1 : stage_idx ))
+    (( stage_idx = stage_idx > $#BATTERY_STAGES ? $#BATTERY_STAGES : stage_idx ))
+    echo ${BATTERY_STAGES[stage_idx]}
 }
 
 function battery_prompt_string() {
-  local bat_percent=$(get_battery_info)
-  
-  if [[ -n $bat_percent ]]; then
-    local color stage
-
-    # Get the battery stage symbol
-    stage=$(get_battery_stage $bat_percent)
-
-    # Determine color based on percentage only (no state)
-    if [[ -n $is_charging ]]; then
-        color=$colors[charging]
-    else
-        if (( bat_percent == 100 )); then
-            color=$colors[charged]
-        elif (( bat_percent < 100 && bat_percent >= $BATTERY_LOW_THRESHOLD )); then
-            color=$colors[low]
+    local battery_info=$(read_battery_info)
+    if [[ -n $battery_info ]]; then
+        local bat_percent=${battery_info%:*}
+        local charging_status=${battery_info#*:}
+        
+        local color stage
+        stage=$(get_battery_stage $bat_percent)
+        
+        if [[ "$charging_status" == "Charging" || "$charging_status" == "Unknown" ]]; then
+            color=$colors[charging]
+            stage=$'\UF0084'
         else
-            color=$colors[disconnected]
+            if (( bat_percent == 100 )); then
+                color=$colors[charged]
+            elif (( bat_percent < 100 && bat_percent >= $BATTERY_LOW_THRESHOLD )); then
+                color=$colors[low]
+            else
+                color=$colors[disconnected]
+            fi
         fi
+        
+        echo "#[${color},${colors[bg]}]${bat_percent}% ${stage}"
     fi
-
-    # Output the prompt segment without state information
-    echo "#[${color},${colors[bg]}]${bat_percent}% ${stage}"
-  fi
 }
 
 battery_prompt_string
