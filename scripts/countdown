@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+
+countdown(){
+    duration=$1
+    date1=$((`date +%s` + duration))
+
+    echo -e "\r"
+
+    while [ $date1 -ge `date +%s` ]; do
+        echo -ne "===================  $(date -u --date @$(($date1 - `date +%s`)) +%H:%M:%S)  ==================\r"
+        sleep 0.1
+    done
+
+    echo -e "\r"
+    echo -e "\r"
+    echo -e "           ********   DONE   ********\r"
+    echo -e "\r"
+    echo -e "----------------------------------------------------\r"
+}
+
+timer(){
+    read -p "Enter seconds for Timer: " input
+    echo -e "\r"
+
+    if(($input > 3600)); then
+        text="====  Timer of $((input / 3600)) hours and $((input / 60)) minutes $((input % 60)) seconds  ====\r"
+    elif(($input > 60)); then
+        text="========  Timer of $((input / 60)) minutes and $((input % 60)) seconds  ========\r"
+    else
+        text="==============  Timer of $((input)) seconds  ==============\r"
+    fi
+
+    echo -e $text
+    countdown $input
+}
+
+pomodoro_countdown(){
+    input=$1
+    current_session=$2
+
+    tput clear # Clear the screen for each session
+    echo -e "================   Session $((current_session - input + 1))   ================="
+
+    duration=$((25 * 60)) # Set to 25 minutes for work session
+    end_time=$(( $(date +%s) + duration ))
+
+    while [ $(date +%s) -lt $end_time ]; do
+        remaining_time=$((end_time - $(date +%s)))
+        echo -ne "===================  $(date -u --date @$(($remaining_time)) +%H:%M:%S)  ==================\r"
+        sleep 1
+    done
+
+    echo -e "\r"
+    echo -e "\r"
+    echo -e "        ****  WORKING TIME DONE  ****\r"
+    
+    # Resting time for 5 minutes
+    duration=$((5 * 60))
+    end_time=$(( $(date +%s) + duration ))
+
+    echo -e "\n****  RESTING TIME STARTS FOR 5 MINUTES  ****\n"
+
+    while [ $(date +%s) -lt $end_time ]; do
+        remaining_time=$((end_time - $(date +%s)))
+        echo -ne "===================  $(date -u --date @$(($remaining_time)) +%H:%M:%S)  ==================\r"
+        sleep 1
+    done
+
+    echo -e "\r"
+    echo "        *******  DONE  *******\r"
+}
+
+pomodoro(){
+    read -p "Enter number of Pomodoro sessions: " input
+
+    tput clear # Clear the screen at the start of Pomodoro timer
+    echo -e "\n================   Pomodoro Timer   ================="
+
+    current_session=$input
+
+    while [ $input -gt 0 ]; do
+        pomodoro_countdown $input $current_session
+        input=$((input - 1))
+        
+        if [ $input -gt 0 ]; then
+            tput clear # Clear the screen for the next session
+            echo -e "\n================   Pomodoro Timer   ================="
+            echo "Starting next session..."
+            sleep 2 # Pause before starting next session for clarity
+        fi
+    done
+    
+}
+
+echo -e "Choose timer:\n1. Countdown\n2. Pomodoro"
+read -p "Enter your choice: " input
+
+case $input in
+    1) timer;;
+    2) pomodoro;;               
+    *) echo "Invalid choice";;
+esac

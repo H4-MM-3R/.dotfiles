@@ -34,7 +34,7 @@ return {
 						preview_cutoff = 90,
 					},
 					file_ignore_patterns = {
-						"%.git",
+						"^.git",
 						"%.cache",
 						"^node_modules/",
 						"^build/",
@@ -62,6 +62,9 @@ return {
 						case_mode = "smart_case",
 					},
 				},
+                pickers = {
+                    current_buffer_fuzzy_find = { sorting_strategy = "ascending"},
+                }
 			})
 			require("telescope").load_extension("file_browser")
 			require("telescope").load_extension("fzf")
@@ -173,17 +176,13 @@ return {
 	-- },
 	{
 		"kawre/leetcode.nvim",
-		opts = {
-			lang = "java",
-		},
-		config = function()
-			if vim.v.argv[3] == "leetcode.nvim" then
-				vim.keymap.set("n", "<leader>dl", ":silent Leet list<CR>", { desc = "LeetCode List" })
-				vim.keymap.set("n", "<leader>dt", ":silent Leet test<CR>", { desc = "LeetCode Test" })
-				vim.keymap.set("n", "<leader>dd", ":silent Leet submit<CR>", { desc = "LeetCode Submit" })
-				vim.keymap.set("n", "<leader>dc", ":silent Leet console<CR>", { desc = "LeetCode Console" })
-				vim.keymap.set("n", "<leader>di", ":silent Leet info<CR>", { desc = "LeetCode Information" })
-			end
-		end,
+        build = ":TSUpdate html",
+        opts = {
+            arg = "leetcode.nvim",
+            lang = "cpp",
+            plugins = {
+                non_standalone = true,
+            },
+        },
 	},
 }

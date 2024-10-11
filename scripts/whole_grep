@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
-read -p "Search :" query
+selected=$(rg --color=always --line-number --no-heading --smart-case "${*:-}" | 
+  fzf --ansi \
+      --delimiter : \
+      --preview 'bat --color=always {1} --highlight-line {2} --theme="Solarized (light)"' \
+      --preview-window 'right,50%,border-left,<50(up,60%,border-bottom),+{2}+3/3,~3' \
+      --header 'Search for text across files' --border-label 'Whole Grep')
 
-command=$(rg --line-number $query | fzf)
-
-filename=$(echo $command | awk -F ':' '{print $1}')
-linenumber=$(echo $command | awk -F ':' '{print $2}')
-
-nvim +$linenumber $filename
-
+if [[ -n "$selected" ]]; then
+    file=$(echo "$selected" | cut -d: -f1)
+    line=$(echo "$selected" | cut -d: -f2)
+    
+    nvim "$file" +"$line"
+fi

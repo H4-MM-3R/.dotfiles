@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-session=$( find ~ ~/Hemram ~/.local ~/git-repos/Algos  ~/git-repos  -mindepth 0 -maxdepth 1 -type d | fzf )
+session=$( fdfind --hidden \
+                  --type d \
+                  --exclude .git --exclude .logs --exclude .vscode --exclude .github \
+                  --min-depth 0 --max-depth 1 . \
+        /home ~ ~/work ~/web3 ~/.local ~/.local/bin ~/junkyard ~/git-repos ~/git-repos/dumpyard/DesignPatterns/src ~/git-repos/dumpyard/ProblemSolving ~/git-repos/dumpyard/ProblemSolving/cf/contests \
+        | fzf --header 'Select Session you need' --border-label 'Sessionizer' )
+
 session_name=$(basename "$session" | tr . _)
 
 if ! tmux has-session -t "$session_name" 2> /dev/null; then
@@ -9,3 +15,4 @@ fi
 
 tmux switch-client -t "$session_name"
 
+       

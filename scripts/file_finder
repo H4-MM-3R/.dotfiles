@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+selected=$(fdfind --type f --hidden --exclude .git | fzf --ansi --preview 'bat --color=always --theme="Solarized (dark)" {}' --preview-window 'right,50%,border-left,<50(up,60%,border-bottom)' --header 'Search for file' --border-label 'File Finder')
+
+if [[ -n "$selected" ]]; then
+    nvim "$selected"
+fi

@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
-command=$(fdfind --type d --exclude .git| fzf)
+command=$(fdfind --type d --exclude .git | fzf --preview 'exa -1 --icons {}' --preview-window 'right,50%,border-left,<50(up,60%,border-bottom)' --header 'Select Directory to change into' --border-label 'Better CD')
 
-z $command
+if [ -n "$command" ]; then
+	z $command || exit
+else 
+	echo "No directory selected"
+fi

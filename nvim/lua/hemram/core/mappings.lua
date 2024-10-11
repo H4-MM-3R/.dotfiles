@@ -63,11 +63,14 @@ vim.opt.splitbelow = true
 
 -- btw, I use <M-;> for changing to Normal Mode
 
-vim.keymap.set("n", "<Leader>ss", ":silent !tmux neww sessionizer<CR>", {})
-vim.keymap.set("n", "<Leader>sc", ":silent !tmux neww config_session<CR>", {})
+vim.keymap.set("n", "<Leader>ss", ":silent !tmux neww sessionizer<CR>", { desc = "Sessionizer" })
+vim.keymap.set("n", "<Leader>sc", ":silent !tmux neww config_session<CR>", { desc = "Config" })
+vim.keymap.set("n", "<leader>sw", ":silent !tmux neww session_switcher<CR>", { desc = "Switcher" })
+vim.keymap.set("n", "<leader>sl", ":silent !tmux neww leetcode_nvim<CR>", { desc = "Leetcode" })
+vim.keymap.set("n", "<leader>sa", ":silent !tmux neww anime<CR>", { desc = "Anime" })
 vim.keymap.set("n", "cn", "*``cgn", opts)
-vim.keymap.set("v", "<Leader>y", '"+y', {})
-vim.keymap.set("n", "<Leader>v", "ggVG", {})
+vim.keymap.set("v", "<Leader>y", '"+y', { desc = "Yank to Clipboard" })
+vim.keymap.set("n", "<Leader>v", "ggVG", { desc = "Select All" })
 vim.keymap.set("n", "<Leader>p", '"+P', { desc = "Paste from ClipBoard" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {})
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {})
@@ -132,16 +135,9 @@ vim.keymap.set("n", "<leader>n", function()
 end, { desc = "Notify Dismiss" })
 
 -- Harpoon for Terminal
-local window_id
-
 for i = 1, 5 do
 	vim.keymap.set("n", "<leader>h" .. i, function()
-		if require("customs.harpoon_terminal").terminal_exists(1) == false then
-			window_id = require("customs.harpoon_terminal").new_term_with_pane()
-		end
-		require("customs.harpoon_terminal").gotoSplitTerminal(window_id)
-		require("customs.harpoon_terminal").sendCommand(window_id, i)
-		require("customs.harpoon_terminal").gotoSplitTerminal("0")
+		require("customs.cmdrunner").run_harpoon_cmd(i)
 	end, { desc = "Harpoon Run Command " .. i })
 end
 
@@ -159,3 +155,9 @@ vim.keymap.set("s", "p", function()
 end, { silent = true, remap = false, desc = "Don't paste in select mode" })
 
 vim.keymap.set("n", "<leader>lr", "<Cmd>luafile %<CR>", { desc = "Lua file Runner" })
+
+vim.keymap.set("n", "<leader>al", ":silent Leet list<CR>", { desc = "LeetCode List" })
+vim.keymap.set("n", "<leader>at", ":silent Leet test<CR>", { desc = "LeetCode Test" })
+vim.keymap.set("n", "<leader>ad", ":silent Leet submit<CR>", { desc = "LeetCode Submit" })
+vim.keymap.set("n", "<leader>ac", ":silent Leet console<CR>", { desc = "LeetCode Console" })
+vim.keymap.set("n", "<leader>ai", ":silent Leet info<CR>", { desc = "LeetCode Information" })

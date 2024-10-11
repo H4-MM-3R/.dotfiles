@@ -1,6 +1,7 @@
 {
     "diagnostics.globals": [
         "vim",
-        "terminal_exists"
+        "terminal_exists",
+        "goto_split_terminal"
     ]
 }

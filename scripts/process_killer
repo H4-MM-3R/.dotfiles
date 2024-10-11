@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+selected=$(ps aux | fzf --multi --header 'Select the Processes to be killed' --border-label 'Process Killer')
+
+for i in $selected
+do
+    echo $i
+done
+

@@ -5,9 +5,8 @@ vim.cmd([[ let @l=":vimgrep//**\<Left>\<Left>\<left>" ]]) -- replace all occuren
 vim.cmd([[
           augroup CodeRunner
                   autocmd BufEnter *.java let @g=":w\<CR>:sp | terminal java %\<CR>i"
-                  autocmd BufEnter *.cpp let @g=":w\<CR> :!g++ -std=c++17 -O3 -o %.exe %\<CR> | :sp |terminal ./%.exe\<CR>i"
-                  " autocmd BufEnter *.cs let @g=":w\<CR> :!mcs % \<CR> | :vsp | terminal mono %:r.exe \<CR>i"
-                  autocmd BufEnter *.cs let @g=":w\<CR> :sp | terminal dotnet build --no-restore && dotnet run --no-build \<CR>"
+                  autocmd BufEnter *.cpp let @g=":w\<CR> :sp |terminal runner %\<CR>i"
+                  autocmd BufEnter *.cs let @g=":w\<CR> :sp | terminal dotnet build --debug --no-restore && dotnet run --no-build \<CR>"
                   autocmd BufEnter *.py let @g=":w\<CR>:sp |terminal python3 %\<CR>i"
                   autocmd BufEnter *.js let @g=":w\<CR> :sp | terminal nodejs % \<CR>i"
                   autocmd BufEnter *.rs let @g=":w\<CR> :sp | terminal cargo run"
@@ -16,6 +15,7 @@ vim.cmd([[
 
 vim.cmd([[
 augroup MakePRG
+autocmd FileType cpp setlocal makeprg=clang++\ -static\ --debug\ -DLOCAL\ -Wall\ -Wextra\ -std=c++17\ -o\ %:r\ %
 autocmd FileType java setlocal makeprg=java\ %
 autocmd FileType python setlocal makeprg=python\ %
 autocmd FileType javascript setlocal makeprg=node\ %

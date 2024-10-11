@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-session_name="_config"
-directory="/home/hemram/.config/nvim"
+session=$(fdfind --hidden --type d --min-depth 0 --max-depth 1 . ~/.config | fzf --header 'Select Configuration Directory' --border-label 'Config Session')
 
-# Check if the tmux session exists
-if ! tmux has-session -t "$session_name" 2> /dev/null; then
-    tmux new-session -s "$session_name" -c "$directory" -d
+if [ -z "$session" ]; then
+    echo "No directory selected. Exiting."
+    exit 1
 fi
 
-# Switch to the tmux session
+session_name="_config_$(basename $session)"
+
+if ! tmux has-session -t "$session_name" 2> /dev/null; then
+    tmux new-session -s "$session_name" -c "$session" -d
+fi
+
 tmux switch-client -t "$session_name"
 
-# Execute the ls command after switching to the session
-tmux send-keys -t "$session_name" 'fdfind --type f --hidden --exclude .git | fzf | xargs nvim' C-m
-
-
-
+tmux send-keys -t "$session_name" 'ff' C-m 

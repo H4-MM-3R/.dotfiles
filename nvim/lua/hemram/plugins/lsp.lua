@@ -76,7 +76,7 @@ return {
 				capabilities = capabilities,
 				handlers = handlers,
 			})
-			require("lspconfig").tsserver.setup({
+			require("lspconfig").ts_ls.setup({
 				capabilities = capabilities,
 				handlers = handlers,
 			})
@@ -161,7 +161,7 @@ return {
 					"tailwindcss",
 					"lemminx",
 					"cssls",
-					"tsserver",
+					"ts_ls",
 					"emmet_language_server",
 					"lua_ls",
 				},
@@ -173,19 +173,11 @@ return {
 						elements = {
 							{
 								id = "scopes",
-								size = 0.25,
+								size = 0.80,
 							},
 							{
 								id = "breakpoints",
-								size = 0.25,
-							},
-							{
-								id = "stacks",
-								size = 0.25,
-							},
-							{
-								id = "watches",
-								size = 0.25,
+								size = 0.20,
 							},
 						},
 						position = "right",
@@ -195,11 +187,19 @@ return {
 						elements = {
 							{
 								id = "repl",
-								size = 0.5,
+								size = 0.25,
 							},
 							{
 								id = "console",
-								size = 0.5,
+								size = 0.25,
+							},
+							{
+								id = "stacks",
+								size = 0.25,
+							},
+							{
+								id = "watches",
+								size = 0.25,
 							},
 						},
 						position = "bottom",
@@ -244,6 +244,33 @@ return {
 						return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
 					end,
 				},
+			}
+			dap.adapters.codelldb = {
+				type = "server",
+                port = "${port}",
+                executable = {
+                    command = "/home/hemram/.local/share/nvim/mason/packages/codelldb/codelldb",
+                    args = { "--port", "${port}" },
+                },
+			}
+
+			dap.configurations.cpp = {
+				{
+					type = "codelldb",
+					name = "Launch file",
+					request = "launch",
+					program = function()
+						return vim.fn.input("Path to exe: ", vim.fn.getcwd() .. "/", "file")
+					end,
+                    cwd = "${workspaceFolder}",
+				},
+                {
+                    type = "codelldb",
+                    request = "attach",
+                    name = "Attach to process",
+                    pid = require("dap.utils").pick_pid,
+                    cwd = "${workspaceFolder}",
+                }
 			}
 
 			local keymap = vim.keymap
@@ -295,7 +322,7 @@ return {
 					and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 			end
 
-            local pair_handlers = require('nvim-autopairs.completion.handlers')
+			local pair_handlers = require("nvim-autopairs.completion.handlers")
 
 			cmp.event:on(
 				"confirm_done",

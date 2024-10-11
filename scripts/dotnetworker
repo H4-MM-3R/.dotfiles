@@ -1,0 +1,112 @@
+#!/usr/bin/env bash
+
+nuget_installer(){
+    read -p "Enter the name of the package to install: " package_name
+
+    json_data=$(curl -s "https://azuresearch-ussc.nuget.org/query?q=${package_name}&prerelease=true" | jq '.')
+    packages=$(echo "$json_data" | jq -r '.data[] | "\(.id) (\(.version))"')
+    selected=$(echo "$packages" | fzf --height 50% --layout=reverse --border --multi)
+
+    if [ -n "$selected" ]; then
+        echo "$selected" | while read -r package; do
+            package_id=$(echo "$package" | cut -d' ' -f1)
+            
+            dotnet add package "$package_id"
+            echo "Package $package_id added successfully."
+        done
+    else
+        echo "No packages selected."
+    fi
+}
+
+nuget_uninstaller(){
+    installed_packages=$(dotnet list package | grep '>' | awk '{print $2 " " $3}')
+
+    selected=$(echo "$installed_packages" | fzf --height 50% --layout=reverse --border --multi --header="Select packages to uninstall (use TAB to select multiple)")
+
+    if [ -n "$selected" ]; then
+
+        echo "$selected" | while read -r package; do
+            package_id=$(echo "$package" | cut -d' ' -f1)
+            dotnet remove package "$package_id"
+            echo "Package $package_id removed successfully."
+        done
+
+        echo "Restoring packages..."
+        dotnet restore
+        echo "Package restore complete."
+    else
+        echo "No packages selected for uninstallation."
+    fi
+}
+
+solution_builder(){
+    projects=$(find . -name "*.csproj" -type f)
+    selected=$(echo "$projects" | fzf --height 50% --layout=reverse --border --multi --header="Select projects to add to the solution")
+
+    if [ -n "$selected" ]; then
+        echo "$selected" | while read -r project; do
+            dotnet sln add "$project"
+            echo "Project $project_name added to the solution successfully."
+        done
+    dotnet build
+    echo "Solution built successfully."
+    else
+        echo "No projects selected for addition to the solution."
+    fi
+}
+
+build_solution_file() {
+    local solution_file=$find_solution_file
+    
+    echo "Building solution: $solution_file"
+    dotnet build "$solution_file"
+    
+    if [ $? -eq 0 ]; then
+        echo "Build succeeded!"
+    else
+        echo "Build failed!"
+        exit 1
+    fi
+}
+
+find_solution_file() {
+    local current_dir="$1"
+    local solution_file=$(find "$current_dir" -maxdepth 3 -name "*.sln" -type f -print -quit)
+    
+    if [ -n "$solution_file" ]; then
+        path=sudo realpath $solution_file
+        echo $path
+    else
+        if [ "$current_dir" != "/" ]; then
+            find_solution_file "$(dirname "$current_dir")"
+        fi
+    fi
+}
+
+
+echo "1. Install a NuGet package"
+echo "2. Uninstall a NuGet package"
+echo "3. Solution Builder"
+echo "4. Find Solution File"
+echo "5. Exit"
+
+read -p "Enter your choice: " choice
+present_working_dir=$(pwd)
+case $choice in
+1)
+    nuget_installer
+    ;;
+2)
+    nuget_uninstaller
+    ;;
+3)
+    solution_builder
+    ;;
+4)
+    build_solution_file
+    ;;
+*)
+    echo "Invalid choice. Please try again."
+    ;;
+esac

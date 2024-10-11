@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# Find directories using fdfind and select multiple using fzf
+selected=$(fdfind --type f | fzf --multi --layout "reverse" --header 'Select files to delete' --border-label 'Eraser (Files)' )
+
+# If no directories were selected, exit the script
+if [[ -z "$selected" ]]; then
+    echo "No directories selected."
+    exit 0
+fi
+
+# Confirm deletion
+echo "You selected the following files for deletion:"
+echo "$selected"
+read -p "Are you sure you want to delete these files? [y/N] " confirm
+
+# Delete the directories if confirmed
+if [[ "$confirm" == [yY] ]]; then
+    echo "$selected" | xargs -I {} rm -rf {}
+    echo "Selected files deleted."
+else
+    echo "Deletion cancelled."
+fi
+
+

@@ -9,7 +9,7 @@ json_data=$(curl -s "https://azuresearch-ussc.nuget.org/query?q=${package_name}&
 packages=$(echo "$json_data" | jq -r '.data[] | "\(.id) (\(.version))"')
 
 # Use fzf to select multiple packages
-selected=$(echo "$packages" | fzf --height 50% --layout=reverse --border --multi)
+selected=$(echo "$packages" | fzf --multi --header 'Select Nuget Package to Install' --border-label 'Nuget Installer')
 
 if [ -n "$selected" ]; then
     # Loop through each selected package
