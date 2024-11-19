@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-selected=$(fdfind --type f --hidden --exclude .git | fzf --ansi --preview 'bat --color=always --theme="Solarized (dark)" {}' --preview-window 'right,50%,border-left,<50(up,60%,border-bottom)' --header 'Search for file' --border-label 'File Finder')
+selected=$(fdfind --type f --hidden --exclude .git --exclude node_modules | sed 's|^\./||' | fzf \
+    --ansi \
+    --header 'Alt-T: Toggle Search Type, Alt-H: Show Hidden Files' \
+    --prompt 'Hidden> ' \
+    --border-label 'File Finder Recursive' \
+    --bind 'alt-t:transform:[[ ! $FZF_BORDER_LABEL =~ Recursive ]] &&
+                echo "change-border-label(File Finder Recursive)+reload( fdfind --type f --hidden --exclude .git --exclude node_modules | sed \"s|^\\./||\" )" ||
+                echo "change-border-label(File Finder)+reload( fdfind --type f --hidden --exclude .git --exclude node_modules --max-depth 1 | sed \"s|^\\./||\" )"' \
+    --preview 'bat --color=always --theme="Solarized (dark)" {}' \
+    --preview-window 'right,50%,border-left,<50(up,60%,border-bottom)')
 
 if [[ -n "$selected" ]]; then
     nvim "$selected"

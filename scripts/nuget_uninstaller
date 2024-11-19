@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get the list of installed packages
 installed_packages=$(dotnet list package | grep '>' | awk '{print $2 " " $3}')

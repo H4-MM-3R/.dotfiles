@@ -8,12 +8,10 @@ return {
 						n = {
 							["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
 							["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
-							["<C-h>"] = require("customs.telescope_harpoon_action").mark_file,
 						},
 						i = {
 							["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
 							["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
-							["<C-h>"] = require("customs.telescope_harpoon_action").mark_file,
 						},
 					},
 					prompt_prefix = "   ",
@@ -50,10 +48,10 @@ return {
 						hijack_netrw = true,
 						theme = false,
 						hide_parent_dir = true,
-                        follow_symlinks = true,
-                        display_stat = {
-                            mode = false,
-                        }
+					                   follow_symlinks = true,
+					                   display_stat = {
+					                       mode = false,
+					                   }
 					},
 					fzf = {
 						fuzzy = true,
@@ -62,23 +60,14 @@ return {
 						case_mode = "smart_case",
 					},
 				},
-                pickers = {
-                    current_buffer_fuzzy_find = { sorting_strategy = "ascending"},
-                }
+				pickers = {
+					current_buffer_fuzzy_find = { sorting_strategy = "ascending" },
+				},
 			})
 			require("telescope").load_extension("file_browser")
 			require("telescope").load_extension("fzf")
+			require("telescope").load_extension("recon")
 		end,
-	},
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-	},
-	{
-		"nvim-telescope/telescope-file-browser.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
 		keys = function()
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
@@ -106,6 +95,26 @@ return {
 		end,
 	},
 	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+		build = "make",
+	},
+	{
+		"nvim-telescope/telescope-file-browser.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+	},
+	-- {
+	-- 	"jelmansouri/oil.nvim",
+ --        branch = "feat/scratch-preview",
+	-- 	opts = {},
+	-- 	dependencies = { { "nvim-tree/nvim-web-devicons", opt = true } },
+ --        keys = function()
+ --            vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+ --        end
+	--
+	-- },
+	{
 
 		"folke/trouble.nvim",
 		opts = {
@@ -121,7 +130,7 @@ return {
 			{ "<leader>xl", "<cmd>Trouble lsp_references<cr>", desc = "Trouble LSP References" },
 			{ "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo Trouble" },
 			{
-				"<c-j>",
+				"<c-k>",
 				function()
 					if require("trouble").is_open() then
 						require("trouble").next({ skip_groups = true, jump = true })
@@ -135,7 +144,7 @@ return {
 				{ desc = "next trouble/ quickfix item" },
 			},
 			{
-				"<c-k>",
+				"<c-j>",
 				function()
 					if require("trouble").is_open() then
 						require("trouble").prev({ skip_groups = true, jump = true })
@@ -176,13 +185,13 @@ return {
 	-- },
 	{
 		"kawre/leetcode.nvim",
-        build = ":TSUpdate html",
-        opts = {
-            arg = "leetcode.nvim",
-            lang = "cpp",
-            plugins = {
-                non_standalone = true,
-            },
-        },
+		build = ":TSUpdate html",
+		opts = {
+			arg = "leetcode.nvim",
+			lang = "cpp",
+			plugins = {
+				non_standalone = true,
+			},
+		},
 	},
 }

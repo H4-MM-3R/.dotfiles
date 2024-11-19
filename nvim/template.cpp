@@ -3,20 +3,18 @@
 // URL: $(URL)
 // Memory Limit: $(MEMLIM)
 // Time Limit: $(TIMELIM)
-// Start: $(DATE)
+// Start2 $(DATE)
 
 #include <bits/stdc++.h>
 using namespace std;
 
-void solve() {
-
-}
+void solve() { }
 
 int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
-	return 0;
+  int t;
+  cin >> t;
+  while (t--) {
+      solve();
+  }
+  return 0;
 }

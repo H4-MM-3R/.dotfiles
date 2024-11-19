@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
  
-
 die() {
     printf "\33[2K\r\033[1;31m%s\033[0m\n" "$*" >&2
     exit 1
@@ -29,8 +28,8 @@ result=$(curl -s "https://backend.freek.to/api/search?type=movie&page=1&query=$1
   -H 'origin: https://freek.to' \
   -H 'referer: https://freek.to/' \
   --data-raw '{"filters":[{"value":"any","key":"with_genres","isChanged":false},{"value":"any","key":"year","isChanged":false},{"value":"popularity.desc","key":"sort_by","isChanged":false},{"value":"any","key":"with_origin_country","isChanged":false}]}')
-
-echo $result | jq -r '.results[] | [.id, .title] | @tsv'
+ echo $result | jq -r '.results[] | [.id, .title, "(" + (.rating) + ")"] | @tsv' 
+ # echo $result | jq -r '.results[] | [.id, .title, "(" + (.rating) + ")"] | @tsv' | nl -w 2  | sed 's/^[[:space:]]//' | nth "Select anime: "
 }
 
 help_info() {
@@ -58,7 +57,7 @@ while [ $# -gt 0 ]; do
 done
 
 while [ -z "$query" ]; do
-    printf "\33[2K\r\033[1;36mSearch anime: \033[0m" && read -r query
+    printf "\33[2K\r\033[1;36mSearch movies: \033[0m" && read -r query
 done
 
 query=$(printf "%s" "$query" | sed "s| |%20|g")

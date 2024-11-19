@@ -3,8 +3,6 @@ local utils = require("harpoon.utils")
 
 local M = {}
 
--- functions inside
-
 function M.find_usable_terminal()
 	local pane_id, curr_pane_idx
 
@@ -29,33 +27,38 @@ function M.find_usable_terminal()
 	end
 
 	if not pane_id then
-		pane_id = utils.get_os_command_output({
-			"tmux",
-			"split-window",
-			"-P",
-			"-l",
-			"17",
-			"-F",
-			"#{pane_index}",
-		}, vim.loop.cwd())[1]
+        pane_id = nil
 	end
 
 	return { pane_id = pane_id, curr_pane_idx = curr_pane_idx }
 end
 
-function M.run_harpoon_cmd(cmd, ...)
+function M.run_harpoon_cmd(cmd_idx, ...)
 	local id_table = M.find_usable_terminal()
 	local pane_id = id_table.pane_id
 	local curr_pane_id = id_table.curr_pane_idx
+	local cmd = harpoon.get_term_config().cmds[cmd_idx]
 
-	M.go_to_split_terminal(pane_id)
-	M.send_command(pane_id, cmd, ...)
-	M.go_to_split_terminal(curr_pane_id)
+    if pane_id == nil then
+        vim.cmd.w()
+        vim.cmd.split()
+        vim.cmd.wincmd("J")
+        vim.api.nvim_win_set_height(0, 20)
+        vim.wo.winfixheight = true
+        vim.cmd.term(cmd)
+        vim.cmd.startinsert()
+    else
+        M.go_to_split_terminal(pane_id)
+        if cmd ~= nil then
+            M.send_command(pane_id, "clear", ...)
+            M.send_command(pane_id, cmd, ...)
+            M.go_to_split_terminal(curr_pane_id)
+        end
+    end
 end
 
-function M.send_command(idx, cmd_idx, ...)
-	local cmd = harpoon.get_term_config().cmds[cmd_idx]
-	local _, ret, stderr = utils.get_os_command_output({
+function M.send_command(idx, cmd, ...)
+	local _ = utils.get_os_command_output({
 		"tmux",
 		"send-keys",
 		"-t",
@@ -63,10 +66,6 @@ function M.send_command(idx, cmd_idx, ...)
 		string.format(cmd, ...),
 		"C-m",
 	}, vim.loop.cwd())
-
-	if ret ~= 0 then
-		error("Failed to Send Commands to terminal." .. stderr[1])
-	end
 end
 
 function M.go_to_split_terminal(idx)

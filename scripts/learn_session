@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+session=$(fdfind --hidden --type d --min-depth 0 --max-depth 1 . ~/learn/pending ~/learn/completed | fzf --header 'Select Course' --border-label 'Learning Session')
+
+if [ -z "$session" ]; then
+    exit 1
+fi
+
+session_name="_learn_$(basename $session)"
+terminal_exists=$(tmux list-windows -t "$session_name" -F '#{window_name}' 2> /dev/null | grep -c 'terminal')
+
+
+if [[ -z $TMUX ]]; then
+    tmux new-session -s "$session_name" -c "$session" -d
+    tmux attach -t "$session_name"
+    if [[ $terminal_exists -eq 0 ]]; then
+        tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
+    fi
+    exit 0
+fi
+
+if ! tmux has-session -t "$session_name" 2> /dev/null; then
+    tmux new-session -s "$session_name" -c "$session" -d
+fi
+
+tmux switch-client -t "$session_name"
+
+if [[ $terminal_exists -eq 0 ]]; then
+    tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
+fi
+

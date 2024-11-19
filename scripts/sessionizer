@@ -1,18 +1,31 @@
 #!/usr/bin/env bash
 
-session=$( fdfind --hidden \
-                  --type d \
-                  --exclude .git --exclude .logs --exclude .vscode --exclude .github \
-                  --min-depth 0 --max-depth 1 . \
-        /home ~ ~/work ~/web3 ~/.local ~/.local/bin ~/junkyard ~/git-repos ~/git-repos/dumpyard/DesignPatterns/src ~/git-repos/dumpyard/ProblemSolving ~/git-repos/dumpyard/ProblemSolving/cf/contests \
+if [[ $# -eq 1 ]]; then
+    session=$1
+else
+    session=$( fdfind --hidden \
+        --type d \
+        --exclude .git --exclude .logs --exclude .vscode --exclude .github \
+        --min-depth 0 --max-depth 1 . \
+        /home ~ ~/test ~/web3 ~/.local ~/.local/bin ~/junkyard ~/learn ~/git-repos \
+        ~/git-repos/dumpyard/DesignPatterns/src \
         | fzf --header 'Select Session you need' --border-label 'Sessionizer' )
+fi
+
+if [[ -z $session ]]; then
+    exit 1
+fi
 
 session_name=$(basename "$session" | tr . _)
+
+if [[ -z $TMUX ]]; then
+    tmux new-session -s "$session_name" -c "$session" -d
+    tmux attach -t "$session_name"
+    exit 0
+fi
 
 if ! tmux has-session -t "$session_name" 2> /dev/null; then
     tmux new-session -s "$session_name" -c "$session" -d
 fi
 
 tmux switch-client -t "$session_name"
-
-       

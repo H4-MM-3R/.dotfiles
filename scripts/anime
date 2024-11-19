@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/usr/bin/env bash
 die() {
     printf "\33[2K\r\033[1;31m%s\033[0m\n" "$*" >&2
     exit 1
@@ -93,8 +92,9 @@ get_episode_url() {
     wait
     # select the link with matching quality
     links=$(cat "$cache_dir"/* | sed 's|^Mp4-||g;/http/!d;/Alt/d' | sort -g -r -s)
-    rm -r "$cache_dir"
+    # rm -r "$cache_dir"
     episode=$(select_quality "$quality")
+    echo "$episode"
     [ -z "$episode" ] && die "Episode not released!"
 }
 
@@ -132,6 +132,7 @@ play_episode() {
     case "$player_function" in
         mpv*)
             if [ "$no_detach" = 0 ]; then
+                echo "$episode"
                 nohup "$player_function" $skip_flag --force-media-title="${allanime_title}Episode ${ep_no}" "$episode" >/dev/null 2>&1 &
             else
                 "$player_function" $skip_flag --force-media-title="${allanime_title}Episode ${ep_no}" "$episode"

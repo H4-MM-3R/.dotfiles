@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+output=$(git log --color=always --oneline --decorate | fzf --ansi --preview="git --no-pager log --oneline --graph --parents --color=always --decorate" --preview-window=top:65% --bind="ctrl-s:toggle-sort" --bind="ctrl-r:toggle-all")
+
+if [[ -z "$output" ]]; then
+    echo "No commits found"
+else
+    echo "$output" | awk '{print $1}' | xclip -selection clipboard
+    echo "$output" | awk '{print $1}' | xclip -i 
+    git show $(xclip -o)
+fi
+

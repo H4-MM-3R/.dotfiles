@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Find directories using fdfind and select multiple using fzf
-selected=$(fdfind --type f | fzf --multi --layout "reverse" --header 'Select files to delete' --border-label 'Eraser (Files)' )
+selected=$(fdfind --type f | fzf --multi --ansi --preview 'bat --color=always --theme="Solarized (dark)" {}' --preview-window 'right,50%,border-left,<50(up,60%,border-bottom)' --header 'Select files to delete' --border-label 'Eraser (Files)' )
 
 # If no directories were selected, exit the script
 if [[ -z "$selected" ]]; then

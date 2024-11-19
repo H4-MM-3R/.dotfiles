@@ -70,6 +70,7 @@ function battery_prompt_string() {
         local bat_percent=${battery_info%:*}
         local charging_status=${battery_info#*:}
         
+        bat_percent = bat_percent + 1
         local color stage
         stage=$(get_battery_stage $bat_percent)
         

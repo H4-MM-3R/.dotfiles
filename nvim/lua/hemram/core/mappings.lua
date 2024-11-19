@@ -1,7 +1,9 @@
 local opts = { noremap = true, silent = true }
+
 -- Numbering
 vim.opt.nu = true
 vim.opt.rnu = true
+vim.opt.showtabline = 1
 
 -- Encoding
 vim.opt.fileencoding = "utf-8"
@@ -63,11 +65,11 @@ vim.opt.splitbelow = true
 
 -- btw, I use <M-;> for changing to Normal Mode
 
+vim.keymap.set("t", "<M-;>", "<C-\\><C-n>", { desc = "Terminal to Normal Mode" })
 vim.keymap.set("n", "<Leader>ss", ":silent !tmux neww sessionizer<CR>", { desc = "Sessionizer" })
 vim.keymap.set("n", "<Leader>sc", ":silent !tmux neww config_session<CR>", { desc = "Config" })
 vim.keymap.set("n", "<leader>sw", ":silent !tmux neww session_switcher<CR>", { desc = "Switcher" })
-vim.keymap.set("n", "<leader>sl", ":silent !tmux neww leetcode_nvim<CR>", { desc = "Leetcode" })
-vim.keymap.set("n", "<leader>sa", ":silent !tmux neww anime<CR>", { desc = "Anime" })
+vim.keymap.set("n", "<leader>sl", ":silent !tmux neww learn_session<CR>", { desc = "Learn" })
 vim.keymap.set("n", "cn", "*``cgn", opts)
 vim.keymap.set("v", "<Leader>y", '"+y', { desc = "Yank to Clipboard" })
 vim.keymap.set("n", "<Leader>v", "ggVG", { desc = "Select All" })
@@ -131,27 +133,33 @@ vim.keymap.set("n", "<leader>lq", "<cmd>lclose<CR>", { desc = "close quickfix li
 
 -- Notification
 vim.keymap.set("n", "<leader>n", function()
-	require("notify").dismiss({ silent = true, pending = true })
+    require("notify").dismiss({ silent = true, pending = true })
 end, { desc = "Notify Dismiss" })
 
 -- Harpoon for Terminal
 for i = 1, 5 do
-	vim.keymap.set("n", "<leader>h" .. i, function()
-		require("customs.cmdrunner").run_harpoon_cmd(i)
-	end, { desc = "Harpoon Run Command " .. i })
+    vim.keymap.set("n", "<leader>c" .. i, function()
+        require("lua.customs.cmdrunner_window").run_harpoon_cmd(i)
+    end, { desc = "Harpoon Run Command on a Window " .. i })
 end
 
-vim.keymap.set("n", "<leader>hc", function()
-	require("harpoon.cmd-ui").toggle_quick_menu()
-end, { desc = "Harpoon Terminal Command Menu" })
+for i = 1, 5 do
+    vim.keymap.set("n", "<leader>h" .. i, function()
+        require("recon.cmd-runner").run_recon_cmd(i)
+    end, { desc = "Recon Run Command " .. i })
+end
+
+vim.keymap.set("n", "<leader>rc", function()
+    require("recon.cmd-ui").toggle_quick_menu()
+end, { desc = "Recon Terminal Command Menu" })
 
 -- Faster Navigation for me
-vim.keymap.set("n", "<leader>j", "`c", { desc = "Go to Current position Mark" })
-vim.keymap.set("n", "<leader>k", "`m", { desc = "Go to Marked position Mark" })
+-- vim.keymap.set("n", "<leader>j", "`c", { desc = "Go to Current position Mark" })
+-- vim.keymap.set("n", "<leader>k", "`m", { desc = "Go to Marked position Mark" })
 
 -- Luasnip select mode pasting Bug
 vim.keymap.set("s", "p", function()
-	vim.api.nvim_feedkeys("p", "n", false)
+    vim.api.nvim_feedkeys("p", "n", false)
 end, { silent = true, remap = false, desc = "Don't paste in select mode" })
 
 vim.keymap.set("n", "<leader>lr", "<Cmd>luafile %<CR>", { desc = "Lua file Runner" })
@@ -161,3 +169,17 @@ vim.keymap.set("n", "<leader>at", ":silent Leet test<CR>", { desc = "LeetCode Te
 vim.keymap.set("n", "<leader>ad", ":silent Leet submit<CR>", { desc = "LeetCode Submit" })
 vim.keymap.set("n", "<leader>ac", ":silent Leet console<CR>", { desc = "LeetCode Console" })
 vim.keymap.set("n", "<leader>ai", ":silent Leet info<CR>", { desc = "LeetCode Information" })
+
+vim.keymap.set("n", ",<leader>", function()
+    vim.cmd.new()
+    vim.cmd.wincmd("J")
+    vim.api.nvim_win_set_height(0, 12)
+    vim.wo.winfixheight = true
+    vim.cmd.term()
+    vim.cmd.startinsert()
+end)
+
+vim.keymap.set({'n', 't'}, '<M-h>', '<CMD>NavigatorLeft<CR>')
+vim.keymap.set({'n', 't'}, '<M-l>', '<CMD>NavigatorRight<CR>')
+vim.keymap.set({'n', 't'}, '<M-k>', '<CMD>NavigatorUp<CR>')
+vim.keymap.set({'n', 't'}, '<M-j>', '<CMD>NavigatorDown<CR>')

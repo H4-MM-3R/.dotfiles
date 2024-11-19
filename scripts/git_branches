@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+git branch --sort=-committerdate --sort=-HEAD --format=$'%(color:#2AA198)%(HEAD) %(color:#eee8d5)%(if)%(HEAD)%(then)%(color:#2AA198)%(end)%(refname:short)\t%(color:#B58900)(%(committerdate:relative))\t%(color:#268BD2)%(subject)%(color:reset)' --color=always | column -ts$'\t' | fzf \
+      --ansi \
+      --header 'Alt-T: Toggle Branch Types' \
+      --border-label 'Local Branches' \
+      --bind 'alt-t:transform:[[ ! $FZF_BORDER_LABEL =~ Local ]] &&
+              echo "change-border-label(Local Branches)+reload( git branch --sort=-committerdate --sort=-HEAD --color=always --format=\"%(color:#2aa198)%(HEAD) %(color:#eee8d5)%(if)%(HEAD)%(then)%(color:#2AA198)%(end)%(refname:short)\t%(color:#B58900)(%(committerdate:relative))\t%(color:#268BD2)%(subject)%(color:reset)\" | column -ts$\"\t\" )" ||
+              echo "change-border-label(Remote Branches)+reload( git branch --sort=-committerdate --sort=-HEAD --color=always --format=\"%(color:#2aa198)%(HEAD) %(color:#eee8d5)%(if)%(HEAD)%(then)%(color:#2AA198)%(end)%(refname:short)\t%(color:#B58900)(%(committerdate:relative))\t%(color:#268BD2)%(subject)%(color:reset)\" --remotes | column -ts$\"\t\")"' \
+      --bind 'enter:become(git checkout {1})' \
+      --preview "git log --oneline --graph --date=short --color=always --pretty='format:%C(auto)%cd %h%d %s' \$(sed s/^..// <<< {} | cut -d' ' -f1) --";
+

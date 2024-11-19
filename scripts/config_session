@@ -3,11 +3,16 @@
 session=$(fdfind --hidden --type d --min-depth 0 --max-depth 1 . ~/.config | fzf --header 'Select Configuration Directory' --border-label 'Config Session')
 
 if [ -z "$session" ]; then
-    echo "No directory selected. Exiting."
     exit 1
 fi
 
 session_name="_config_$(basename $session)"
+
+if [[ -z $TMUX ]]; then
+    tmux new-session -s "$session_name" -c "$session" -d
+    tmux attach -t "$session_name"
+    exit 0
+fi
 
 if ! tmux has-session -t "$session_name" 2> /dev/null; then
     tmux new-session -s "$session_name" -c "$session" -d

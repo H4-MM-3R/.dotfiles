@@ -26,6 +26,12 @@ return {
 					"java",
 					"angular",
 					"scss",
+                    "go",
+                    "gomod",
+                    "gowork",
+                    "gosum",
+                    "templ",
+                    "gotmpl"
 				},
 				auto_install = true,
 

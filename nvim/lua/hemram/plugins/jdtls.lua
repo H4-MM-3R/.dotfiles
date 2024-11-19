@@ -3,7 +3,7 @@ return {
     -- "lbrayner/nvim-jdtls",
     dependencies = {
         "mfussenegger/nvim-dap",
-    },
+   },
     -- "nvim-java/nvim-java",
     -- config = function()
     --     require("java").setup()

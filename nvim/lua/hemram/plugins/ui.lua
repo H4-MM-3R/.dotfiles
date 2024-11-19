@@ -45,7 +45,6 @@ return {
 					return "Recording @" .. recording_register
 				end
 			end
-
 			vim.api.nvim_create_autocmd("RecordingEnter", {
 				callback = function()
 					lualine.refresh({
@@ -81,6 +80,8 @@ return {
 			osaka.inactive.a.bg = "#002b36"
 			osaka.inactive.a.fg = "#eee8d5"
 
+			local recon_lualine_extension = require("recon.lualine")
+
 			lualine.setup({
 				options = {
 					lcons_enabled = true,
@@ -89,7 +90,7 @@ return {
 					component_separators = { left = "", right = "" },
 					disabled_filetypes = {},
 					always_divide_middle = true,
-					globalstatus = false,
+					globalstatus = true,
 				},
 				sections = {
 					lualine_a = {
@@ -97,7 +98,7 @@ return {
 					},
 					lualine_b = {
 						{
-							"macro-recording",
+							"cwd",
 							fmt = show_macro_recording,
 						},
 						{ "branch" },
@@ -114,6 +115,30 @@ return {
 							"diagnostics",
 							sources = { "nvim_diagnostic" },
 							symbols = { error = " ", warn = " ", info = " ", hint = " " },
+						},
+						-- {
+						-- 	require("noice").api.status.message.get_hl,
+						-- 	cond = require("noice").api.status.message.has,
+						-- },
+						{
+							require("noice").api.status.command.get,
+							cond = require("noice").api.status.command.has,
+							color = { fg = "#ff9e64" },
+						},
+						{
+							require("noice").api.status.mode.get,
+							cond = require("noice").api.status.mode.has,
+							color = { fg = "#ff9e64" },
+						},
+						{
+							require("noice").api.status.search.get,
+							cond = require("noice").api.status.ruler.has,
+							color = { fg = "#ff9e64" },
+						},
+						{
+							require("noice").api.status.search.get,
+							cond = require("noice").api.status.search.has,
+							color = { fg = "#ff9e64" },
 						},
 						-- {
 						--     'vim.fn["codeium#GetStatusString"]()',
@@ -142,23 +167,7 @@ return {
 						"location",
 					},
 				},
-				inactive_sections = {
-					lualine_a = {},
-					lualine_b = {},
-					lualine_c = {
-						{
-							"filename",
-							file_status = true, -- displays file status (readonly status, modified status)
-							path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-						},
-					},
-					lualine_x = { "location" },
-					lualine_y = {},
-					lualine_z = {},
-				},
-
-				tabline = {},
-				extensions = { "fugitive", "quickfix", "trouble" },
+				extensions = { "fugitive", "quickfix", "trouble", "lazy", "mason", recon_lualine_extension },
 			})
 		end,
 	},
@@ -349,33 +358,40 @@ return {
 						filter = { event = "msg_show", min_height = 20 },
 						view = "cmdline_output",
 					},
-					-- {
-					-- 	filter = {
-					-- 		event = "msg_show",
-					-- 		kind = "",
-					-- 		find = "{",
-					-- 	},
-					-- 	view = "popup",
-					-- },
 				},
 			})
 		end,
 	},
 	{
-		"thePrimeagen/harpoon",
+		-- "recon.nvim",
+		-- dir = "~/git-repos/recon.nvim",
+        "h4-mm-3r/recon.nvim",
 		config = function()
-			vim.keymap.set("n", "<leader>ha", function()
-				require("harpoon.mark").add_file()
-			end, { desc = "Harpoon Add File" })
-			vim.keymap.set("n", "<leader>hm", function()
-				require("harpoon.ui").toggle_quick_menu()
-			end, { desc = "Harpoon Menu" })
+			require("recon").setup()
+			vim.keymap.set("n", "<leader>ra", function()
+				require("recon.mark").add_file()
+			end, { desc = "Recon Add File" })
+			vim.keymap.set("n", "<leader>rm", function()
+				require("recon.ui").toggle_quick_menu()
+			end, { desc = "Recon Menu" })
 			vim.keymap.set("n", "<C-p>", function()
-				require("harpoon.ui").nav_prev()
-			end, { desc = "Harpoon Previous" })
+				require("recon.ui").nav_prev()
+			end, { desc = "Recon Previous" })
 			vim.keymap.set("n", "<C-n>", function()
-				require("harpoon.ui").nav_next()
-			end, { desc = "Harpoon Next" })
+				require("recon.ui").nav_next()
+			end, { desc = "Recon Next" })
+			vim.keymap.set("n", "<leader>j1", function()
+				require("recon.ui").nav_file(1)
+			end, { desc = "recon 1" })
+			vim.keymap.set("n", "<leader>j2", function()
+				require("recon.ui").nav_file(2)
+			end, { desc = "recon 2" })
+			vim.keymap.set("n", "<leader>j3", function()
+				require("recon.ui").nav_file(3)
+			end, { desc = "recon 3" })
+			vim.keymap.set("n", "<leader>j4", function()
+				require("recon.ui").nav_file(4)
+			end, { desc = "recon 4" })
 		end,
 	},
 	{

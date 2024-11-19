@@ -10,6 +10,7 @@ vim.cmd([[
                   autocmd BufEnter *.py let @g=":w\<CR>:sp |terminal python3 %\<CR>i"
                   autocmd BufEnter *.js let @g=":w\<CR> :sp | terminal nodejs % \<CR>i"
                   autocmd BufEnter *.rs let @g=":w\<CR> :sp | terminal cargo run"
+                  autocmd BufEnter *.go let @g=":w\<CR> :sp | terminal go run %\<CR>i"
           augroup end
 ]])
 
@@ -60,7 +61,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 		if line_count == 1 and vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] == "" then
 			-- require("dotnet.dotnet").bootstrap_new_csharp_file()
-            require("customs.csharp_init").bootstrap_new_csharp_file()
+            require("lua.customs.csharp-init").bootstrap_new_csharp_file()
 		end
 	end,
 })
