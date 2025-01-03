@@ -1,0 +1,26 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 534780,
+      "type": "movie",
+      "rating": "7.6",
+      "release_date": "Oct 5, 2018",
+      "last_air_date": null,
+      "lang": "hi",
+      "description": "A series of mysterious events changes the life of a blind pianist who now must report a crime that was actually never witnessed by him.",
+      "title": "Andhadhun",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/dy3K6hNvwE05siGgiLJcEiwgpdO.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/dy3K6hNvwE05siGgiLJcEiwgpdO.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/dy3K6hNvwE05siGgiLJcEiwgpdO.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/73aKTjdQ46jpv3InqNVnV76Nl0K.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/73aKTjdQ46jpv3InqNVnV76Nl0K.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 1
+}

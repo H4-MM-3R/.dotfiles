@@ -1,40 +1,49 @@
 {
-    "name": "Hemram's Snippets",
-    "engines": {
-        "vscode": "^1.11.0"
-    },
-    "contributes": {
-        "snippets": [
-            {
-                "language": "cpp",
-                "path": "./snippets/cpp/cpp.json"
-            },
-            {
-                "language": "cppdoc",
-                "path": "./snippets/cpp/cppdoc.json"
-            },
-            {
-                "language": ["csharp", "cs"],
-                "path": "./snippets/csharp/csharp.json"
-            },
-            {
-                "language": "csharpdoc",
-                "path": "./snippets/csharp/csharpdoc.json"
-            },
-            {
-                "language": "lua",
-                "path": "./snippets/lua/lua.json"
-            },
-            {
-                "language": "luadoc",
-                "path": "./snippets/lua/luadoc.json"
-            },
-            {
-                "language": "go",
-                "path": "./snippets/go.json"
-            }
-        ]
-    }
+  "name": "Hemram's Snippets",
+  "engines": {
+    "vscode": "^1.11.0"
+  },
+  "contributes": {
+    "snippets": [
+      {
+        "language": "cpp",
+        "path": "./snippets/cpp/cpp.json"
+      },
+      {
+        "language": "cppdoc",
+        "path": "./snippets/cpp/cppdoc.json"
+      },
+      {
+        "language": [
+          "csharp",
+          "cs"
+        ],
+        "path": "./snippets/csharp/csharp.json"
+      },
+      {
+        "language": "csharpdoc",
+        "path": "./snippets/csharp/csharpdoc.json"
+      },
+      {
+        "language": "lua",
+        "path": "./snippets/lua/lua.json"
+      },
+      {
+        "language": "luadoc",
+        "path": "./snippets/lua/luadoc.json"
+      },
+      {
+        "language": "go",
+        "path": "./snippets/go.json"
+      },
+      {
+        "language": "typescriptreact",
+        "path": "./advanced/ts-react.json"
+      },
+      {
+          "language": "typescript, typescriptreact, javascript, javascriptreact",
+          "path": "./advanced/ts.json"
+      }
+    ]
+  }
 }
-
-

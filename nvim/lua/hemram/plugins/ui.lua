@@ -102,6 +102,11 @@ return {
 							fmt = show_macro_recording,
 						},
 						{ "branch" },
+						{
+							"diagnostics",
+							sources = { "nvim_diagnostic" },
+							symbols = { error = " ", warn = " ", info = " ", hint = " " },
+						},
 					},
 					lualine_c = {
 						{
@@ -112,32 +117,8 @@ return {
 					},
 					lualine_x = {
 						{
-							"diagnostics",
-							sources = { "nvim_diagnostic" },
-							symbols = { error = " ", warn = " ", info = " ", hint = " " },
-						},
-						-- {
-						-- 	require("noice").api.status.message.get_hl,
-						-- 	cond = require("noice").api.status.message.has,
-						-- },
-						{
 							require("noice").api.status.command.get,
 							cond = require("noice").api.status.command.has,
-							color = { fg = "#ff9e64" },
-						},
-						{
-							require("noice").api.status.mode.get,
-							cond = require("noice").api.status.mode.has,
-							color = { fg = "#ff9e64" },
-						},
-						{
-							require("noice").api.status.search.get,
-							cond = require("noice").api.status.ruler.has,
-							color = { fg = "#ff9e64" },
-						},
-						{
-							require("noice").api.status.search.get,
-							cond = require("noice").api.status.search.has,
 							color = { fg = "#ff9e64" },
 						},
 						-- {
@@ -355,6 +336,13 @@ return {
 						skip = true,
 					},
 					{
+						filter = {
+							event = "notify",
+							find = "No information available",
+						},
+						skip = true,
+					},
+					{
 						filter = { event = "msg_show", min_height = 20 },
 						view = "cmdline_output",
 					},
@@ -362,10 +350,26 @@ return {
 			})
 		end,
 	},
+	-- {
+	-- 	"h4-mm-3r/recon.nvim",
+	-- 	config = function()
+	-- 		vim.keymap.set("n", "<leader>ra", function()
+	-- 			require("recon.mark").add_file()
+	-- 		end, { desc = "Recon Add File" })
+	-- 		vim.keymap.set("n", "<leader>rm", function()
+	-- 			require("recon.ui").toggle_quick_menu()
+	-- 		end, { desc = "Recon Menu" })
+	-- 		vim.keymap.set("n", "<C-p>", function()
+	-- 			require("recon.ui").nav_prev()
+	-- 		end, { desc = "Recon Previous" })
+	-- 		vim.keymap.set("n", "<C-n>", function()
+	-- 			require("recon.ui").nav_next()
+	-- 		end, { desc = "Recon Next" })
+	-- 	end,
+	-- },
 	{
-		-- "recon.nvim",
-		-- dir = "~/git-repos/recon.nvim",
-        "h4-mm-3r/recon.nvim",
+		"recon.nvim",
+		dir = "~/git-repos/recon.nvim",
 		config = function()
 			require("recon").setup()
 			vim.keymap.set("n", "<leader>ra", function()
@@ -393,6 +397,19 @@ return {
 				require("recon.ui").nav_file(4)
 			end, { desc = "recon 4" })
 		end,
+	},
+	{
+		"leath-dub/snipe.nvim",
+		keys = {
+			{
+				"<leader>gb",
+				function()
+					require("snipe").open_buffer_menu()
+				end,
+				desc = "Open Snipe buffer menu",
+			},
+		},
+		opts = {},
 	},
 	{
 		"stevearc/dressing.nvim",

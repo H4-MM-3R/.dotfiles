@@ -2,14 +2,19 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		config = function()
+			local fb_actions = require("telescope").extensions.file_browser.actions
 			require("telescope").setup({
 				defaults = {
 					mappings = {
 						n = {
 							["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
+							["q"] = require("telescope.actions").close,
+							["<BS>"] = fb_actions.backspace,
+							["<M-/>"] = fb_actions.create,
 							["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
 						},
 						i = {
+							["<M-/>"] = fb_actions.create,
 							["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
 							["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
 						},
@@ -48,10 +53,10 @@ return {
 						hijack_netrw = true,
 						theme = false,
 						hide_parent_dir = true,
-					                   follow_symlinks = true,
-					                   display_stat = {
-					                       mode = false,
-					                   }
+						follow_symlinks = true,
+						display_stat = {
+							mode = false,
+						},
 					},
 					fzf = {
 						fuzzy = true,
@@ -61,7 +66,20 @@ return {
 					},
 				},
 				pickers = {
-					current_buffer_fuzzy_find = { sorting_strategy = "ascending" },
+					live_grep = {
+						layout_config = {
+							horizontal = {
+								preview_width = 0,
+							},
+						},
+					},
+					current_buffer_fuzzy_find = {
+						layout_config = {
+							horizontal = {
+								preview_width = 0,
+							},
+						},
+					},
 				},
 			})
 			require("telescope").load_extension("file_browser")
@@ -106,12 +124,12 @@ return {
 	},
 	-- {
 	-- 	"jelmansouri/oil.nvim",
- --        branch = "feat/scratch-preview",
+	--        branch = "feat/scratch-preview",
 	-- 	opts = {},
 	-- 	dependencies = { { "nvim-tree/nvim-web-devicons", opt = true } },
- --        keys = function()
- --            vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
- --        end
+	--        keys = function()
+	--            vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+	--        end
 	--
 	-- },
 	{

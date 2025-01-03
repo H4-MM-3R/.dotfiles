@@ -1,0 +1,64 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 1020354,
+      "type": "movie",
+      "rating": "0.0",
+      "release_date": "Dec 20, 2024",
+      "last_air_date": null,
+      "lang": "ta",
+      "description": "Troubles worsen for Kumaresan after the capture of Perumal Vaathiyar, and soon he is confronted with having to make a choice between performing his duties as a police constable, or joining with Vaathiyaar to take a stand for what is right.",
+      "title": "Viduthalai: Part II",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/pRofNEH4lnP9ZFUDrra01Ma81Vi.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/pRofNEH4lnP9ZFUDrra01Ma81Vi.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/pRofNEH4lnP9ZFUDrra01Ma81Vi.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/h6cZ4GLXpuBEYNs6DzSGCqHbypL.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/h6cZ4GLXpuBEYNs6DzSGCqHbypL.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 786345,
+      "type": "movie",
+      "rating": "8.1",
+      "release_date": "Mar 30, 2023",
+      "last_air_date": null,
+      "lang": "ta",
+      "description": "Kumaresan, a police constable, gets recruited for an operation implanted to capture Perumal Vaathiyar, who leads a separatist group dedicated to fighting against the authorities for committing atrocities against innocent village women in the name of police interrogations.",
+      "title": "Viduthalai: Part I",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/oTxPji8PY3PL0SK9e4mkt2laJKg.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/oTxPji8PY3PL0SK9e4mkt2laJKg.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/oTxPji8PY3PL0SK9e4mkt2laJKg.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/zHcOppWpmIfbmbuvF98xTnqf4jk.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/zHcOppWpmIfbmbuvF98xTnqf4jk.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 66270,
+      "type": "movie",
+      "rating": "5.7",
+      "release_date": "Apr 11, 1986",
+      "last_air_date": null,
+      "lang": "ta",
+      "description": "Raja, a thief, and Amar, a goonda, plot to settle in London with the money earned from a robbery. But when Raja gets arrested for killing gangster Sudarshan, Amar's ex-boss, he feels Amar framed him.",
+      "title": "Viduthalai",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/ty8Zw9OZxZQgdgqiiBAYLBciqbf.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/ty8Zw9OZxZQgdgqiiBAYLBciqbf.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/ty8Zw9OZxZQgdgqiiBAYLBciqbf.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 3
+}

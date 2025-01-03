@@ -23,7 +23,7 @@ nth() {
     prompt="$1"
     multi_flag=""
     [ $# -ne 1 ] && shift && multi_flag="$1"
-    line=$(printf "%s" "$stdin" | cut -f1,3 | tr '\t' ' ' | launcher "$multi_flag" "$prompt" | cut -d " " -f 1)
+    line=$(printf "%s" "$stdin" | cut -f1,2 | tr '\t' ' ' | launcher "$multi_flag" "$prompt" | cut -d " " -f 1)
     [ -n "$line" ] && printf "%s" "$stdin" | grep -E '^'"${line}"'($|[[:space:]])' | cut -f2,3 
 }
 
@@ -92,7 +92,7 @@ get_episode_url() {
     wait
     # select the link with matching quality
     links=$(cat "$cache_dir"/* | sed 's|^Mp4-||g;/http/!d;/Alt/d' | sort -g -r -s)
-    # rm -r "$cache_dir"
+    rm -r "$cache_dir"
     episode=$(select_quality "$quality")
     echo "$episode"
     [ -z "$episode" ] && die "Episode not released!"
@@ -177,7 +177,6 @@ play() {
 }
 
 
-
 # API function 1.
 search_anime() {
     search_gql="query(        \$search: SearchInput        \$limit: Int        \$page: Int        \$translationType: VaildTranslationTypeEnumType        \$countryOrigin: VaildCountryOriginEnumType    ) {    shows(        search: \$search        limit: \$limit        page: \$page        translationType: \$translationType        countryOrigin: \$countryOrigin    ) {        edges {            _id name availableEpisodes __typename       }    }}"
@@ -193,8 +192,6 @@ episodes_list() {
     curl -e "$allanime_refr" -s -G "${allanime_api}/api" --data-urlencode "variables={\"showId\":\"$*\"}" --data-urlencode "query=$episodes_list_gql" -A "$agent" | sed -nE "s|.*$mode\":\[([0-9.\",]*)\].*|\1|p" | sed 's|,|\
 |g; s|"||g' | sort -n -k 1
 }
-
-
 
 
 # Main script

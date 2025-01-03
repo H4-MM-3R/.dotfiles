@@ -16,11 +16,20 @@ vim.cmd([[
 
 vim.cmd([[
 augroup MakePRG
-autocmd FileType cpp setlocal makeprg=clang++\ -static\ --debug\ -DLOCAL\ -Wall\ -Wextra\ -std=c++17\ -o\ %:r\ %
+autocmd FileType cpp setlocal makeprg=clang++\ -static\ --debug\ -DLOCAL\ -Wall\ -std=c++17\ -o\ %:r\ %
 autocmd FileType java setlocal makeprg=java\ %
 autocmd FileType python setlocal makeprg=python\ %
 autocmd FileType javascript setlocal makeprg=node\ %
 augroup end
+]])
+
+vim.cmd([[
+augroup MarkdownConceal
+  autocmd!
+  autocmd FileType markdown setlocal conceallevel=0
+  autocmd InsertEnter * setlocal conceallevel=2
+  autocmd InsertLeave * setlocal conceallevel=0
+augroup END
 ]])
 
 -- vim.cmd [[
@@ -61,7 +70,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 
 		if line_count == 1 and vim.api.nvim_buf_get_lines(buf, 0, 1, false)[1] == "" then
 			-- require("dotnet.dotnet").bootstrap_new_csharp_file()
-            require("lua.customs.csharp-init").bootstrap_new_csharp_file()
+			require("lua.customs.csharp-init").bootstrap_new_csharp_file()
 		end
 	end,
 })
@@ -75,11 +84,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function()
 		-- Override the keymap for C# files
 		vim.keymap.set("n", "<leader>lg", function()
-			require("omnisharp_extended").telescope_lsp_definitions({jump_type = "vsplit"})
+			require("omnisharp_extended").telescope_lsp_definitions({ jump_type = "vsplit" })
 		end, opts)
 	end,
 })
-
-vim.cmd([[
-autocmd FileType markdown setlocal conceallevel=2
-]])

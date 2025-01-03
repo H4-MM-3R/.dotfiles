@@ -1,0 +1,387 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 671,
+      "type": "movie",
+      "rating": "7.9",
+      "release_date": "Nov 16, 2001",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Harry Potter has lived under the stairs at his aunt and uncle's house his whole life. But on his 11th birthday, he learns he's a powerful wizard—with a place waiting for him at the Hogwarts School of Witchcraft and Wizardry. As he learns to harness his newfound powers with the help of the school's kindly headmaster, Harry uncovers the truth about his parents' deaths—and about the villain who's to blame.",
+      "title": "Harry Potter and the Philosopher's Stone",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/wuMc08IPKEatf9rnMNXvIDxqP4W.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/hziiv14OpD73u9gAak4XDDfBKa2.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 767,
+      "type": "movie",
+      "rating": "7.7",
+      "release_date": "Jul 15, 2009",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "As Lord Voldemort tightens his grip on both the Muggle and wizarding worlds, Hogwarts is no longer a safe haven. Harry suspects perils may even lie within the castle, but Dumbledore is more intent upon preparing him for the final battle fast approaching. Together they work to find the key to unlock Voldemorts defenses and to this end, Dumbledore recruits his old friend and colleague Horace Slughorn, whom he believes holds crucial information. Even as the decisive showdown looms, romance blossoms for Harry, Ron, Hermione and their classmates. Love is in the air, but danger lies ahead and Hogwarts may never be the same again.",
+      "title": "Harry Potter and the Half-Blood Prince",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/z7uo9zmQdQwU5ZJHFpv2Upl30i1.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/z7uo9zmQdQwU5ZJHFpv2Upl30i1.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/z7uo9zmQdQwU5ZJHFpv2Upl30i1.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/ze6Mx4QE5mQVXRYmG2flncqqle4.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/ze6Mx4QE5mQVXRYmG2flncqqle4.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 672,
+      "type": "movie",
+      "rating": "7.7",
+      "release_date": "Nov 13, 2002",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Cars fly, trees fight back, and a mysterious house-elf comes to warn Harry Potter at the start of his second year at Hogwarts. Adventure and danger await when bloody writing on a wall announces: The Chamber Of Secrets Has Been Opened. To save Hogwarts will require all of Harry, Ron and Hermione’s magical abilities and courage.",
+      "title": "Harry Potter and the Chamber of Secrets",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/sdEOH0992YZ0QSxgXNIGLq1ToUi.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/sdEOH0992YZ0QSxgXNIGLq1ToUi.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/sdEOH0992YZ0QSxgXNIGLq1ToUi.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/yHzyPJrVqlTySQ9mc379yxrLBYQ.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/yHzyPJrVqlTySQ9mc379yxrLBYQ.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 673,
+      "type": "movie",
+      "rating": "8.0",
+      "release_date": "May 31, 2004",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Year three at Hogwarts means new fun and challenges as Harry learns the delicate art of approaching a Hippogriff, transforming shape-shifting Boggarts into hilarity and even turning back time. But the term also brings danger: soul-sucking Dementors hover over the school, an ally of the accursed He-Who-Cannot-Be-Named lurks within the castle walls, and fearsome wizard Sirius Black escapes Azkaban. And Harry will confront them all.",
+      "title": "Harry Potter and the Prisoner of Azkaban",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/aWxwnYoe8p2d2fcxOqtvAtJ72Rw.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/aWxwnYoe8p2d2fcxOqtvAtJ72Rw.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/aWxwnYoe8p2d2fcxOqtvAtJ72Rw.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/htmYEfH7TQgzsXHCnNXxmoYKQtL.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/htmYEfH7TQgzsXHCnNXxmoYKQtL.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 674,
+      "type": "movie",
+      "rating": "7.8",
+      "release_date": "Nov 16, 2005",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "When Harry Potter's name emerges from the Goblet of Fire, he becomes a competitor in a grueling battle for glory among three wizarding schools—the Triwizard Tournament. But since Harry never submitted his name for the Tournament, who did? Now Harry must confront a deadly dragon, fierce water demons and an enchanted maze only to find himself in the cruel grasp of He Who Must Not Be Named.",
+      "title": "Harry Potter and the Goblet of Fire",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/fECBtHlr0RB3foNHDiCBXeg9Bv9.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/fECBtHlr0RB3foNHDiCBXeg9Bv9.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/fECBtHlr0RB3foNHDiCBXeg9Bv9.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/8f9dnOtpArDrOMEylpSN9Sc6fuz.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/8f9dnOtpArDrOMEylpSN9Sc6fuz.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 12444,
+      "type": "movie",
+      "rating": "7.7",
+      "release_date": "Nov 17, 2010",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Harry, Ron and Hermione walk away from their last year at Hogwarts to find and destroy the remaining Horcruxes, putting an end to Voldemort's bid for immortality. But with Harry's beloved Dumbledore dead and Voldemort's unscrupulous Death Eaters on the loose, the world is more dangerous than ever.",
+      "title": "Harry Potter and the Deathly Hallows: Part 1",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/iGoXIpQb7Pot00EEdwpwPajheZ5.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/iGoXIpQb7Pot00EEdwpwPajheZ5.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/iGoXIpQb7Pot00EEdwpwPajheZ5.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/AqLcLsGGTzAjm3pCCq0CZCQrp6m.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/AqLcLsGGTzAjm3pCCq0CZCQrp6m.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 675,
+      "type": "movie",
+      "rating": "7.7",
+      "release_date": "Jul 8, 2007",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Returning for his fifth year of study at Hogwarts, Harry is stunned to find that his warnings about the return of Lord Voldemort have been ignored. Left with no choice, Harry takes matters into his own hands, training a small group of students to defend themselves against the dark arts.",
+      "title": "Harry Potter and the Order of the Phoenix",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/5aOyriWkPec0zUDxmHFP9qMmBaj.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/5aOyriWkPec0zUDxmHFP9qMmBaj.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/5aOyriWkPec0zUDxmHFP9qMmBaj.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/bsaA9qtIR6VTDQykXdBzJc8V5rS.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/bsaA9qtIR6VTDQykXdBzJc8V5rS.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 12445,
+      "type": "movie",
+      "rating": "8.1",
+      "release_date": "Jul 12, 2011",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Harry, Ron and Hermione continue their quest to vanquish the evil Voldemort once and for all. Just as things begin to look hopeless for the young wizards, Harry discovers a trio of magical objects that endow him with powers to rival Voldemort's formidable skills.",
+      "title": "Harry Potter and the Deathly Hallows: Part 2",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/c54HpQmuwXjHq2C9wmoACjxoom3.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/c54HpQmuwXjHq2C9wmoACjxoom3.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/c54HpQmuwXjHq2C9wmoACjxoom3.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/n5A7brJCjejceZmHyujwUTVgQNC.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/n5A7brJCjejceZmHyujwUTVgQNC.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 224377,
+      "type": "tv",
+      "rating": "0.0",
+      "release_date": null,
+      "last_air_date": null,
+      "lang": "en",
+      "description": "A new faithful adaptation of the iconic and megahit J.K. Rowling book series.",
+      "title": "Harry Potter",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/aCJ6S38B7DsQiSYlaPj4l5vVCPo.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/aCJ6S38B7DsQiSYlaPj4l5vVCPo.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/aCJ6S38B7DsQiSYlaPj4l5vVCPo.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/bzhWKIjvhhu8TOnnKhE8odPc6to.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/bzhWKIjvhhu8TOnnKhE8odPc6to.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 899082,
+      "type": "movie",
+      "rating": "7.3",
+      "release_date": "Jan 1, 2022",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "An enchanting making-of story told through all-new in-depth interviews and cast conversations, inviting fans on a magical first-person journey through one of the most beloved film franchises of all time.",
+      "title": "Harry Potter 20th Anniversary: Return to Hogwarts",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/jntLBq0MLR3hrwKaTQswxACRPMs.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/jntLBq0MLR3hrwKaTQswxACRPMs.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/jntLBq0MLR3hrwKaTQswxACRPMs.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/bqlfDdEnDiyMp5DxYl50FIrvyNO.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/bqlfDdEnDiyMp5DxYl50FIrvyNO.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 254514,
+      "type": "tv",
+      "rating": "7.9",
+      "release_date": "Nov 14, 2024",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Pairs of professional bakers compete to create spellbinding edible showpieces on the actual sets where the Harry Potter films were made.",
+      "title": "Harry Potter: Wizards of Baking",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/2zMkqbYBOqKg2pBEbMUvAcyhN8y.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/2zMkqbYBOqKg2pBEbMUvAcyhN8y.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/2zMkqbYBOqKg2pBEbMUvAcyhN8y.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/k8qNPKRl9skiOcFx9nPLvBhYhSr.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/k8qNPKRl9skiOcFx9nPLvBhYhSr.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 483898,
+      "type": "movie",
+      "rating": "7.5",
+      "release_date": "Jul 27, 2011",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "To mark the release two weeks ago of the eighth and final movie in the series, Robbie Coltrane narrates a countdown of the movie franchise's best moments. From Harry's first meeting with Ron and Hermione aboard the Hogwarts Express through to magical mysteries.",
+      "title": "50 Greatest Harry Potter Moments",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/g1xiBoLD6v3ZaXPa4QtuXiQeYKW.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/g1xiBoLD6v3ZaXPa4QtuXiQeYKW.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/g1xiBoLD6v3ZaXPa4QtuXiQeYKW.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/4LOxoeZWt5wr9mooxEZRFK96lDd.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/4LOxoeZWt5wr9mooxEZRFK96lDd.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 482408,
+      "type": "movie",
+      "rating": "7.3",
+      "release_date": "Oct 28, 2017",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "A thrilling journey through legends, belief and folklore, this film goes behind the scenes with the British Library as they search to tell that story through objects in their collection, in an ambitious new exhibition: Harry Potter: A History Of Magic.  J.K. Rowling, who is lending unseen manuscripts, drawings and drafts from her private archives (which will sit alongside treasures from the British Library, as well as original drafts and drawings from Jim Kay) talks about some of the personal items she has lent to the exhibition and gives new insight into her writing, looking at some of the objects from the exhibition that have fired her imagination.",
+      "title": "Harry Potter: A History Of Magic",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/kkzDng2S8w2hT1gap7MdMdx7uUE.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/kkzDng2S8w2hT1gap7MdMdx7uUE.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/kkzDng2S8w2hT1gap7MdMdx7uUE.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/mjCYpJXCBYDZgMr1U1KZcFgFDfC.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/mjCYpJXCBYDZgMr1U1KZcFgFDfC.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1082707,
+      "type": "movie",
+      "rating": "7.4",
+      "release_date": "Jun 11, 2004",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "A 2004 documentary on the first three “Harry Potter” films detailing the behind-the-scenes journey of making them.",
+      "title": "The Magic Touch of Harry Potter",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/gwFARNYf1Odv3E8ESVHyikXmMIY.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/gwFARNYf1Odv3E8ESVHyikXmMIY.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/gwFARNYf1Odv3E8ESVHyikXmMIY.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 133723,
+      "type": "tv",
+      "rating": "7.3",
+      "release_date": "Nov 28, 2021",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Wizarding World fans put their Harry Potter knowledge to the test for the ultimate honor to be named House Cup champion.",
+      "title": "Harry Potter: Hogwarts Tournament of Houses",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/tEHHfzqHnfNJUp4L30wQeYl2xRo.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/tEHHfzqHnfNJUp4L30wQeYl2xRo.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/tEHHfzqHnfNJUp4L30wQeYl2xRo.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/6W8zEF5jE9ErdhzatZBVI7fkpsP.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/6W8zEF5jE9ErdhzatZBVI7fkpsP.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 918078,
+      "type": "movie",
+      "rating": "6.5",
+      "release_date": "Oct 10, 2012",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Made-for-television documentary about Daniel Radcliffe and his role as Harry Potter.",
+      "title": "Daniel Radcliffe: Being Harry Potter",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/4keobTsQVrMS2JwE3TRod0SrYTD.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/4keobTsQVrMS2JwE3TRod0SrYTD.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/4keobTsQVrMS2JwE3TRod0SrYTD.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 919590,
+      "type": "movie",
+      "rating": "6.8",
+      "release_date": "Oct 31, 2021",
+      "last_air_date": null,
+      "lang": "de",
+      "description": "",
+      "title": "Phantastische Harry Potter Momente - Das große SAT.1 Spezial",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/1Ci05BbrRgc8qwKSvliJH6gqzol.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/1Ci05BbrRgc8qwKSvliJH6gqzol.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/1Ci05BbrRgc8qwKSvliJH6gqzol.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 260229,
+      "type": "tv",
+      "rating": "8.5",
+      "release_date": "Aug 21, 2024",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "J.K. Rowling’s orphan boy wizard took the world by storm, but before the first book was even published Warner Brothers had their eye on a franchise. But how to make it soar? In a leaky shed in the UK, these cinematic wizards build a whole new world and changed filmmaking forever. Through a revolving door of directors, an assortment of magical creatures, increasing demand for visual effects, and a cast that is growing up, the Harry Potter series continued to fascinate audiences. Get behind the wand to hear the secrets of the trials, threats, and near-death experiences from the people who made the magic happen on Icons Unearthed: Harry Potter.",
+      "title": "Icons Unearthed: Harry Potter",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/1irJ5IxsqLM9EjHyAV4ADanosND.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/1irJ5IxsqLM9EjHyAV4ADanosND.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/1irJ5IxsqLM9EjHyAV4ADanosND.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/79j18LVN3EGHeLh2Vco772gpKnw.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/79j18LVN3EGHeLh2Vco772gpKnw.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1118680,
+      "type": "movie",
+      "rating": "8.4",
+      "release_date": "Apr 26, 2023",
+      "last_air_date": null,
+      "lang": "fr",
+      "description": "Immerse yourself in the magic of Harry Potter by uncovering the secrets behind the global bestseller. Over 20 years later, the wizards of Hogwarts remain immensely popular among audiences, transcending generations. To grasp the reasons behind such success, this documentary will introduce you to the most extravagant fans who perpetuate the phenomenon.",
+      "title": "Harry Potter : les secrets du phénomène",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/7iJ20z09sZpbl0vgj4NIbnUDcfN.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/7iJ20z09sZpbl0vgj4NIbnUDcfN.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/7iJ20z09sZpbl0vgj4NIbnUDcfN.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/zikoNIlodwkPhAU9iAwN17sOTrD.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/zikoNIlodwkPhAU9iAwN17sOTrD.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 116972,
+      "type": "movie",
+      "rating": "6.9",
+      "release_date": "Dec 10, 2001",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Explore the myths and legends that inhabit the real world of Harry Potter. Follow award-winning documentary filmmakers as they offer insights to witches, wizards, Greek gods, ancient Celts, ghosts, magical creatures, alchemy, and ancient spells. Narrated by British actor Hugh Laurie, this fascinating documentary brings new dimensions to the historical and scientific world behind the Harry Potter series.",
+      "title": "Discovering the Real World of Harry Potter",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/yLpnOqKw3ZycFu8t5Gil1BqTbnB.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/yLpnOqKw3ZycFu8t5Gil1BqTbnB.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/yLpnOqKw3ZycFu8t5Gil1BqTbnB.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 2,
+  "total_results": 31
+}

@@ -1,0 +1,83 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 93405,
+      "type": "tv",
+      "rating": "7.8",
+      "release_date": "Sep 17, 2021",
+      "last_air_date": null,
+      "lang": "ko",
+      "description": "Hundreds of cash-strapped players accept a strange invitation to compete in children's games. Inside, a tempting prize awaits — with deadly high stakes.",
+      "title": "Squid Game",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/2meX1nMdScFOoV4370rqHWKmXhY.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/2meX1nMdScFOoV4370rqHWKmXhY.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 204082,
+      "type": "tv",
+      "rating": "6.4",
+      "release_date": "Nov 22, 2023",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "In this reality competition show inspired by \"Squid Game,\" 456 players put their skills to the ultimate test for a life-changing $4.56 million prize.",
+      "title": "Squid Game: The Challenge",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/2Hg3DXoxoLAIGO0qR2hu9P4yNFK.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/2Hg3DXoxoLAIGO0qR2hu9P4yNFK.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/2Hg3DXoxoLAIGO0qR2hu9P4yNFK.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/fQsIJQxE1D0Y0NpWSKwo489y5px.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/fQsIJQxE1D0Y0NpWSKwo489y5px.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1214667,
+      "type": "movie",
+      "rating": "5.1",
+      "release_date": "Dec 7, 2023",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Go behind the scenes and witness how the \"Squid Game\" - inspired reality show transformed from a scripted drama to a cutthroat, nail-biting competition.",
+      "title": "Making Squid Game: The Challenge",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/xdGTxIFR127VZlloaoEB20l4v3G.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/xdGTxIFR127VZlloaoEB20l4v3G.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/xdGTxIFR127VZlloaoEB20l4v3G.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/lb2WCbppZ6iHfokg7ccmgjKPKNh.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/lb2WCbppZ6iHfokg7ccmgjKPKNh.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1388071,
+      "type": "movie",
+      "rating": "7.0",
+      "release_date": "Jul 13, 2024",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Sir Knight and the Gray Wizard set off to end the terror of the Squid People once and for all.",
+      "title": "Squid Game 3: The Maclanky",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/e02t4nWmFRjGsUmxIbnRPSnkhzh.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/e02t4nWmFRjGsUmxIbnRPSnkhzh.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/e02t4nWmFRjGsUmxIbnRPSnkhzh.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/qqId1R2RUWSm98I3UqrEN7hP548.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/qqId1R2RUWSm98I3UqrEN7hP548.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 4
+}

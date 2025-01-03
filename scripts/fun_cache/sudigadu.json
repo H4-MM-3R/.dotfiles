@@ -1,0 +1,26 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 155738,
+      "type": "movie",
+      "rating": "6.0",
+      "release_date": "Aug 24, 2012",
+      "last_air_date": null,
+      "lang": "te",
+      "description": "Shiva, born with heroic powers, can stop bullets. He decides to take revenge against his sworn enemy, Thikkal Reddy, in order to rescue his kidnapped parents.",
+      "title": "Sudigaadu",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/rlLpVpZGfTKu2UKzOBeHQgrNrzt.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/rlLpVpZGfTKu2UKzOBeHQgrNrzt.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/rlLpVpZGfTKu2UKzOBeHQgrNrzt.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 1
+}

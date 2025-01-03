@@ -4,6 +4,7 @@ local opts = { noremap = true, silent = true }
 vim.opt.nu = true
 vim.opt.rnu = true
 vim.opt.showtabline = 1
+vim.opt.syntax = "on"
 
 -- Encoding
 vim.opt.fileencoding = "utf-8"
@@ -63,7 +64,7 @@ vim.opt.splitbelow = true
 
 -- Best keymaps for me
 
--- btw, I use <M-;> for changing to Normal Mode
+vim.keymap.set("i", "<M-;>", "<Esc>", { desc = "Insert to Normal Mode" })
 
 vim.keymap.set("t", "<M-;>", "<C-\\><C-n>", { desc = "Terminal to Normal Mode" })
 vim.keymap.set("n", "<Leader>ss", ":silent !tmux neww sessionizer<CR>", { desc = "Sessionizer" })
@@ -133,24 +134,24 @@ vim.keymap.set("n", "<leader>lq", "<cmd>lclose<CR>", { desc = "close quickfix li
 
 -- Notification
 vim.keymap.set("n", "<leader>n", function()
-    require("notify").dismiss({ silent = true, pending = true })
+	require("notify").dismiss({ silent = true, pending = true })
 end, { desc = "Notify Dismiss" })
 
 -- Harpoon for Terminal
 for i = 1, 5 do
-    vim.keymap.set("n", "<leader>c" .. i, function()
-        require("lua.customs.cmdrunner_window").run_harpoon_cmd(i)
-    end, { desc = "Harpoon Run Command on a Window " .. i })
+	vim.keymap.set("n", "<leader>c" .. i, function()
+		require("lua.customs.cmdrunner_window").run_harpoon_cmd(i)
+	end, { desc = "Harpoon Run Command on a Window " .. i })
 end
 
 for i = 1, 5 do
-    vim.keymap.set("n", "<leader>h" .. i, function()
-        require("recon.cmd-runner").run_recon_cmd(i)
-    end, { desc = "Recon Run Command " .. i })
+	vim.keymap.set("n", "<leader>h" .. i, function()
+		require("recon.cmd-runner").run_recon_cmd(i)
+	end, { desc = "Recon Run Command " .. i })
 end
 
 vim.keymap.set("n", "<leader>rc", function()
-    require("recon.cmd-ui").toggle_quick_menu()
+	require("recon.cmd-ui").toggle_quick_menu()
 end, { desc = "Recon Terminal Command Menu" })
 
 -- Faster Navigation for me
@@ -159,7 +160,7 @@ end, { desc = "Recon Terminal Command Menu" })
 
 -- Luasnip select mode pasting Bug
 vim.keymap.set("s", "p", function()
-    vim.api.nvim_feedkeys("p", "n", false)
+	vim.api.nvim_feedkeys("p", "n", false)
 end, { silent = true, remap = false, desc = "Don't paste in select mode" })
 
 vim.keymap.set("n", "<leader>lr", "<Cmd>luafile %<CR>", { desc = "Lua file Runner" })
@@ -171,15 +172,78 @@ vim.keymap.set("n", "<leader>ac", ":silent Leet console<CR>", { desc = "LeetCode
 vim.keymap.set("n", "<leader>ai", ":silent Leet info<CR>", { desc = "LeetCode Information" })
 
 vim.keymap.set("n", ",<leader>", function()
-    vim.cmd.new()
-    vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0, 12)
-    vim.wo.winfixheight = true
-    vim.cmd.term()
-    vim.cmd.startinsert()
+	vim.cmd.new()
+	vim.cmd.wincmd("J")
+	vim.api.nvim_win_set_height(0, 12)
+	vim.wo.winfixheight = true
+	vim.cmd.term()
+	vim.cmd.startinsert()
 end)
 
-vim.keymap.set({'n', 't'}, '<M-h>', '<CMD>NavigatorLeft<CR>')
-vim.keymap.set({'n', 't'}, '<M-l>', '<CMD>NavigatorRight<CR>')
-vim.keymap.set({'n', 't'}, '<M-k>', '<CMD>NavigatorUp<CR>')
-vim.keymap.set({'n', 't'}, '<M-j>', '<CMD>NavigatorDown<CR>')
+vim.keymap.set({ "n", "t" }, "<M-h>", "<CMD>NavigatorLeft<CR>")
+vim.keymap.set({ "n", "t" }, "<M-l>", "<CMD>NavigatorRight<CR>")
+vim.keymap.set({ "n", "t" }, "<M-k>", "<CMD>NavigatorUp<CR>")
+vim.keymap.set({ "n", "t" }, "<M-j>", "<CMD>NavigatorDown<CR>")
+
+-- Oil.nvim file_browser
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
+-- local function format_diagnostic_with_markdown(diagnostic)
+-- 	-- Convert the diagnostic message to include markdown code formatting
+-- 	local formatted_message = diagnostic.message:gsub("'(.-)'", function(match)
+-- 		return "`\n" .. match .. "\n`"
+-- 	end)
+--
+-- 	return formatted_message
+-- end
+
+local function trim(str)
+	str = str:gsub("^%s*(.-)%s*$", "%1")
+
+	if string.sub(str, -1, -1) == "." then
+		str = string.sub(str, 1, -2)
+		str = str:gsub("^%s*(.-)%s*$", "%1")
+	end
+
+	return str
+end
+
+-- local function format_diagnostic_with_treesitter(diagnostic)
+-- 	-- Detect language based on file type or fallback to a default
+-- 	local lang = vim.bo.filetype or "markdown"
+--
+-- 	-- Format the diagnostic message with code blocks
+-- 	local formatted_message = diagnostic.message:gsub("'(.-)'", function(match)
+-- 		-- Use Treesitter to highlight the code block
+-- 		local highlighted = vim.treesitter.highlight.code_block(match, lang)
+-- 		return "```ts" .. lang .. "\n" .. (highlighted or match) .. "\n```"
+-- 	end)
+--
+-- 	return formatted_message
+-- end
+
+vim.diagnostic.config({
+	virtual_text = true,
+	float = {
+		source = "always",
+		border = "rounded",
+		format = function(diagnostic)
+			return trim(diagnostic.message)
+		end,
+		prefix = function(diagnostic, i, total)
+			local hl = "Comment"
+			local prefix = total > 1 and ("%d. "):format(i) or ""
+
+			if diagnostic.source then
+				prefix = ("%s%s: "):format(prefix, trim(diagnostic.source))
+			end
+
+			return prefix, hl
+		end,
+		win_options = {
+			conceallevel = 2,
+			concealcursor = "n",
+			winhighlight = "NormalFloat:Normal,FloatBorder:Normal",
+		},
+	},
+})

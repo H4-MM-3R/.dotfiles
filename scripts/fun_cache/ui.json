@@ -1,0 +1,83 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 984500,
+      "type": "movie",
+      "rating": "10.0",
+      "release_date": "Dec 20, 2024",
+      "last_air_date": null,
+      "lang": "kn",
+      "description": "Set in a fictional world, the story is about the psychological conflict between a king in a town and an extraordinary man, and how that man, through his cunning and master minded plans takes over everything, takes control of the entire town, becomes a dictator.",
+      "title": "UI",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/tWoeysV4ro6wn4TE0QgqMuo6Val.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/tWoeysV4ro6wn4TE0QgqMuo6Val.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/tWoeysV4ro6wn4TE0QgqMuo6Val.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/uYqmQctQH8Rg8pM36um4rpkGZS0.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/uYqmQctQH8Rg8pM36um4rpkGZS0.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 68711,
+      "type": "tv",
+      "rating": "8.0",
+      "release_date": "Mar 28, 2016",
+      "last_air_date": null,
+      "lang": "nl",
+      "description": "",
+      "title": "Mr. Frank Visser doet Uitspraak",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/oJQuJgH5Rj8NJXd78C3jziecFt1.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/oJQuJgH5Rj8NJXd78C3jziecFt1.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/oJQuJgH5Rj8NJXd78C3jziecFt1.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/tO64vH2X3LRtIMLvfy0W9ZDPq9f.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/tO64vH2X3LRtIMLvfy0W9ZDPq9f.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 275933,
+      "type": "tv",
+      "rating": "8.0",
+      "release_date": "Nov 11, 2024",
+      "last_air_date": null,
+      "lang": "nl",
+      "description": "",
+      "title": "Uitstel Van Executie: Met Raad En Daad",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/8z7Xk4LJfv3456h41v9qw3vcu7Q.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/8z7Xk4LJfv3456h41v9qw3vcu7Q.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/8z7Xk4LJfv3456h41v9qw3vcu7Q.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/h6HF4vMNNCuh2ERjlCfQ2lxuj8X.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/h6HF4vMNNCuh2ERjlCfQ2lxuj8X.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 271081,
+      "type": "tv",
+      "rating": "0.0",
+      "release_date": "Sep 10, 2024",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "After over 85 championships in over 12 countries, the P1 world is fast, and growing. The international motorboat racing competition organised by the Union Internationale Motornautique (UIM) is the highest class of inshore powerboat racing, proving to be an adrenaline rush for both participants and spectators.  The P1 Championship promises an event filled with speed, extreme water sports and excitement. Don’t miss out on the powerboating universe and all of its races. In the P1 Superstock USA racers face each other on their respective P1 Panthers at vertiginous speeds and try to reach the finish line in the first place.If you like extreme sports, you are in for a thrill.",
+      "title": "P1 USA UIM Class 1",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/52r3iS3nXanGQpRSjZJSXFLeho1.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/52r3iS3nXanGQpRSjZJSXFLeho1.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/52r3iS3nXanGQpRSjZJSXFLeho1.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/pdCZosictUt4qwEPIQUmAqoWhnZ.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/pdCZosictUt4qwEPIQUmAqoWhnZ.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 45,
+  "total_results": 891
+}

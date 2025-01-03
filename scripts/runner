@@ -4,7 +4,7 @@ item=$1
 item_basename=$(basename "$item" .cpp)
 
 compiler_cpp(){
-    clang++ -static -s -lm -DLOCAL -Wall -Wextra -O2 -std=c++17 -o "$item_basename" "$item"
+    clang++ -static -s -lm -DLOCAL -Wall -O2 -std=c++17 -o "$item_basename" "$item"
 
     if [[ $? -ne 0 ]]; then 
         echo "Compilation failed"
@@ -13,14 +13,14 @@ compiler_cpp(){
 }
 
 # running codeforces tests
-cf_runner_cp(){
+cp_runner_cpp(){
 
     compiler_cpp
 
     for input_file in "${item_basename}"*[0-9].in; do
 
         if [[ ! -f "$input_file" ]]; then
-            normal_runner
+            normal_runner_cpp
             exit 1
         fi
 
@@ -48,7 +48,7 @@ cf_runner_cp(){
     done
 }
 
-normal_runner(){
+normal_runner_cpp(){
     if [[ ! -f "$item_basename.in" ]]; then
         touch "$item_basename.in"
     fi
@@ -58,7 +58,7 @@ normal_runner(){
 
 case "$item" in
     *.cpp)
-        cf_runner_cp "$item"
+        cp_runner_cpp "$item"
         ;;
     *)
         echo "Invalid file type"

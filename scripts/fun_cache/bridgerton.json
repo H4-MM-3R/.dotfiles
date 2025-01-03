@@ -1,0 +1,83 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 91239,
+      "type": "tv",
+      "rating": "8.1",
+      "release_date": "Dec 25, 2020",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Wealth, lust, and betrayal set in the backdrop of Regency era England, seen through the eyes of the powerful Bridgerton family.",
+      "title": "Bridgerton",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/luoKpgVwi1E5nQsi7W0UuKHu2Rq.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/luoKpgVwi1E5nQsi7W0UuKHu2Rq.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/luoKpgVwi1E5nQsi7W0UuKHu2Rq.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/tdlHJ8KoOd9UgUygCWQ3fKRNkAR.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/tdlHJ8KoOd9UgUygCWQ3fKRNkAR.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 196454,
+      "type": "tv",
+      "rating": "8.1",
+      "release_date": "May 4, 2023",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "The story of how the young Queen Charlotte’s marriage to King George sparked both a great love story and a societal shift, creating the world of the Ton inherited by the characters in Bridgerton.",
+      "title": "Queen Charlotte: A Bridgerton Story",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/eR7btjpvOugivUYSoEsD2iAOYsJ.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/eR7btjpvOugivUYSoEsD2iAOYsJ.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/eR7btjpvOugivUYSoEsD2iAOYsJ.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/AsmNm6f83DpllBL4VxcxwTR6S5W.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/AsmNm6f83DpllBL4VxcxwTR6S5W.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 271401,
+      "type": "tv",
+      "rating": "0.0",
+      "release_date": "Jun 6, 2024",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "The fabulous wealthy elite of Bridgerton look perfectly preened, their teeth, hair, make up, even their sex scenes are all filled with opulent glamour! But in reality a lot of people in Georgian society, including the wealthy, were dealing with a myriad of issues, from syphilis, teeth decay, secret sex societies and scandals to opium and gin addictions. All of this would have been rife and incredibly visible on the big city streets during the booming industrial revolution.\n\nThis two-part series is a deep dive into the 'real' 18th century. Sex historian Dr Kate Lister removes Bridgerton’s rose-tinted glasses, unlaces the corsets and unbuttons the breaches of the Georgians. Join Kate as she investigates how sex, drugs and the world of celebrity were a big thing long before the 20th century.",
+      "title": "Georgian Sex, Drugs, and Rock n Roll: Unbuttoning Bridgerton",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342null",
+        "coverMedium": "http://image.tmdb.org/t/p/w780null",
+        "coverLarge": "http://image.tmdb.org/t/p/w780null",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/wwrRf9sufj09rPGOzJMeD963GiD.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/wwrRf9sufj09rPGOzJMeD963GiD.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 115549,
+      "type": "tv",
+      "rating": "6.0",
+      "release_date": "Jan 2, 2021",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Hosts David Spade, Fortune Feimster and London Hughes welcome guests from the newest and biggest Netflix titles for fun conversations, skits and more.",
+      "title": "The Netflix Afterparty",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/sb4rAJC4y8IA5VI5ZhgUC8oQbia.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/sb4rAJC4y8IA5VI5ZhgUC8oQbia.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/sb4rAJC4y8IA5VI5ZhgUC8oQbia.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/itdlI1L4hr3sDPLFAtByeSPfZTA.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/itdlI1L4hr3sDPLFAtByeSPfZTA.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 4
+}

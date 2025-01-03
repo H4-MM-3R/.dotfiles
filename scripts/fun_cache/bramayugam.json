@@ -1,0 +1,26 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 1166133,
+      "type": "movie",
+      "rating": "7.5",
+      "release_date": "Feb 15, 2024",
+      "last_air_date": null,
+      "lang": "ml",
+      "description": "Thevan, a folk singer of the Paanan caste, has a fateful encounter when escaping slavery, leading to discover an ancient tradition altering his destiny.",
+      "title": "Bramayugam",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/snQLwRrfQAl5YFKVefZq9Lbscki.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/snQLwRrfQAl5YFKVefZq9Lbscki.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/snQLwRrfQAl5YFKVefZq9Lbscki.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/qLkVnDIpfpOjCpH3MfApW8jUir1.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/qLkVnDIpfpOjCpH3MfApW8jUir1.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 1
+}

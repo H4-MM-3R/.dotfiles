@@ -1,0 +1,102 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 957926,
+      "type": "movie",
+      "rating": "7.9",
+      "release_date": "Jan 5, 2024",
+      "last_air_date": null,
+      "lang": "ml",
+      "description": "After a party amongst a theatre group, their sole actress, Anjali is subjected to a crime from one of the men in the group. A meeting is called for. In trying to reach a consensus, stories unravel, suspicions surface and clamour ensues.",
+      "title": "Aattam",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/gjptPp7YlX1oy9yCjEpOdlrRisL.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/gjptPp7YlX1oy9yCjEpOdlrRisL.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/gjptPp7YlX1oy9yCjEpOdlrRisL.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/75rb8oTFVzOHhlL6RX6cEG7Q3fA.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/75rb8oTFVzOHhlL6RX6cEG7Q3fA.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 886447,
+      "type": "movie",
+      "rating": "6.5",
+      "release_date": "Aug 5, 2022",
+      "last_air_date": null,
+      "lang": "ta",
+      "description": "Shakthi, an attender in government hospital wins the friendship of Muthu, a son of kingpin in Madurai. His sudden death forces him to take revenge on the culprits who were responsible for the same.",
+      "title": "Kuruthi Aattam",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/6ZXOTifDxQTGmvq2YoFbhNb6SIZ.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/6ZXOTifDxQTGmvq2YoFbhNb6SIZ.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/6ZXOTifDxQTGmvq2YoFbhNb6SIZ.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/oGhMpfGWPJg0B9UrXayogbsIU2n.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/oGhMpfGWPJg0B9UrXayogbsIU2n.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1185144,
+      "type": "movie",
+      "rating": "0.0",
+      "release_date": null,
+      "last_air_date": null,
+      "lang": "en",
+      "description": "Irandaam Aatam is the next offering from Vijay Chithiram, a story of a wife who struggles to keep her husband grounded when middle age crisis strikes.",
+      "title": "Irandaam Aattam",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342null",
+        "coverMedium": "http://image.tmdb.org/t/p/w780null",
+        "coverLarge": "http://image.tmdb.org/t/p/w780null",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1267190,
+      "type": "movie",
+      "rating": "0.0",
+      "release_date": "Mar 20, 2024",
+      "last_air_date": null,
+      "lang": "ml",
+      "description": "Exploring the backgrounds of the players behind the 2024 film Aattam, and their experiences in making the film.",
+      "title": "Thespians of Aattam",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342null",
+        "coverMedium": "http://image.tmdb.org/t/p/w780null",
+        "coverLarge": "http://image.tmdb.org/t/p/w780null",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 442413,
+      "type": "movie",
+      "rating": "0.0",
+      "release_date": "Feb 17, 2017",
+      "last_air_date": null,
+      "lang": "ta",
+      "description": "A top cop investigates the case of a missing youngster who is allegedly involved in romantic deception of girls.",
+      "title": "Pagadi Attam",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/aSoEXlGKOaCltdL9WbTaEoeVawm.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/aSoEXlGKOaCltdL9WbTaEoeVawm.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/aSoEXlGKOaCltdL9WbTaEoeVawm.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/qIn8mBFZ6NgMGr30p7quMDhQH0R.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/qIn8mBFZ6NgMGr30p7quMDhQH0R.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 6
+}

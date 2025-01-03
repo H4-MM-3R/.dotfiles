@@ -1,0 +1,64 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 118809,
+      "type": "movie",
+      "rating": "4.4",
+      "release_date": "Jan 1, 1992",
+      "last_air_date": null,
+      "lang": "hi",
+      "description": "When a gangster takes over the art of karate and causes unrest in a town, one man rises to fight against them.",
+      "title": "Jigar",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/uWDpye3njNiwegY00rlV57IiC3i.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/uWDpye3njNiwegY00rlV57IiC3i.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/uWDpye3njNiwegY00rlV57IiC3i.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/6ztsEa5YhnntXlphdSWplBD5sfm.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/6ztsEa5YhnntXlphdSWplBD5sfm.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 270766,
+      "type": "movie",
+      "rating": "7.4",
+      "release_date": "Aug 1, 2014",
+      "last_air_date": null,
+      "lang": "ta",
+      "description": "A budding director endeavors to research a merciless gangster for making a film on gangsterism. But his secret attempts to conduct the research fail when he gets caught for snooping.",
+      "title": "Jigarthanda",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/mh6uLFD5aWbQeKvrBK2hDLN5DIu.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/mh6uLFD5aWbQeKvrBK2hDLN5DIu.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/mh6uLFD5aWbQeKvrBK2hDLN5DIu.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/ydXxKE3km4qsoqunO6g5SpbKhD4.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/ydXxKE3km4qsoqunO6g5SpbKhD4.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1007074,
+      "type": "movie",
+      "rating": "7.4",
+      "release_date": "Nov 10, 2023",
+      "last_air_date": null,
+      "lang": "ta",
+      "description": "A notorious gangster is incited to transform into a film hero and opts for a filmmaker and their project descends into a scenario they had never anticipated.",
+      "title": "Jigarthanda DoubleX",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/rlPTdgLfgsSv8WiQXRZ2AVIDwAi.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/rlPTdgLfgsSv8WiQXRZ2AVIDwAi.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/rlPTdgLfgsSv8WiQXRZ2AVIDwAi.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/a9WQ72W3xYaglMzQPiI43VmlVa2.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/a9WQ72W3xYaglMzQPiI43VmlVa2.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 3,
+  "total_results": 42
+}

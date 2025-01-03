@@ -1,0 +1,108 @@
+#!/usr/bin/env bash
+
+search_movie() {
+	local query="$*"
+	if [ -z "$*" ]; then
+		printf "\33[2K\r\033[1;36mSearch Movies or TV Shows: \033[0m" && read -r query
+	fi
+
+	if [ -z "$query" ]; then
+		printf "\033[1;31mNo query provided\033[0m\n"
+		exit 1
+	fi
+
+	printf "\033[1;34mSearching...\033[0m\n"
+
+	if ! [ -d "/home/hemram/.local/bin/scripts/fun_cache" ]; then
+		mkdir "/home/hemram/.local/bin/scripts/fun_cache"
+		printf "\033[1;32mCreated cache directory\033[0m\n"
+	fi
+
+	query=$(printf "%s" "$query" | sed "s| |%20|g")
+	filename=$(printf "%s" "$query" | sed "s|%20|_|g")
+	response_file="/home/hemram/.local/bin/scripts/fun_cache/${filename}.json"
+
+	if [ -f "$response_file" ]; then
+		printf "\033[1;32mUsing cached response...\033[0m\n"
+		parse_json
+		return
+	fi
+
+	web_response=$(curl -s "https://backend.freek.to/api/search?type=multi&page=1&query=$query&_=20241216" \
+		-H 'origin: https://freek.to' \
+		-H 'referer: https://freek.to/' \
+		--data-raw '{"filters":[{"value":"any","key":"with_genres","isChanged":false},{"value":"any","key":"year","isChanged":false},{"value":"popularity.desc","key":"sort_by","isChanged":false},{"value":"any","key":"with_origin_country","isChanged":false}]}')
+	responses=$(echo "$web_response" | jq -r '.total_results')
+	if [ $responses == 0 ]; then
+		printf "\033[1;31mNo results found\033[0m\n"
+		exit 1
+	fi
+	echo "$web_response" | jq >"$response_file"
+
+	parse_json
+}
+
+parse_json() {
+	local json_file="/home/hemram/.local/bin/scripts/fun_cache/${filename}.json"
+	local id=$(
+		jq -r '.results[] | [ .title , .id ] | @tsv' "$json_file" |
+			column -t -s $'\t' |
+			fzf --ansi --header="Movies and TV Shows" \
+				--preview="jq --color-output -r '.results[] |
+                            select(.id == {-1}) |
+                            [\"Rating:\",.rating], [\"Type:\",.type], [\"Release Date:\",.release_date], [\"Description:\",.description]  |
+                            @tsv ' $json_file |
+                       sed -E \
+                           -e 's/^Type:/\x1b[1;32mType:\x1b[0m/' \
+                           -e 's/^Rating:/\x1b[1;33mRating:\x1b[0m/' \
+                           -e 's/^Release Date:/\x1b[1;34mRelease Date:\x1b[0m/' \
+                           -e 's/^Description:/\x1b[1;35mDescription:\x1b[0m/' | \
+                       fold -s -w $((($(tput cols) / 2) - 7))" |
+			awk '{print $NF}'
+	)
+	if [ -z "$id" ]; then
+		printf "\033[1;31mNo Entry is Selected\033[0m\n"
+		exit 1
+	fi
+	type=$(jq -r ".results[] | select(.id == $id) | .type" "$json_file")
+	wslview "https://vidsrc.xyz/embed/$type/$id"
+}
+
+# Parse command-line options
+query="$*"
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+	-c | --cache)
+        cached_query=$(ls /home/hemram/.local/bin/scripts/fun_cache | sed "s|.json||g" | fzf \
+            --ansi \
+            --header="Cached Movies and TV Shows" \
+            --preview="cat /home/hemram/.local/bin/scripts/fun_cache/{}.json | jq --color-output -r '.results[].title' | fold -s -w $((($(tput cols) / 2) - 7))" |
+			awk '{print $NF}'
+                       
+    )
+        if [ -z "$cached_query" ]; then
+            printf "\033[1;31mNo item is selected\033[0m\n"
+            printf "\033[1;32mSelect an item from the cache\033[0m\n"
+            exit 1
+        fi
+        search_movie "$cached_query"
+		exit
+		;;
+    -h | --help)
+        printf "by H4-MM-3R\n"
+        printf "for educational purposes only\n"
+        printf "\033[1;36mUsage:\033[0m\n"
+        printf "\t%s [-c | --cache]\n" "$(basename "$0")"
+        printf "\t%s [-h | --help]\n" "$(basename "$0")"
+        printf "\t%s <query>\n" "$(basename "$0")"
+        exit
+        ;;
+    *)
+        shift
+        ;;
+	esac
+done
+
+search_movie "$query"
+
+

@@ -1,0 +1,83 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 857598,
+      "type": "movie",
+      "rating": "6.7",
+      "release_date": "Dec 4, 2024",
+      "last_air_date": null,
+      "lang": "te",
+      "description": "Pushpa struggles to sustain his sandalwood smuggling business in the face of tough opposition from the police, led by Shekhawat.",
+      "title": "Pushpa 2 - The Rule",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/759mIIerY4Njb8uPoj7AIXGSNh3.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/759mIIerY4Njb8uPoj7AIXGSNh3.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/759mIIerY4Njb8uPoj7AIXGSNh3.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/keC82cQ8q0ZHthrbvzWq04kGnbv.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/keC82cQ8q0ZHthrbvzWq04kGnbv.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 690957,
+      "type": "movie",
+      "rating": "7.0",
+      "release_date": "Dec 16, 2021",
+      "last_air_date": null,
+      "lang": "te",
+      "description": "Pushpa Raj is a coolie who rises in the world of red sandalwood smuggling. Along the way, he doesn’t shy from making an enemy or two.",
+      "title": "Pushpa: The Rise",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/r1yAzVQNbCbPTbB3GZFour9Qr0t.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/r1yAzVQNbCbPTbB3GZFour9Qr0t.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/r1yAzVQNbCbPTbB3GZFour9Qr0t.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/2f9YnS7JKrIqBv7dMQG8sRS2aJv.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/2f9YnS7JKrIqBv7dMQG8sRS2aJv.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 203769,
+      "type": "tv",
+      "rating": "7.0",
+      "release_date": "Jun 6, 2022",
+      "last_air_date": null,
+      "lang": "hi",
+      "description": "Pushpa Impossible is the story about a feisty middle-aged woman having studied until grade 9 in a Gujarati medium school and going back to school at the age of 44! She is boisterous, uncouth, impulsive, hardworking and an endearingly loveable mother of three children. She is Pushpa Patel hailing from a small town Patan in Gujarat and now residing at Bapodra Chawl in Mumbai. The show is a peek into her day-to-day struggles, her small victories, her Juggad, her shortcomings, and her constant pursuit of living a good life while struggling as a full-time mother and part-time businesswoman. The show is an autobiography of a mother, who decides to go back to school and change her life by impacting many lives!",
+      "title": "Pushpa Impossible",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/A0ZMTiipcHQONUgNUdkefD93Sc4.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/A0ZMTiipcHQONUgNUdkefD93Sc4.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/A0ZMTiipcHQONUgNUdkefD93Sc4.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/xvVmAU7DrObQfy7gq6NVTOEF3e1.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/xvVmAU7DrObQfy7gq6NVTOEF3e1.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1258916,
+      "type": "movie",
+      "rating": "0.0",
+      "release_date": "Oct 4, 2024",
+      "last_air_date": null,
+      "lang": "ml",
+      "description": "After covering up a tragic incident, a man faces a race against time to prevent the truth being exposed.",
+      "title": "Pushpaka Vimanam",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/iEfFplXZj4ofZlI1dhPQsBTErUH.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/iEfFplXZj4ofZlI1dhPQsBTErUH.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/iEfFplXZj4ofZlI1dhPQsBTErUH.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 6,
+  "total_results": 118
+}

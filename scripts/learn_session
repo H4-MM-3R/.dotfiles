@@ -1,31 +1,58 @@
 #!/usr/bin/env bash
 
+hydrate() {
+	local session_name=$1
+	local session_type=$2
+	local sessions_file=/home/hemram/.config/sessions.json
+
+	if [[ ! -f "$sessions_file" ]]; then
+		return 1
+	fi
+
+	local session_command=$(jq -r ".${session_type}[\"${session_name}\"] // empty" "$sessions_file")
+
+	terminal_exists=$(tmux list-windows -t "$session_name" -F '#{window_name}' 2>/dev/null | grep -c 'terminal')
+
+	if [[ -z "$session_command" ]]; then
+		return 0
+	fi
+
+	if [[ $terminal_exists -eq 0 ]]; then
+		tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
+		eval "tmux send-keys -t ${session_name}:terminal ${session_command}"
+	fi
+}
+
+tmux_has_exact_session() {
+	local search_name="$1"
+
+	# Get all session names and compare exactly
+	tmux list-sessions -F "#{session_name}" | grep -Fx "$search_name" >/dev/null 2>&1
+
+	return $?
+}
+
 session=$(fdfind --hidden --type d --min-depth 0 --max-depth 1 . ~/learn/pending ~/learn/completed | fzf --header 'Select Course' --border-label 'Learning Session')
 
 if [ -z "$session" ]; then
-    exit 1
+	exit 1
 fi
 
 session_name="_learn_$(basename $session)"
-terminal_exists=$(tmux list-windows -t "$session_name" -F '#{window_name}' 2> /dev/null | grep -c 'terminal')
-
 
 if [[ -z $TMUX ]]; then
-    tmux new-session -s "$session_name" -c "$session" -d
-    tmux attach -t "$session_name"
-    if [[ $terminal_exists -eq 0 ]]; then
-        tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
-    fi
-    exit 0
+	tmux new-session -s "$session_name" -c "$session" -d
+	hydrate "$session_name" "learn_sessions"
+	tmux attach -t "$session_name"
+	if [[ $terminal_exists -eq 0 ]]; then
+		tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
+	fi
+	exit 0
 fi
 
-if ! tmux has-session -t "$session_name" 2> /dev/null; then
-    tmux new-session -s "$session_name" -c "$session" -d
+if ! tmux_has_exact_session "$session_name"; then
+	tmux new-session -s "$session_name" -c "$session" -d
+	hydrate "$session_name" "learn_sessions"
 fi
 
 tmux switch-client -t "$session_name"
-
-if [[ $terminal_exists -eq 0 ]]; then
-    tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
-fi
-

@@ -1,11 +1,7 @@
--- local languageServerPath = "/home/hemram/angular/myFirstAngularProject"
--- local angular_cmd =
--- 	{ "ngserver", "--stdio", "--tsProbeLocations", languageServerPath, "--ngProbeLocations", languageServerPath }
-
 return {
 	{
 		"neovim/nvim-lspconfig",
-        event = "LazyFile",
+		event = "LazyFile",
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 		},
@@ -60,8 +56,51 @@ return {
 				capabilities = capabilities,
 				handlers = handlers,
 			})
-			require("lspconfig").ts_ls.setup({
-				capabilities = capabilities,
+			-- require("lspconfig").ts_ls.setup({
+			-- 	capabilities = capabilities,
+			-- 	handlers = handlers,
+			-- 	settings = {
+			-- 		-- Ref: https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
+			-- 		preferences = {
+			-- 			quotePreference = "double",
+			-- 			includeCompletionsWithSnippetText = true,
+			-- 			generateReturnInDocTemplate = true,
+			-- 			includeInlayParameterNameHints = "all",
+			-- 			includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+			-- 			includeInlayFunctionParameterTypeHints = true,
+			-- 			includeInlayVariableTypeHints = true,
+			-- 			includeInlayPropertyDeclarationTypeHints = true,
+			-- 			includeInlayFunctionLikeReturnTypeHints = true,
+			-- 			includeInlayEnumMemberValueHints = true,
+			-- 		},
+			-- 		typescript = {
+			-- 			inlayHints = {
+			-- 				includeInlayParameterNameHints = "all",
+			-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+			-- 				includeInlayFunctionParameterTypeHints = true,
+			-- 				includeInlayVariableTypeHints = true,
+			-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+			-- 				includeInlayPropertyDeclarationTypeHints = true,
+			-- 				includeInlayFunctionLikeReturnTypeHints = true,
+			-- 				includeInlayEnumMemberValueHints = true,
+			-- 			},
+			-- 		},
+			-- 		javascript = {
+			-- 			inlayHints = {
+			-- 				includeInlayParameterNameHints = "all",
+			-- 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+			-- 				includeInlayFunctionParameterTypeHints = true,
+			-- 				includeInlayVariableTypeHints = true,
+			-- 				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+			-- 				includeInlayPropertyDeclarationTypeHints = true,
+			-- 				includeInlayFunctionLikeReturnTypeHints = true,
+			-- 				includeInlayEnumMemberValueHints = true,
+			-- 			},
+			-- 		},
+			-- 	},
+			-- })
+			require("lspconfig").vtsls.setup({
+				capabilities = capabilities_new,
 				handlers = handlers,
 			})
 			require("lspconfig").tailwindcss.setup({
@@ -302,7 +341,7 @@ return {
 	},
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-        event = "LazyFile",
+		event = "LazyFile",
 		config = function()
 			local null_ls = require("null-ls")
 			local formatter = null_ls.builtins.formatting
@@ -322,15 +361,16 @@ return {
 					formatter.csharpier,
 					formatter.gofmt,
 					formatter.goimports_reviser,
+					formatter.shfmt,
 				},
 			})
 		end,
 	},
 	{
-        "hrsh7th/nvim-cmp",
-        event = "InsertEnter",
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
 		dependencies = {
-            "L3MON4D3/LuaSnip",
+			"L3MON4D3/LuaSnip",
 			"rafamadriz/friendly-snippets",
 			"saadparwaiz1/cmp_luasnip",
 			"hrsh7th/cmp-nvim-lsp",
@@ -458,7 +498,7 @@ return {
 	},
 	{
 		"nvimdev/lspsaga.nvim",
-        event = "LazyFile",
+		event = "LazyFile",
 		config = function()
 			require("lspsaga").setup({
 				ui = {
@@ -513,5 +553,9 @@ return {
 				ensure_installed = { "java-test, java-debug-adapter" },
 			})
 		end,
+	},
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
 	},
 }
