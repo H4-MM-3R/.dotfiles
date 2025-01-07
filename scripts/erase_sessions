@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+sessions=$(tmux list-sessions -F '#{session_name}' | fzf --multi --layout "reverse" --height 20 --header 'Select Session to Switch' --border-label 'Session Switcher')
+
+if [[ -z "$sessions" ]]; then
+    exit
+fi
+
+for session in $sessions; do
+    tmux kill-session -t $session
+done

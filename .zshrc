@@ -50,6 +50,9 @@ zstyle ':fzf-tab:*' fzf-flags\
     --bind=tab:down,btab:up,alt-k:toggle+down\
 
 zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+# zstyle ':completion:*:*:source:*' file-patterns '^*(\.dll)' '*'
+# zstyle ':completion:*:*:source:*' file-patterns '*~*.dll' 
+zstyle ':completion:*:*:source:*' file-patterns '*~*.dll' '*~*.DLL' '*~*.png'
 
 ### ----- ###
 ### ZINIT ###
@@ -64,6 +67,7 @@ fi
 
 # Source/Load zinit
 source "${ZINIT_HOME}/zinit.zsh"
+
 
 ### ------- ###
 ### PLUGINS ###
@@ -83,7 +87,7 @@ alias ls='ls --color=always'
 alias la='ls -lAh'
 # Sessions
 alias s="sessionizer"
-alias sw="session_switcher"
+alias sd="erase_sessions"
 alias sc="config_session"
 alias sl="learn_session"
 alias lc="leetcode_nvim"
@@ -99,7 +103,7 @@ alias er="eraser"
 
 # Tmux Shortcuts
 alias ts="tmux new-session -s hemram"
-alias tks="tmux kill-server"
+alias tks="tmux kill-server && exit"
 alias tls="tmux list-sessions"
 alias ta="tmux attach"
 alias td="tmux detach"
