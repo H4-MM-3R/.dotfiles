@@ -20,7 +20,7 @@ hydrate() {
 	if [[ $terminal_exists -eq 0 ]]; then
 		tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
 		eval "tmux send-keys -t ${session_name}:terminal ${session_command}"
-		eval "tmux send-keys -t ${session_name}:zsh nvim Enter"
+        eval "tmux send-keys -t ${session_name}:zsh nvim Enter"
 	fi
 }
 
