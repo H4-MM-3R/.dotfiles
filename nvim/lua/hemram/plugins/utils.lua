@@ -3,6 +3,7 @@ return {
 		"nvim-telescope/telescope.nvim",
 		config = function()
 			local fb_actions = require("telescope").extensions.file_browser.actions
+
 			require("telescope").setup({
 				defaults = {
 					mappings = {
@@ -66,17 +67,70 @@ return {
 					},
 				},
 				pickers = {
+					find_files = {
+						mappings = {
+							n = {
+								["<C-Q>"] = require("telescope.actions").smart_send_to_qflist,
+								["q"] = require("telescope.actions").close,
+								["<BS>"] = fb_actions.backspace,
+								["<M-/>"] = fb_actions.create,
+								["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
+							},
+							i = {
+								["<M-/>"] = fb_actions.create,
+								["<C-Q>"] = require("telescope.actions").smart_send_to_qflist,
+								["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
+							},
+						},
+					},
 					live_grep = {
 						layout_config = {
 							horizontal = {
 								preview_width = 0,
 							},
 						},
+						mappings = {
+							n = {
+								["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
+								["q"] = require("telescope.actions").close,
+								["<BS>"] = fb_actions.backspace,
+								["<M-/>"] = fb_actions.create,
+								["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
+							},
+							i = {
+								["<M-/>"] = fb_actions.create,
+								["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
+								["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
+							},
+						},
 					},
 					current_buffer_fuzzy_find = {
+						tiebreak = function(entry1, entry2, prompt)
+							local start_pos1 = entry1.ordinal:find(prompt, 1, true) -- plain text search
+							if start_pos1 then
+								local start_pos2 = entry2.ordinal:find(prompt, 1, true)
+								return (start_pos2 and start_pos1 < start_pos2) or false
+							end
+							return false
+						end,
+						additional_args = { "--ignore-case", "--pcre2" },
 						layout_config = {
 							horizontal = {
 								preview_width = 0,
+							},
+						},
+						mappings = {
+							n = {
+								["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
+								["q"] = require("telescope.actions").close,
+								["<BS>"] = fb_actions.backspace,
+								["<M-/>"] = fb_actions.create,
+								["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
+							},
+							i = {
+								["<M-/>"] = fb_actions.create,
+								["<C-q>"] = require("telescope.actions").smart_send_to_qflist,
+								["<C-l>"] = require("telescope.actions").smart_send_to_loclist,
 							},
 						},
 					},
@@ -90,6 +144,17 @@ return {
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
 			vim.keymap.set("n", "<leader>fl", builtin.live_grep, { desc = "Live Grep" })
+
+			vim.keymap.set("n", "<leader>ft", builtin.help_tags, { desc = "Help Tags" })
+			vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Git Files" })
+			vim.keymap.set("n", "<leader>fc", builtin.current_buffer_fuzzy_find, { desc = "Current Buffer Fuzzy Find" })
+			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Keymaps" })
+			vim.keymap.set("n", "<leader>fb", builtin.builtin, { desc = "Builtin" })
+			vim.keymap.set("n", "<leader>fa", builtin.autocommands, { desc = "AutoCommands" })
+			vim.keymap.set("n", "<leader>fo", builtin.vim_options, { desc = "Vim_Options" })
+			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Diagnostics" })
+			vim.keymap.set("n", "<leader>fm", builtin.man_pages, { desc = "Man Pages" })
+
 			vim.keymap.set("n", "<leader>fs", function()
 				builtin.grep_string({ search = vim.fn.input("Grep > ") })
 			end, { desc = "Grep String" })
@@ -101,15 +166,17 @@ return {
 				local word = vim.fn.expand("<cWORD>")
 				builtin.grep_string({ search = word })
 			end, { desc = "Grep Word W" })
-			vim.keymap.set("n", "<leader>ft", builtin.help_tags, { desc = "Help Tags" })
-			vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Git Files" })
-			vim.keymap.set("n", "<leader>fc", builtin.current_buffer_fuzzy_find, { desc = "Current Buffer Fuzzy Find" })
-			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Keymaps" })
-			vim.keymap.set("n", "<leader>fb", builtin.builtin, { desc = "Builtin" })
-			vim.keymap.set("n", "<leader>fa", builtin.autocommands, { desc = "AutoCommands" })
-			vim.keymap.set("n", "<leader>fo", builtin.vim_options, { desc = "Vim_Options" })
-			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Diagnostics" })
-			vim.keymap.set("n", "<leader>fm", builtin.man_pages, { desc = "Man Pages" })
+
+			vim.keymap.set("n", "<leader>en", function()
+				builtin.find_files({
+					cwd = vim.fs.joinpath(vim.fn.stdpath("config")),
+				})
+			end)
+			vim.keymap.set("n", "<leader>ep", function()
+				builtin.find_files({
+					cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+				})
+			end)
 		end,
 	},
 	{

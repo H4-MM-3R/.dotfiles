@@ -20,9 +20,8 @@ hydrate() {
 	if [[ $terminal_exists -eq 0 ]]; then
 		tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
 		eval "tmux send-keys -t ${session_name}:terminal ${session_command}"
-        eval "tmux send-keys -t ${session_name}:zsh nvim Enter"
+		eval "tmux send-keys -t ${session_name}:zsh nvim Enter"
 	fi
-    
 }
 
 tmux_has_exact_session() {
@@ -41,7 +40,7 @@ else
 		--type d \
 		--exclude .git --exclude .logs --exclude .vscode --exclude .github \
 		--min-depth 0 --max-depth 1 . \
-		/home ~ ~/test ~/web3 ~/.local ~/.local/bin ~/junkyard ~/learn ~/git-repos ~/git-repos/dumpyard \
+		/home ~ ~/test ~/web3 ~/.local ~/.local/bin ~/.local/share/nvim/lazy ~/junkyard ~/learn ~/git-repos ~/git-repos/dumpyard \
 		~/git-repos/dumpyard/DesignPatterns/src |
 		fzf --header 'Select Session you need' --border-label 'Sessionizer')
 fi

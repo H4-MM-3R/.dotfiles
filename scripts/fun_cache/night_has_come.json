@@ -1,0 +1,102 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 229915,
+      "type": "tv",
+      "rating": "7.7",
+      "release_date": "Dec 4, 2023",
+      "last_air_date": null,
+      "lang": "ko",
+      "description": "Trapped in a deadly cursed Mafia game, the students of Yoo-il High must play the game to survive while unraveling the mysteries behind the curse.",
+      "title": "Night Has Come",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/p6uneqHRr3PobNcEvOAnETqMDeQ.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/p6uneqHRr3PobNcEvOAnETqMDeQ.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/p6uneqHRr3PobNcEvOAnETqMDeQ.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/w5ICY18bp2i8vvXeHYL2jkuSvoD.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/w5ICY18bp2i8vvXeHYL2jkuSvoD.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 573781,
+      "type": "movie",
+      "rating": "6.0",
+      "release_date": "Sep 19, 2019",
+      "last_air_date": null,
+      "lang": "en",
+      "description": "In order to prevent a future Apocalypse, scientists have developed a programme to prevent collective amnesia. Memories are stored and meticulously classified. They use this archive against forgetting, against the virus, against the night. But one night, an old man wakes up in a hospital and starts wondering where his memories came from. Slowly he discovers that nothing is what it seems.",
+      "title": "Night Has Come",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/w4nOAUwrsqDEU6KLUWo2DY7OY9S.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/w4nOAUwrsqDEU6KLUWo2DY7OY9S.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/w4nOAUwrsqDEU6KLUWo2DY7OY9S.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 831437,
+      "type": "movie",
+      "rating": "0.0",
+      "release_date": "May 1, 1998",
+      "last_air_date": null,
+      "lang": "ru",
+      "description": "Night comes. For a boy in a dark room, this is a time of fear.",
+      "title": "The Night Has Come",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342null",
+        "coverMedium": "http://image.tmdb.org/t/p/w780null",
+        "coverLarge": "http://image.tmdb.org/t/p/w780null",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1396391,
+      "type": "movie",
+      "rating": "0.0",
+      "release_date": "Dec 10, 2024",
+      "last_air_date": null,
+      "lang": "xx",
+      "description": "What do you hear?",
+      "title": "FATHER ( THE NIGHT HAS COME )",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/yvaHADxIuXXQqG4e3LbGu14kRHN.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/yvaHADxIuXXQqG4e3LbGu14kRHN.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/yvaHADxIuXXQqG4e3LbGu14kRHN.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 1301852,
+      "type": "movie",
+      "rating": "0.0",
+      "release_date": "Jun 30, 2024",
+      "last_air_date": null,
+      "lang": "es",
+      "description": "The making of a soldier in Peru. A group of young men, some of them teenagers, voluntarily enlists in a rigorous military program within the Peruvian Armed Forces. They are driven by their desire to engage in an ongoing armed conflict in the VRAEM, an area with military intervention framed by a 'war on drugs' policy.  They aspire to become ‘men of war’ and embark on a transformative journey from hopeful adventurers into soldiers. Amidst the violence in the secluded military environment in Peru, intimate moments unfold beyond a prejudiced gaze, where compassion and care blossom among them.",
+      "title": "Night Has Come",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/sPB32IwYLMAtL0uObQT1DMzPTlu.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/sPB32IwYLMAtL0uObQT1DMzPTlu.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/sPB32IwYLMAtL0uObQT1DMzPTlu.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/ifcSj9fBZ5xaZoIIC9YRZ6D19AE.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/ifcSj9fBZ5xaZoIIC9YRZ6D19AE.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 5
+}

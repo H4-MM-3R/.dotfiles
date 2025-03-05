@@ -2,6 +2,7 @@
     "diagnostics.globals": [
         "vim",
         "terminal_exists",
-        "goto_split_terminal"
+        "goto_split_terminal",
+        "fuzzy_search_sorted_by_line"
     ]
 }

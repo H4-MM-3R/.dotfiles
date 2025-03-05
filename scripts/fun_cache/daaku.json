@@ -1,0 +1,45 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "id": 1202235,
+      "type": "movie",
+      "rating": "5.4",
+      "release_date": "Jan 12, 2025",
+      "last_air_date": null,
+      "lang": "te",
+      "description": "A man defends a beleaguered rural community from murderous drug-traffickers.",
+      "title": "Daaku Maharaaj",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/rGW9ad5TERuoluGSkgF1wHXP45H.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/rGW9ad5TERuoluGSkgF1wHXP45H.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/rGW9ad5TERuoluGSkgF1wHXP45H.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780/fWLfoaen7tv3mUT65KWHg7zCFYn.jpg",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280/fWLfoaen7tv3mUT65KWHg7zCFYn.jpg",
+        "logo": null
+      },
+      "isAdult": false
+    },
+    {
+      "id": 911908,
+      "type": "movie",
+      "rating": "0.0",
+      "release_date": "Jan 1, 1981",
+      "last_air_date": null,
+      "lang": "hi",
+      "description": "Ravi would like to study medicine and then come back and practice it in his small town where there is no doctor or medical facility available for miles. Encouraged by the townspeople and his brother, Bankhe, he re-locates to Bombay, where in a few years time he is able to successfully complete his studies and become a doctor. When he returns home, nothing is the same anymore. His brother Bankhe is absconding, running away from Daku Jwala, who has sworn to kill him to avenge his brother's death - and Dr. Ravi himself has to face Jwala sooner or later - as Jwala's vengeance includes Bankhe and all of his family. Dr. Ravi must now make up his mind to look death at the hands of an angry Jwala - or re-locate and practice medicine elsewhere.",
+      "title": "Jwaala Daaku",
+      "images": {
+        "coverSmall": "http://image.tmdb.org/t/p/w342/qS40aPC9JZLVgMXooF3Y3MtkI9X.jpg",
+        "coverMedium": "http://image.tmdb.org/t/p/w780/qS40aPC9JZLVgMXooF3Y3MtkI9X.jpg",
+        "coverLarge": "http://image.tmdb.org/t/p/w780/qS40aPC9JZLVgMXooF3Y3MtkI9X.jpg",
+        "bannerSmall": "http://image.tmdb.org/t/p/w780null",
+        "bannerLarge": "http://image.tmdb.org/t/p/w1280null",
+        "logo": null
+      },
+      "isAdult": false
+    }
+  ],
+  "total_pages": 1,
+  "total_results": 2
+}

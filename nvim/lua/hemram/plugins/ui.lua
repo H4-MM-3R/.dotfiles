@@ -350,8 +350,26 @@ return {
 			})
 		end,
 	},
+	-- {
+	-- 	"h4-mm-3r/recon.nvim",
+	-- 	config = function()
+	-- 		vim.keymap.set("n", "<leader>ra", function()
+	-- 			require("recon.mark").add_file()
+	-- 		end, { desc = "Recon Add File" })
+	-- 		vim.keymap.set("n", "<leader>rm", function()
+	-- 			require("recon.ui").toggle_quick_menu()
+	-- 		end, { desc = "Recon Menu" })
+	-- 		vim.keymap.set("n", "<C-p>", function()
+	-- 			require("recon.ui").nav_prev()
+	-- 		end, { desc = "Recon Previous" })
+	-- 		vim.keymap.set("n", "<C-n>", function()
+	-- 			require("recon.ui").nav_next()
+	-- 		end, { desc = "Recon Next" })
+	-- 	end,
+	-- },
 	{
-		"h4-mm-3r/recon.nvim",
+		"recon.nvim",
+		dir = "~/git-repos/recon.nvim",
 		config = function()
 			require("recon").setup()
 			vim.keymap.set("n", "<leader>ra", function()
@@ -380,49 +398,15 @@ return {
 			end, { desc = "recon 4" })
 		end,
 	},
-	-- {
-	-- 	"recon.nvim",
-	-- 	dir = "~/git-repos/recon.nvim",
-	-- 	config = function()
-	-- 		require("recon").setup()
-	-- 		vim.keymap.set("n", "<leader>ra", function()
-	-- 			require("recon.mark").add_file()
-	-- 		end, { desc = "Recon Add File" })
-	-- 		vim.keymap.set("n", "<leader>rm", function()
-	-- 			require("recon.ui").toggle_quick_menu()
-	-- 		end, { desc = "Recon Menu" })
-	-- 		vim.keymap.set("n", "<C-p>", function()
-	-- 			require("recon.ui").nav_prev()
-	-- 		end, { desc = "Recon Previous" })
-	-- 		vim.keymap.set("n", "<C-n>", function()
-	-- 			require("recon.ui").nav_next()
-	-- 		end, { desc = "Recon Next" })
-	-- 		vim.keymap.set("n", "<leader>j1", function()
-	-- 			require("recon.ui").nav_file(1)
-	-- 		end, { desc = "recon 1" })
-	-- 		vim.keymap.set("n", "<leader>j2", function()
-	-- 			require("recon.ui").nav_file(2)
-	-- 		end, { desc = "recon 2" })
-	-- 		vim.keymap.set("n", "<leader>j3", function()
-	-- 			require("recon.ui").nav_file(3)
-	-- 		end, { desc = "recon 3" })
-	-- 		vim.keymap.set("n", "<leader>j4", function()
-	-- 			require("recon.ui").nav_file(4)
-	-- 		end, { desc = "recon 4" })
-	-- 	end,
-	-- },
 	{
-		"leath-dub/snipe.nvim",
-		keys = {
-			{
-				"<leader>gb",
-				function()
-					require("snipe").open_buffer_menu()
-				end,
-				desc = "Open Snipe buffer menu",
-			},
+		"rest-nvim/rest.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			opts = function(_, opts)
+				opts.ensure_installed = opts.ensure_installed or {}
+				table.insert(opts.ensure_installed, "http")
+			end,
 		},
-		opts = {},
 	},
 	{
 		"stevearc/dressing.nvim",

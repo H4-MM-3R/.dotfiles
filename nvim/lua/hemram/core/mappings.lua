@@ -99,14 +99,11 @@ vim.keymap.set("n", "<leader>ld", "<Cmd>Lspsaga show_buf_diagnostics<CR>", opts)
 vim.keymap.set("n", "<leader>lp", "<Cmd>Lspsaga peek_definition<CR>", opts)
 vim.keymap.set("n", "<leader>lg", "<Cmd>Lspsaga goto_definition<CR>", opts)
 
--- WhichKey
-vim.keymap.set("n", "<C-h>", "<Cmd>WhichKey<CR>", {})
-vim.keymap.set("i", "<C-h>", "<Cmd>WhichKey<CR>", {})
 
 -- Toggle
-vim.keymap.set("n", "<Leader>t", "<Cmd>Lspsaga term_toggle<CR>", { desc = "Toggle Terminal" })
+-- vim.keymap.set("n", "<Leader>t", "<Cmd>Lspsaga term_toggle<CR>", { desc = "Toggle Terminal" })
 vim.keymap.set("n", "<Leader>b", "<Cmd>Telescope file_browser<CR>", { desc = "Toggle File Browser" })
-vim.keymap.set("n", "<Leader>l", "<Cmd>Lazy<CR>", { desc = "Toggle Lazy" })
+vim.keymap.set("n", "<Leader>ll", "<Cmd>Lazy<CR>", { desc = "Toggle Lazy" })
 vim.keymap.set("n", "<Leader>m", "<Cmd>Mason<CR>", { desc = "Toggle Mason" })
 
 -- Games
@@ -126,11 +123,15 @@ vim.keymap.set("n", "<Leader>cc", ":update<CR>:make<CR>", { desc = "Compile" }, 
 vim.keymap.set("n", "<Leader>cr", ":update<CR>@g", { desc = "Run" }, opts)
 vim.keymap.set("n", "<Leader>wr", "<Cmd>Lspsaga rename<CR>", { desc = "Rename" }, opts)
 
+-- NeoTest
+vim.keymap.set("n", "]t", "<Cmd>Neotest jump next<CR>", { desc = "NeoTest Jump to Next Test case" })
+vim.keymap.set("n", "[t", "<Cmd>Neotest jump prev<CR>", { desc = "NeoTest Jump to Previous Test case" })
+vim.keymap.set("n", "<leader>tt", "<Cmd>Neotest run<CR>", { desc = "NeoTest Run Tests" })
+vim.keymap.set("n", "<leader>ts", "<Cmd>Neotest summary<CR>", { desc = "NeoTest Test Summary" })
+
 -- Quickfix
 vim.keymap.set("n", "<leader>qo", "<cmd>copen<CR>", { desc = "open quickfix list" })
 vim.keymap.set("n", "<leader>qq", "<cmd>cclose<CR>", { desc = "close quickfix list" })
-vim.keymap.set("n", "<leader>lo", "<cmd>lopen<CR>", { desc = "open quickfix list" })
-vim.keymap.set("n", "<leader>lq", "<cmd>lclose<CR>", { desc = "close quickfix list" })
 
 -- Notification
 vim.keymap.set("n", "<leader>n", function()
@@ -153,10 +154,6 @@ end
 vim.keymap.set("n", "<leader>rc", function()
 	require("recon.cmd-ui").toggle_quick_menu()
 end, { desc = "Recon Terminal Command Menu" })
-
--- Faster Navigation for me
--- vim.keymap.set("n", "<leader>j", "`c", { desc = "Go to Current position Mark" })
--- vim.keymap.set("n", "<leader>k", "`m", { desc = "Go to Marked position Mark" })
 
 -- Luasnip select mode pasting Bug
 vim.keymap.set("s", "p", function()
@@ -185,18 +182,6 @@ vim.keymap.set({ "n", "t" }, "<M-l>", "<CMD>NavigatorRight<CR>")
 vim.keymap.set({ "n", "t" }, "<M-k>", "<CMD>NavigatorUp<CR>")
 vim.keymap.set({ "n", "t" }, "<M-j>", "<CMD>NavigatorDown<CR>")
 
--- Oil.nvim file_browser
-vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-
--- local function format_diagnostic_with_markdown(diagnostic)
--- 	-- Convert the diagnostic message to include markdown code formatting
--- 	local formatted_message = diagnostic.message:gsub("'(.-)'", function(match)
--- 		return "`\n" .. match .. "\n`"
--- 	end)
---
--- 	return formatted_message
--- end
-
 local function trim(str)
 	str = str:gsub("^%s*(.-)%s*$", "%1")
 
@@ -208,24 +193,9 @@ local function trim(str)
 	return str
 end
 
--- local function format_diagnostic_with_treesitter(diagnostic)
--- 	-- Detect language based on file type or fallback to a default
--- 	local lang = vim.bo.filetype or "markdown"
---
--- 	-- Format the diagnostic message with code blocks
--- 	local formatted_message = diagnostic.message:gsub("'(.-)'", function(match)
--- 		-- Use Treesitter to highlight the code block
--- 		local highlighted = vim.treesitter.highlight.code_block(match, lang)
--- 		return "```ts" .. lang .. "\n" .. (highlighted or match) .. "\n```"
--- 	end)
---
--- 	return formatted_message
--- end
-
 vim.diagnostic.config({
 	virtual_text = true,
 	float = {
-		source = "always",
 		border = "rounded",
 		format = function(diagnostic)
 			return trim(diagnostic.message)
@@ -247,3 +217,5 @@ vim.diagnostic.config({
 		},
 	},
 })
+
+vim.keymap.set("n", "<Leader>i", "<Cmd>Inspect<CR>", opts)

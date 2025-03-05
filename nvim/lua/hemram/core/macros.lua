@@ -4,13 +4,14 @@ vim.cmd([[ let @l=":vimgrep//**\<Left>\<Left>\<left>" ]]) -- replace all occuren
 
 vim.cmd([[
           augroup CodeRunner
-                  autocmd BufEnter *.java let @g=":w\<CR>:sp | terminal java %\<CR>i"
-                  autocmd BufEnter *.cpp let @g=":w\<CR> :sp |terminal runner %\<CR>i"
-                  autocmd BufEnter *.cs let @g=":w\<CR> :sp | terminal dotnet build --debug --no-restore && dotnet run --no-build \<CR>"
-                  autocmd BufEnter *.py let @g=":w\<CR>:sp |terminal python3 %\<CR>i"
-                  autocmd BufEnter *.js let @g=":w\<CR> :sp | terminal nodejs % \<CR>i"
-                  autocmd BufEnter *.rs let @g=":w\<CR> :sp | terminal cargo run"
-                  autocmd BufEnter *.go let @g=":w\<CR> :sp | terminal go run %\<CR>i"
+                  autocmd BufEnter *.java let @g=":sp | terminal java %\<CR>i"
+                  autocmd BufEnter *.c let @g=":sp |terminal clang % -o %< && ./%<\<CR>i"
+                  autocmd BufEnter *.cs let @g=":sp | terminal dotnet build --debug --no-restore && dotnet run --no-build \<CR>"
+                  autocmd BufEnter *.py let @g=":sp |terminal python3 %\<CR>i"
+                  autocmd BufEnter *.js let @g=":sp | terminal nodejs % \<CR>i"
+                  autocmd BufEnter *.rs let @g=":sp | terminal cargo run"
+                  autocmd BufEnter *.go let @g=":sp | terminal go run %\<CR>i"
+                  autocmd BufEnter *.cpp let @g=":sp |terminal runner %\<CR>i"
           augroup end
 ]])
 

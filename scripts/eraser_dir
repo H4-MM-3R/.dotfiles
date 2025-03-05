@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
 # Find directories using fdfind and select multiple using fzf
-selected=$(fdfind --type d | fzf --multi --layout "reverse" --header 'Select directories to Delete' --border-label 'Eraser (Directories)' )
+selected=$(fdfind --type d -d 1 | fzf \
+    --multi \
+    --layout "reverse" \
+    --header 'SELECT DIRECTORIES TO DELETE {{ Alt-T: Toggle Search Depth }}' \
+    --border-label 'Eraser (Directories)' \
+    --bind 'alt-t:transform:[[ ! $FZF_BORDER_LABEL =~ Recursive ]] &&
+                echo "change-border-label(Eraser (Directories) Recursive)+reload( fdfind --type d )" ||
+                echo "change-border-label(Eraser (Directories))+reload( fdfind --type d -d 1 )"' )
 
 # If no directories were selected, exit the script
 if [[ -z "$selected" ]]; then

@@ -1,12 +1,23 @@
 #!/usr/bin/env bash
 
 # Find directories using fdfind and select multiple using fzf
-selected=$(fdfind --type f | fzf --multi --ansi --preview 'bat --color=always --theme="Solarized (dark)" {}' --preview-window 'right,50%,border-left,<50(up,60%,border-bottom)' --header 'Select files to delete' --border-label 'Eraser (Files)' )
+selected=$(
+	fdfind --type f -d 1 | fzf \
+		--multi \
+		--ansi \
+		--header 'SELECT FILES TO DELETE {{ Alt-T: Toggle Search Depth }}' \
+		--border-label 'Eraser (Files)' \
+        --bind 'alt-t:transform:[[ ! $FZF_BORDER_LABEL =~ Recursive ]] &&
+                echo "change-border-label(Eraser (Files) Recursive)+reload( fdfind --type f )" ||
+                echo "change-border-label(Eraser (Files))+reload( fdfind --type f -d 1 )"' \
+		--preview 'bat --color=always --theme="Solarized (dark)" {}' \
+		--preview-window 'right,50%,border-left,<50(up,60%,border-bottom)' \
+)
 
 # If no directories were selected, exit the script
 if [[ -z "$selected" ]]; then
-    echo "No directories selected."
-    exit 0
+	echo "No directories selected."
+	exit 0
 fi
 
 # Confirm deletion
@@ -16,10 +27,8 @@ read -p "Are you sure you want to delete these files? [y/N] " confirm
 
 # Delete the directories if confirmed
 if [[ "$confirm" == [yY] ]]; then
-    echo "$selected" | xargs -I {} rm -rf {}
-    echo "Selected files deleted."
+	echo "$selected" | xargs -I {} rm -rf {}
+	echo "Selected files deleted."
 else
-    echo "Deletion cancelled."
+	echo "Deletion cancelled."
 fi
-
-

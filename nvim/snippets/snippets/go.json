@@ -121,7 +121,7 @@
     },
     "fmt.Println": {
         "prefix": "fp",
-        "body": "fmt.Println(\"$1\")",
+        "body": "log.Println(\"$1\")",
         "description": "Snippet for fmt.Println()"
     },
     "fmt.Printf": {

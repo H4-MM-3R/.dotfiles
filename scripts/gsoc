@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+
+json_file="/home/hemram/.local/bin/scripts/gsoc.json"
+jq_filter=".result.data.allOrganization.edges[].node"
+
+# Parse command-line arguments
+while [[ "$#" -gt 0 ]]; do
+    case $1 in
+        --category | -c)
+            selected_categories=$(jq -r '.result.data.allOrganization.edges[].node.category' "$json_file" \
+                | sort -u \
+                | fzf -m --prompt="Select categories: " --header="Tab to multi-select")
+
+            if [[ -n "$selected_categories" ]]; then
+                jq_filter+=" | select("
+                first=true
+                while read -r category; do
+                    if [ "$first" = true ]; then
+                        jq_filter+=".category == \"$category\""
+                        first=false
+                    else
+                        jq_filter+=" and .category == \"$category\""
+                    fi
+                done <<< "$selected_categories"
+                jq_filter+=")"
+            fi
+            shift
+            ;;
+        
+        --technology | -t)
+            selected_technologies=$(jq -r '.result.data.allOrganization.edges[].node.technologies[]?' "$json_file" \
+                | sort -u \
+                | fzf -m --prompt="Select technologies: " --header="Tab to multi-select")
+
+            if [[ -n "$selected_technologies" ]]; then
+                jq_filter+=" | select("
+                first=true
+                while read -r technology; do
+                    if [ "$first" = true ]; then
+                        jq_filter+="(.technologies[]? | contains(\"$technology\"))"
+                        first=false
+                    else
+                        jq_filter+=" and (.technologies[]? | contains(\"$technology\"))"
+                    fi
+                done <<< "$selected_technologies"
+                jq_filter+=")"
+            fi
+            shift
+            ;;
+        
+        --usage | -u)
+            selected_topics=$(jq -r '.result.data.allOrganization.edges[].node.topics[]?' "$json_file" \
+                | sort -u \
+                | fzf -m --prompt="Select topics: " --header="Tab to multi-select")
+
+            if [[ -n "$selected_topics" ]]; then
+                jq_filter+=" | select("
+                first=true
+                while read -r topic; do
+                    if [ "$first" = true ]; then
+                        jq_filter+="(.topics[]? | contains(\"$topic\"))"
+                        first=false
+                    else
+                        jq_filter+=" and (.topics[]? | contains(\"$topic\"))"
+                    fi
+                done <<< "$selected_topics"
+                jq_filter+=")"
+            fi
+            shift
+            ;;
+        
+        --year | -y)
+            selected_years=$(jq -r '.result.data.allOrganization.edges[].node.years | to_entries | map(select(.value != null) | .key | ltrimstr("_")) | .[]' "$json_file" \
+                | sort -u \
+                | fzf -m --prompt="Select years: " --header="Tab to multi-select")
+
+            if [[ -n "$selected_years" ]]; then
+                jq_filter+=" | select("
+                first=true
+                while read -r year; do
+                    if [ "$first" = true ]; then
+                        jq_filter+="(.years | to_entries | map(select(.value != null) | .key | ltrimstr(\"_\")) | contains([\"$year\"]))"
+                        first=false
+                    else
+                        jq_filter+=" and (.years | to_entries | map(select(.value != null) | .key | ltrimstr(\"_\")) | contains([\"$year\"]))"
+                    fi
+                done <<< "$selected_years"
+                jq_filter+=")"
+            fi
+            shift
+            ;;
+        
+        --help | -h)
+            printf "Usage: \n       [--category | -c] [--technology | -t] [--usage | -u] [--year | -y]\n"
+            exit 0
+            ;;
+        
+        *)
+            echo "Unknown option: $1 (use --help for usage)"
+            exit 1
+            ;;
+    esac
+done
+
+# Extract just the names first for fzf selection
+printer() {
+    # Create a temporary file to store the filtered results
+    temp_results=$(mktemp)
+    jq -r "$jq_filter | .name" "$json_file" > "$temp_results"
+
+    cat "$temp_results" | \
+        fzf --ansi --header="(Alt-L to print all entries)" \
+        --border-label 'Google Summer of Code Organizations' \
+        --bind="alt-l:execute(echo -e '\nCurrent Organizations:\n===================='; cat $temp_results)+abort" \
+        --preview="jq --arg name {} -r '.result.data.allOrganization.edges[].node | select(.name == \$name) | 
+    \"Organization Details:
+======================\n
+Name:        \(.name)
+Category:    \(.category)
+Description: \(.description)
+URL:         \(.url)
+Years:       
+                \(.years | to_entries | map(select(.value != null) | .key | ltrimstr(\"_\")) | join(\"\n                \"))
+Technologies:       
+                \(.technologies | join(\"\n                \"))
+Usage:       
+                \(.topics | join(\"\n                \"))\"' \"$json_file\""
+    
+    # Clean up
+    rm -f "$temp_results"
+}
+
+printer

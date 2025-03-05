@@ -6,6 +6,10 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+				border = "rounded",
+			})
+
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			local capabilities_new = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
@@ -13,6 +17,10 @@ return {
 				["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
 				["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" }),
 			}
+
+			-- local on_attach = function (client)
+			--     vim.lsp.handlers = handlers
+			-- end
 
 			require("lspconfig").lua_ls.setup({
 				capabilities = capabilities,
@@ -32,6 +40,10 @@ return {
 				},
 				handlers = handlers,
 			})
+            require("lspconfig").dockerls.setup({
+                capabilities = capabilities,
+                handlers = handlers,
+            })
 			-- require("lspconfig").rust_analyzer.setup({
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = handlers,
@@ -198,6 +210,7 @@ return {
 					"ts_ls",
 					"emmet_language_server",
 					"lua_ls",
+                    "dockerls"
 				},
 			})
 		end,
@@ -387,6 +400,7 @@ return {
 					{ name = "luasnip" },
 					{ name = "nvim_lsp" },
 					{ name = "path" },
+					{ name = "lazydev", group_index = 0 },
 				},
 				mapping = cmp.mapping.preset.insert({
 					["<C-b>"] = cmp.mapping.scroll_docs(-4),
