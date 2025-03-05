@@ -58,13 +58,13 @@
     nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
     nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
     nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
-    # node_version          # node.js version
-    # go_version            # go version (https://golang.org)
-    # rust_version          # rustc version (https://www.rust-lang.org)
-    # dotnet_version        # .NET version (https://dotnet.microsoft.com)
-    # php_version           # php version (https://www.php.net/)
-    # laravel_version       # laravel php framework version (https://laravel.com/)
-    # java_version          # java version (https://www.java.com/)
+     node_version          # node.js version
+     go_version            # go version (https://golang.org)
+     rust_version          # rustc version (https://www.rust-lang.org)
+     dotnet_version        # .NET version (https://dotnet.microsoft.com)
+     php_version           # php version (https://www.php.net/)
+     laravel_version       # laravel php framework version (https://laravel.com/)
+     java_version          # java version (https://www.java.com/)
     # package               # name@version from package.json (https://docs.npmjs.com/files/package.json)
     rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
     rvm                     # ruby version from rvm (https://rvm.io)
@@ -199,9 +199,9 @@
   # Transparent background.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_BACKGROUND=
   # Green prompt symbol if the last command succeeded.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=76
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_OK_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND="#859900"
   # Red prompt symbol if the last command failed.
-  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND=196
+  typeset -g POWERLEVEL9K_PROMPT_CHAR_ERROR_{VIINS,VICMD,VIVIS,VIOWR}_FOREGROUND="#dc322f"
   # Default prompt symbol.
   typeset -g POWERLEVEL9K_PROMPT_CHAR_{OK,ERROR}_VIINS_CONTENT_EXPANSION='❯'
   # Prompt symbol in command vi mode.
@@ -220,19 +220,20 @@
 
   ##################################[ dir: current directory ]##################################
   # Current directory background color.
-  typeset -g POWERLEVEL9K_DIR_BACKGROUND=#1e1e1e
+  typeset -g POWERLEVEL9K_DIR_BACKGROUND=#002c38  # solarized Osaka theme
+  # typeset -g POWERLEVEL9K_DIR_BACKGROUND=#1e1e1e  # original
   # Default current directory foreground color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=#0185ac
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=#657b83
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
   # Replace removed segment suffixes with this symbol.
   typeset -g POWERLEVEL9K_SHORTEN_DELIMITER=
   # Color of the shortened directory segments.
-  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=#d33682
+  typeset -g POWERLEVEL9K_DIR_SHORTENED_FOREGROUND=#586e75
   # Color of the anchor directory segments. Anchor segments are never shortened. The first
   # segment is always an anchor.
-  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=#00aefe
+  typeset -g POWERLEVEL9K_DIR_ANCHOR_FOREGROUND=#eee8d5
   # Display anchor directory segments in bold.
   typeset -g POWERLEVEL9K_DIR_ANCHOR_BOLD=true
   # Don't shorten directories that contain any of these files. They are anchors.
@@ -359,11 +360,12 @@
 
   #####################################[ vcs: git status ]######################################
   # Version control background colors.
-  typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND=#00aefe
+  typeset -g POWERLEVEL9K_VCS_CLEAN_BACKGROUND=#859900
   typeset -g POWERLEVEL9K_VCS_MODIFIED_BACKGROUND=#2aa198
   typeset -g POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND=#6c71c4
   typeset -g POWERLEVEL9K_VCS_CONFLICTED_BACKGROUND=#b58900
-  typeset -g POWERLEVEL9K_VCS_LOADING_BACKGROUND=#1e1e1e
+  # typeset -g POWERLEVEL9K_VCS_LOADING_BACKGROUND=#1e1e1e  # original
+  typeset -g POWERLEVEL9K_VCS_LOADING_BACKGROUND=#002c38  # solarized Osaka theme
 
   # Branch icon. Set this parameter to '\UE0A0 ' for the popular Powerline branch icon.
   typeset -g POWERLEVEL9K_VCS_BRANCH_ICON='\uF126 '
