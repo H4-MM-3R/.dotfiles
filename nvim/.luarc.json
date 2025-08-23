@@ -4,5 +4,9 @@
         "terminal_exists",
         "goto_split_terminal",
         "fuzzy_search_sorted_by_line"
-    ]
+    ],
+    "diagnostics.disable": [
+        "undefined-field"
+    ],
+    "completion.autoRequire": false
 }

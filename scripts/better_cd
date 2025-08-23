@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-command=$(fdfind --type d --exclude .git | fzf --preview 'exa -1 --icons {}' --preview-window 'right,50%,border-left,<50(up,60%,border-bottom)' --header 'Select Directory to change into' --border-label 'Better CD')
+command=$(fdfind --type d --exclude .git | fzf --preview 'eza -1 --icons {}' --preview-window 'right,50%,border-left,<50(up,60%,border-bottom)' --header 'Select Directory to change into' --border-label 'Better CD')
 
 if [ -n "$command" ]; then
 	z $command || exit

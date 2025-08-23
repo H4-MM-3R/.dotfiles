@@ -1,3 +1,4 @@
+---@diagnostic disable: inject-field
 return {
 	{
 
@@ -29,7 +30,11 @@ return {
 					hl.ReconNumberInactiveAnti = { bg = "none", fg = "#073642" }
 					hl.ReconTabline = { bg = "#001419", fg = "#073642" }
 					hl.ReconTablineAnti = { bg = "#073642", fg = "#adb8b8" }
-					hl.TabLineFill = { bg = "#001419" }
+                    hl.TabLineFill = { bg = "#001419" }
+                    hl.SnacksPickerSelected = { fg = "#268bd3", bg = "none" }
+                    hl.Title = { fg = "#849900", bg = "none" }
+                    hl.SnacksPickerPrompt = { fg = "#849900", bg = "none" }
+                    hl.SnacksPickerPreviewTitle = { fg = "#B28500", bg = "none" }
 
 					-- for Java
 					hl["@lsp.type.namespace.java"] = { fg = "#9eabac" }

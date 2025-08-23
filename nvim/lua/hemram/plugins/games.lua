@@ -9,6 +9,9 @@ return {
     --
     --     "alec-gibson/nvim-tetris"
     -- },
+    {
+        "vuciv/golf",
+    }
 }
 
 

@@ -1,4 +1,5 @@
 local opts = { noremap = true, silent = true }
+local map = vim.keymap.set
 
 -- Numbering
 vim.opt.nu = true
@@ -48,7 +49,8 @@ vim.opt.cmdheight = 1
 vim.opt.scrolloff = 8
 
 -- Sign-Column
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "yes:2"
+vim.opt.statuscolumn = ""
 
 --highlight 80 columns after text-width
 vim.colorcolumn = "80"
@@ -64,111 +66,116 @@ vim.opt.splitbelow = true
 
 -- Best keymaps for me
 
-vim.keymap.set("i", "<M-;>", "<Esc>", { desc = "Insert to Normal Mode" })
+map("i", "<M-;>", "<Esc>", { desc = "Insert to Normal Mode" })
 
-vim.keymap.set("t", "<M-;>", "<C-\\><C-n>", { desc = "Terminal to Normal Mode" })
-vim.keymap.set("n", "<Leader>ss", ":silent !tmux neww sessionizer<CR>", { desc = "Sessionizer" })
-vim.keymap.set("n", "<Leader>sc", ":silent !tmux neww config_session<CR>", { desc = "Config" })
-vim.keymap.set("n", "<leader>sd", ":silent !tmux neww erase_sessions<CR>", { desc = "Switcher" })
-vim.keymap.set("n", "<leader>sl", ":silent !tmux neww learn_session<CR>", { desc = "Learn" })
-vim.keymap.set("n", "cn", "*``cgn", opts)
-vim.keymap.set("v", "<Leader>y", '"+y', { desc = "Yank to Clipboard" })
-vim.keymap.set("n", "<Leader>v", "ggVG", { desc = "Select All" })
-vim.keymap.set("n", "<Leader>p", '"+P', { desc = "Paste from ClipBoard" })
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", {})
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", {})
-vim.keymap.set("n", "H", "^", {})
-vim.keymap.set("n", "L", "$", {})
-vim.keymap.set("v", "H", "^", {})
-vim.keymap.set("v", "L", "$", {})
-vim.keymap.set("s", "H", "H", {})
-vim.keymap.set("s", "L", "L", {})
-vim.keymap.set("n", "<C-u>", "<C-u>zz", {})
-vim.keymap.set("n", "<C-d>", "<C-d>zz", {})
-vim.keymap.set("n", "n", "nzzzv", {})
-vim.keymap.set("n", "N", "Nzzzv", {})
-vim.keymap.set("v", "p", '"_dp', {})
+map("n", "<Leader>ss", ":silent !tmux neww sessionizer<CR>", { desc = "Sessionizer" })
+map("t", "<M-;>", "<C-\\><C-n>", { desc = "Terminal to Normal Mode" })
+map("n", "<Leader>sc", ":silent !tmux neww config_session<CR>", { desc = "Config" })
+map("n", "<leader>sd", ":silent !tmux neww erase_sessions<CR>", { desc = "Switcher" })
+map("n", "<leader>sl", ":silent !tmux neww learn_session<CR>", { desc = "Learn" })
+map("n", "cn", "*``cgn", opts)
+map("v", "<Leader>y", '"+y', { desc = "Yank to Clipboard" })
+map("n", "<Leader>v", "ggVG", { desc = "Select All" })
+map("n", "<Leader>p", '"+P', { desc = "Paste from ClipBoard" })
+map("v", "p", "_dp", { desc = "Preserve [p]aste Mode" })
+map("v", "P", "_dP", { desc = "Preserve [P]aste Mode" })
+map("v", "J", ":m '>+1<CR>gv=gv", {})
+map("v", "K", ":m '<-2<CR>gv=gv", {})
+map("n", "H", "^", {})
+map("n", "L", "$", {})
+map("v", "H", "^", {})
+map("v", "L", "$", {})
+map("s", "H", "H", {})
+map("s", "L", "L", {})
+map("n", "<C-u>", "<C-u>zz", {})
+map("n", "<C-d>", "<C-d>zz", {})
+map("n", "n", "nzzzv", {})
+map("n", "N", "Nzzzv", {})
+map("v", "p", '"_dp', {})
 
 -- LspSaga
-vim.keymap.set("n", "<leader>lf", "<Cmd>Lspsaga finder<CR>", opts)
-vim.keymap.set("n", "<leader>ls", "<Cmd>Lspsaga outline<CR>", opts)
-vim.keymap.set("n", "]d", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-vim.keymap.set("n", "[d", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-vim.keymap.set("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-vim.keymap.set("n", "<leader>ld", "<Cmd>Lspsaga show_buf_diagnostics<CR>", opts)
-vim.keymap.set("n", "<leader>lp", "<Cmd>Lspsaga peek_definition<CR>", opts)
-vim.keymap.set("n", "<leader>lg", "<Cmd>Lspsaga goto_definition<CR>", opts)
-
+map("n", "<leader>lf", "<Cmd>Lspsaga finder<CR>", opts)
+-- map("n", "<leader>ls", "<Cmd>Lspsaga outline<CR>", opts)
+-- map("n", "<leader>ls", "<Cmd>Telescope lsp_document_symbols<CR>", opts)
+map("n", "]d", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+map("n", "[d", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+map("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+map("n", "<leader>ld", "<Cmd>Lspsaga show_buf_diagnostics<CR>", opts)
+map("n", "<leader>lp", "<Cmd>Lspsaga peek_definition<CR>", opts)
+map("n", "<leader>lg", "<Cmd>Lspsaga goto_definition<CR>", opts)
 
 -- Toggle
--- vim.keymap.set("n", "<Leader>t", "<Cmd>Lspsaga term_toggle<CR>", { desc = "Toggle Terminal" })
-vim.keymap.set("n", "<Leader>b", "<Cmd>Telescope file_browser<CR>", { desc = "Toggle File Browser" })
-vim.keymap.set("n", "<Leader>ll", "<Cmd>Lazy<CR>", { desc = "Toggle Lazy" })
-vim.keymap.set("n", "<Leader>m", "<Cmd>Mason<CR>", { desc = "Toggle Mason" })
+-- map("n", "<Leader>t", "<Cmd>Lspsaga term_toggle<CR>", { desc = "Toggle Terminal" })
+-- map("n", "<Leader>b", "<Cmd>Telescope file_browser<CR>", { desc = "Toggle File Browser" })
+-- map("n", "<Leader>ll", "<Cmd>Lazy<CR>", { desc = "Toggle Lazy" })
+map("n", "<Leader>ll", "<Cmd>LspLog<CR>", { desc = "Toggle lsp logs" })
+map("n", "<Leader>m", "<Cmd>Mason<CR>", { desc = "Toggle Mason" })
 
 -- Games
-vim.keymap.set("n", "<leader>gv", "<Cmd>VimBeGood<CR>", { desc = "Vim be Good" })
-vim.keymap.set("n", "<leader>gr", "<Cmd>CellularAutomaton make_it_rain<CR>", { desc = "Make it Rain" })
-vim.keymap.set("n", "<leader>gg", "<Cmd>CellularAutomaton game_of_life<CR>", { desc = "Game of Life" })
-vim.keymap.set("n", "<leader>gt", "<Cmd>Tetris<CR>", {})
+map("n", "<leader>gv", "<Cmd>VimBeGood<CR>", { desc = "Vim be Good" })
+map("n", "<leader>gr", "<Cmd>CellularAutomaton make_it_rain<CR>", { desc = "Make it Rain" })
+map("n", "<leader>gg", "<Cmd>CellularAutomaton game_of_life<CR>", { desc = "Game of Life" })
+map("n", "<leader>gt", "<Cmd>Tetris<CR>", {})
 
 -- Zen Mode
-vim.keymap.set("n", "<leader>z", "<Cmd>ZenMode<CR>", {})
+map("n", "<leader>z", "<Cmd>ZenMode<CR>", {})
 
 -- Code
-vim.keymap.set({ "n", "v" }, "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
-vim.keymap.set("n", "<Leader>cf", "<cmd>lua vim.lsp.buf.format()<CR>", { desc = "Code Format" })
-vim.keymap.set("n", "<Leader>cl", "<Cmd>LspInfo<CR>", { desc = "Lsp Info" })
-vim.keymap.set("n", "<Leader>cc", ":update<CR>:make<CR>", { desc = "Compile" }, opts)
-vim.keymap.set("n", "<Leader>cr", ":update<CR>@g", { desc = "Run" }, opts)
-vim.keymap.set("n", "<Leader>wr", "<Cmd>Lspsaga rename<CR>", { desc = "Rename" }, opts)
+map({ "n", "v" }, "<Leader>ca", "<cmd>Lspsaga code_action<CR>")
+map("n", "<Leader>cf", function()
+	require("conform").format()
+end, { desc = "Code Format" })
+map("n", "<Leader>cl", "<Cmd>LspInfo<CR>", { desc = "Lsp Info" })
+map("n", "<Leader>cc", ":update<CR>:make<CR>", { desc = "Compile" })
+map("n", "<Leader>cr", ":update<CR>@g", { desc = "Run" })
+map("n", "<Leader>wr", "<Cmd>Lspsaga rename<CR>", { desc = "Rename" })
 
 -- NeoTest
-vim.keymap.set("n", "]t", "<Cmd>Neotest jump next<CR>", { desc = "NeoTest Jump to Next Test case" })
-vim.keymap.set("n", "[t", "<Cmd>Neotest jump prev<CR>", { desc = "NeoTest Jump to Previous Test case" })
-vim.keymap.set("n", "<leader>tt", "<Cmd>Neotest run<CR>", { desc = "NeoTest Run Tests" })
-vim.keymap.set("n", "<leader>ts", "<Cmd>Neotest summary<CR>", { desc = "NeoTest Test Summary" })
+map("n", "]t", "<Cmd>Neotest jump next<CR>", { desc = "NeoTest Jump to Next Test case" })
+map("n", "[t", "<Cmd>Neotest jump prev<CR>", { desc = "NeoTest Jump to Previous Test case" })
+map("n", "<leader>tt", "<Cmd>Neotest run<CR>", { desc = "NeoTest Run Tests" })
+map("n", "<leader>ts", "<Cmd>Neotest summary<CR>", { desc = "NeoTest Test Summary" })
 
 -- Quickfix
-vim.keymap.set("n", "<leader>qo", "<cmd>copen<CR>", { desc = "open quickfix list" })
-vim.keymap.set("n", "<leader>qq", "<cmd>cclose<CR>", { desc = "close quickfix list" })
+map("n", "<leader>qo", "<cmd>copen<CR>", { desc = "open quickfix list" })
+map("n", "<leader>qq", "<cmd>cclose<CR>", { desc = "close quickfix list" })
 
 -- Notification
-vim.keymap.set("n", "<leader>n", function()
-	require("notify").dismiss({ silent = true, pending = true })
-end, { desc = "Notify Dismiss" })
+-- map("n", "<leader>n", function()
+-- 	require("noice").cmd("dismiss")({ silent = true, pending = true })
+-- end, { desc = "Notify Dismiss" })
 
 -- Harpoon for Terminal
 for i = 1, 5 do
-	vim.keymap.set("n", "<leader>c" .. i, function()
+	map("n", "<leader>c" .. i, function()
 		require("lua.customs.cmdrunner_window").run_harpoon_cmd(i)
 	end, { desc = "Harpoon Run Command on a Window " .. i })
 end
 
 for i = 1, 5 do
-	vim.keymap.set("n", "<leader>h" .. i, function()
+	map("n", "<leader>h" .. i, function()
 		require("recon.cmd-runner").run_recon_cmd(i)
 	end, { desc = "Recon Run Command " .. i })
 end
 
-vim.keymap.set("n", "<leader>rc", function()
+map("n", "<leader>rc", function()
 	require("recon.cmd-ui").toggle_quick_menu()
 end, { desc = "Recon Terminal Command Menu" })
 
 -- Luasnip select mode pasting Bug
-vim.keymap.set("s", "p", function()
+map("s", "p", function()
 	vim.api.nvim_feedkeys("p", "n", false)
 end, { silent = true, remap = false, desc = "Don't paste in select mode" })
 
-vim.keymap.set("n", "<leader>lr", "<Cmd>luafile %<CR>", { desc = "Lua file Runner" })
+map("n", "<leader>lr", "<Cmd>luafile %<CR>", { desc = "Lua file Runner" })
 
-vim.keymap.set("n", "<leader>al", ":silent Leet list<CR>", { desc = "LeetCode List" })
-vim.keymap.set("n", "<leader>at", ":silent Leet test<CR>", { desc = "LeetCode Test" })
-vim.keymap.set("n", "<leader>ad", ":silent Leet submit<CR>", { desc = "LeetCode Submit" })
-vim.keymap.set("n", "<leader>ac", ":silent Leet console<CR>", { desc = "LeetCode Console" })
-vim.keymap.set("n", "<leader>ai", ":silent Leet info<CR>", { desc = "LeetCode Information" })
+map("n", "<leader>al", ":silent Leet list<CR>", { desc = "LeetCode List" })
+map("n", "<leader>at", ":silent Leet test<CR>", { desc = "LeetCode Test" })
+map("n", "<leader>ad", ":silent Leet submit<CR>", { desc = "LeetCode Submit" })
+map("n", "<leader>ac", ":silent Leet console<CR>", { desc = "LeetCode Console" })
+map("n", "<leader>ai", ":silent Leet info<CR>", { desc = "LeetCode Information" })
 
-vim.keymap.set("n", ",<leader>", function()
+map("n", ",<leader>", function()
 	vim.cmd.new()
 	vim.cmd.wincmd("J")
 	vim.api.nvim_win_set_height(0, 12)
@@ -177,10 +184,10 @@ vim.keymap.set("n", ",<leader>", function()
 	vim.cmd.startinsert()
 end)
 
-vim.keymap.set({ "n", "t" }, "<M-h>", "<CMD>NavigatorLeft<CR>")
-vim.keymap.set({ "n", "t" }, "<M-l>", "<CMD>NavigatorRight<CR>")
-vim.keymap.set({ "n", "t" }, "<M-k>", "<CMD>NavigatorUp<CR>")
-vim.keymap.set({ "n", "t" }, "<M-j>", "<CMD>NavigatorDown<CR>")
+map({ "n", "t" }, "<M-h>", "<CMD>NavigatorLeft<CR>")
+map({ "n", "t" }, "<M-l>", "<CMD>NavigatorRight<CR>")
+map({ "n", "t" }, "<M-k>", "<CMD>NavigatorUp<CR>")
+map({ "n", "t" }, "<M-j>", "<CMD>NavigatorDown<CR>")
 
 local function trim(str)
 	str = str:gsub("^%s*(.-)%s*$", "%1")
@@ -218,4 +225,4 @@ vim.diagnostic.config({
 	},
 })
 
-vim.keymap.set("n", "<Leader>i", "<Cmd>Inspect<CR>", opts)
+map("n", "<Leader>i", "<Cmd>Inspect<CR>", opts)

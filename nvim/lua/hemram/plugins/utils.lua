@@ -142,14 +142,9 @@ return {
 		end,
 		keys = function()
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find Files" })
-			vim.keymap.set("n", "<leader>fl", builtin.live_grep, { desc = "Live Grep" })
-
 			vim.keymap.set("n", "<leader>ft", builtin.help_tags, { desc = "Help Tags" })
-			vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Git Files" })
-			vim.keymap.set("n", "<leader>fc", builtin.current_buffer_fuzzy_find, { desc = "Current Buffer Fuzzy Find" })
+			-- vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Git Files" })
 			vim.keymap.set("n", "<leader>fk", builtin.keymaps, { desc = "Keymaps" })
-			vim.keymap.set("n", "<leader>fb", builtin.builtin, { desc = "Builtin" })
 			vim.keymap.set("n", "<leader>fa", builtin.autocommands, { desc = "AutoCommands" })
 			vim.keymap.set("n", "<leader>fo", builtin.vim_options, { desc = "Vim_Options" })
 			vim.keymap.set("n", "<leader>fd", builtin.diagnostics, { desc = "Diagnostics" })
@@ -167,16 +162,16 @@ return {
 				builtin.grep_string({ search = word })
 			end, { desc = "Grep Word W" })
 
-			vim.keymap.set("n", "<leader>en", function()
-				builtin.find_files({
-					cwd = vim.fs.joinpath(vim.fn.stdpath("config")),
-				})
-			end)
-			vim.keymap.set("n", "<leader>ep", function()
-				builtin.find_files({
-					cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
-				})
-			end)
+			-- vim.keymap.set("n", "<leader>en", function()
+			-- 	builtin.find_files({
+			-- 		cwd = vim.fs.joinpath(vim.fn.stdpath("config")),
+			-- 	})
+			-- end)
+			-- vim.keymap.set("n", "<leader>ep", function()
+			-- 	builtin.find_files({
+			-- 		cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy"),
+			-- 	})
+			-- end)
 		end,
 	},
 	{
@@ -189,16 +184,6 @@ return {
 			"nvim-lua/plenary.nvim",
 		},
 	},
-	-- {
-	-- 	"jelmansouri/oil.nvim",
-	--        branch = "feat/scratch-preview",
-	-- 	opts = {},
-	-- 	dependencies = { { "nvim-tree/nvim-web-devicons", opt = true } },
-	--        keys = function()
-	--            vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-	--        end
-	--
-	-- },
 	{
 
 		"folke/trouble.nvim",
@@ -244,30 +229,6 @@ return {
 			},
 		},
 	},
-	-- {
-	-- 	"folke/todo-comments.nvim",
-	-- 	opts = {
-	-- 		keywords = {
-	-- 			TODO = { icon = " " },
-	-- 			NOTE = { icon = "󱞁 " },
-	-- 			TEST = { icon = " " },
-	-- 		},
-	-- 		search = {
-	-- 			command = "rg",
-	-- 			args = {
-	-- 				"--glob=!node_modules/",
-	-- 				"--color=never",
-	-- 				"--no-heading",
-	-- 				"--with-filename",
-	-- 				"--line-number",
-	-- 				"--column",
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
-	-- {
-	-- 	"tpope/vim-fugitive",
-	-- },
 	{
 		"kawre/leetcode.nvim",
 		build = ":TSUpdate html",

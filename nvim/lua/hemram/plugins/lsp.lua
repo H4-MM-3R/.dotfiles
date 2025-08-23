@@ -5,6 +5,18 @@ return {
 		dependencies = {
 			"hrsh7th/cmp-nvim-lsp",
 		},
+		opts = {
+			diagnostics = {
+				underline = true,
+				update_in_insert = false,
+				virtual_text = {
+					spacing = 4,
+					source = "if_many",
+					prefix = "●",
+				},
+				severity_sort = true,
+			},
+		},
 		config = function()
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 				border = "rounded",
@@ -26,24 +38,34 @@ return {
 				capabilities = capabilities,
 				settings = {
 					Lua = {
-						diagnostics = {
-							globals = { "vim" },
+						workspace = {
+							checkThirdParty = false,
+						},
+						codeLens = {
+							enable = true,
 						},
 						completion = {
 							callSnippet = "Replace",
 						},
-
-						workspace = {
-							checkThirdParty = false,
+						doc = {
+							privateName = { "^_" },
+						},
+						hint = {
+							enable = true,
+							setType = false,
+							paramType = true,
+							paramName = "Disable",
+							semicolon = "Disable",
+							arrayIndex = "Disable",
 						},
 					},
 				},
 				handlers = handlers,
 			})
-            require("lspconfig").dockerls.setup({
-                capabilities = capabilities,
-                handlers = handlers,
-            })
+			-- require("lspconfig").dockerls.setup({
+			-- 	capabilities = capabilities,
+			-- 	handlers = handlers,
+			-- })
 			-- require("lspconfig").rust_analyzer.setup({
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = handlers,
@@ -179,6 +201,23 @@ return {
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = handlers,
 			-- })
+			require("lspconfig").ruby_lsp.setup({
+				capabilities = capabilities_new,
+				handlers = handlers,
+			})
+			-- require("lspconfig").kotlin_language_server.setup({
+			--     -- capabilities = capabilities_new,
+			--     capabilities = capabilities,
+			--     handlers = handlers,
+			-- })
+			-- require("lspconfig").kotlin_lsp.setup({
+			-- 	capabilities = capabilities_new,
+			-- 	handlers = handlers,
+   --              cmd = { "kotlin-lsp", "--stdio", "--warning-mode=none" },
+   --              single_file_support = true,
+   --              filetypes = { "kotlin" },
+   --              root_markers = { "build.gradle", "build.gradle.kts", "pom.xml" },
+			-- })
 		end,
 	},
 	{
@@ -197,8 +236,8 @@ return {
 			require("mason-lspconfig").setup({
 				ensure_installed = {
 					"rust_analyzer",
-					"omnisharp",
-					"jdtls",
+					-- "omnisharp",
+					-- "jdtls",
 					"bashls",
 					"pyright",
 					"yamlls",
@@ -210,7 +249,7 @@ return {
 					"ts_ls",
 					"emmet_language_server",
 					"lua_ls",
-                    "dockerls"
+					"dockerls",
 				},
 			})
 		end,
@@ -275,6 +314,18 @@ return {
 					require("dapui").open(1)
 					require("dapui").open(2)
 				end
+			end
+
+			for _, js_adapter in pairs({ "pwa-node", "pwa-chrome" }) do
+				dap.adapters[js_adapter] = {
+					type = "server",
+					host = "localhost",
+					port = "${port}",
+					executable = {
+						command = "js-debug-adapter",
+						args = { "${port}" },
+					},
+				}
 			end
 
 			dap.configurations.java = {
@@ -352,29 +403,50 @@ return {
 			keymap.set("n", "<leader>dh", "<cmd>Telescope dap commands<cr>")
 		end,
 	},
+	-- {
+	-- 	"jose-elias-alvarez/null-ls.nvim",
+	-- 	event = "LazyFile",
+	-- 	config = function()
+	-- 		local null_ls = require("null-ls")
+	-- 		local formatter = null_ls.builtins.formatting
+	--
+	-- 		null_ls.setup({
+	-- 			sources = {
+	-- 				formatter.clang_format.with({
+	-- 					filetypes = { "c", "cpp" },
+	-- 				}),
+	-- 				formatter.google_java_format,
+	-- 				formatter.prettier.with({
+	-- 					extra_filetypes = { "graphql", "solidity" },
+	-- 				}),
+	-- 				formatter.black,
+	-- 				formatter.xmlformat,
+	-- 				formatter.stylua,
+	-- 				formatter.csharpier,
+	-- 				formatter.gofmt,
+	-- 				formatter.goimports_reviser,
+	-- 				formatter.shfmt,
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
-		"jose-elias-alvarez/null-ls.nvim",
-		event = "LazyFile",
+		"stevearc/conform.nvim",
 		config = function()
-			local null_ls = require("null-ls")
-			local formatter = null_ls.builtins.formatting
-
-			null_ls.setup({
-				sources = {
-					formatter.clang_format.with({
-						filetypes = { "c", "cpp" },
-					}),
-					formatter.google_java_format,
-					formatter.prettier.with({
-						extra_filetypes = { "graphql", "solidity" },
-					}),
-					formatter.black,
-					formatter.xmlformat,
-					formatter.stylua,
-					formatter.csharpier,
-					formatter.gofmt,
-					formatter.goimports_reviser,
-					formatter.shfmt,
+			require("conform").setup({
+				formatters_by_ft = {
+					c = { "clang-format" },
+					cpp = { "clang-format" },
+					lua = { "stylua" },
+					java = { "google-java-format" },
+					kotlin = { "ktfmt" },
+					graphql = { "prettier" },
+					solidity = { "prettier" },
+					python = { "black" },
+					csharp = { "csharpier" },
+					go = { "gofmt", "goimports-reviser" },
+					sh = { "shfmt" },
+					xml = { "xmlformat" },
 				},
 			})
 		end,
@@ -551,8 +623,9 @@ return {
 					"black",
 					"xmlformat",
 					"stylua",
+					"ktfmt",
 				},
-				automatic_setup = true,
+				automatic_installation = true,
 			})
 		end,
 	},
@@ -565,11 +638,37 @@ return {
 		config = function()
 			require("mason-nvim-dap").setup({
 				ensure_installed = { "java-test, java-debug-adapter" },
+				automatic_installation = true,
 			})
 		end,
 	},
 	{
 		"folke/lazydev.nvim",
 		ft = "lua",
+		opts = {
+			library = {
+				"~/git-repos/recon.nvim",
+				"~/.local/share/nvim/lazy/snacks.nvim",
+				"~/.local/share/nvim/lazy/mason-null-ls.nvim",
+				"~/.local/share/nvim/lazy/mason-nvim-dap.nvim",
+				-- "~/.local/share/nvim/lazy/plugins you want",
+			},
+		},
 	},
+	{ -- optional cmp completion source for require statements and module annotations
+		"hrsh7th/nvim-cmp",
+		opts = function(_, opts)
+			opts.sources = opts.sources or {}
+			table.insert(opts.sources, {
+				name = "lazydev",
+				group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+			})
+		end,
+	},
+    {
+        "simrat39/symbols-outline.nvim",
+        config = function()
+            require("symbols-outline").setup()
+        end
+    }
 }

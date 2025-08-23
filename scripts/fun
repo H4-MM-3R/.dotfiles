@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# TMDB_API_KEY="42b5e8986891bae11ee3f6938d11e727"
+TMDB_API_KEY="f1dd7f2494de60ef4946ea81fd5ebaba"
+# TMDB_API_KEY="8bf41bd8dd79b79f2cce125f6eb2bda0"
+
 search_movie() {
 	local query="$*"
 	if [ -z "$*" ]; then
@@ -22,23 +26,47 @@ search_movie() {
 	filename=$(printf "%s" "$query" | sed "s|%20|_|g")
 	response_file="/home/hemram/.local/bin/scripts/fun_cache/${filename}.json"
 
-	if [ -f "$response_file" ]; then
-		printf "\033[1;32mUsing cached response...\033[0m\n"
-		parse_json
-		return
-	fi
+	# if [ -f "$response_file" ]; then
+	# 	printf "\033[1;32mUsing cached response...\033[0m\n"
+	# 	parse_json
+	# 	return
+	# fi
 
-	web_response=$(curl -s "https://backend.freek.to/api/search?type=multi&page=1&query=$query&_=20241216" \
-		-H 'origin: https://freek.to' \
-		-H 'referer: https://freek.to/' \
-		--data-raw '{"filters":[{"value":"any","key":"with_genres","isChanged":false},{"value":"any","key":"year","isChanged":false},{"value":"popularity.desc","key":"sort_by","isChanged":false},{"value":"any","key":"with_origin_country","isChanged":false}]}')
+	# Search both movies and TV shows
+	web_response=$(curl -s "https://api.themoviedb.org/3/search/multi?api_key=${TMDB_API_KEY}&query=${query}&include_adult=false")
 	responses=$(echo "$web_response" | jq -r '.total_results')
-	if [ $responses == 0 ]; then
+	if [ "$responses" == 0 ]; then
 		printf "\033[1;31mNo results found\033[0m\n"
 		exit 1
 	fi
-	echo "$web_response" | jq >"$response_file"
 
+	# Transform TMDB response to match expected format
+	transformed_response=$(echo "$web_response" | jq '{
+		page: .page,
+		results: [.results[] | {
+			id: .id,
+			type: (if .media_type == "movie" then "movie" else "tv" end),
+			rating: (if .vote_average then (.vote_average | tostring) else "0.0" end),
+			release_date: (if .release_date then .release_date else (if .first_air_date then .first_air_date else null end) end),
+			last_air_date: (if .last_air_date then .last_air_date else null end),
+			lang: (if .original_language then .original_language else "en" end),
+			description: (if .overview then .overview else "" end),
+			title: (if .title then .title else .name end),
+			images: {
+				coverSmall: (if .poster_path then ("https://image.tmdb.org/t/p/w342" + .poster_path) else null end),
+				coverMedium: (if .poster_path then ("https://image.tmdb.org/t/p/w780" + .poster_path) else null end),
+				coverLarge: (if .poster_path then ("https://image.tmdb.org/t/p/w780" + .poster_path) else null end),
+				bannerSmall: (if .backdrop_path then ("https://image.tmdb.org/t/p/w780" + .backdrop_path) else null end),
+				bannerLarge: (if .backdrop_path then ("https://image.tmdb.org/t/p/w1280" + .backdrop_path) else null end),
+				logo: null
+			},
+			isAdult: (if .adult then .adult else false end)
+		}],
+		total_pages: .total_pages,
+		total_results: .total_results
+	}')
+
+	echo "$transformed_response" | jq >"$response_file"
 	parse_json
 }
 
@@ -65,7 +93,35 @@ parse_json() {
 		exit 1
 	fi
 	type=$(jq -r ".results[] | select(.id == $id) | .type" "$json_file")
-	wslview "https://vidsrc.xyz/embed/$type/$id"
+    # server 1: VIDSRC.XYZ
+	# wslview "https://vidsrc.xyz/embed/$type/$id"
+
+    # server 2: 111MOVIES.COM
+    if [ "$type" == "tv" ]; then
+        echo "https://111movies.com/tv/$id/1/1"
+    else
+        echo "https://111movies.com/movie/$id"
+    fi
+
+    # server 3: VIDJOY.COM
+    
+    # server 4: VIDFAST.PRO
+    if [ "$type" == "tv" ]; then
+        echo "https://vidfast.pro/tv/$id/1/1?nextButton=true&autoNext=true"
+    else
+        echo "https://vidfast.pro/movie/$id"
+    fi
+
+    # server 5: AUTOEMBED
+    if [ "$type" == "tv" ]; then
+        echo "https://player.autoembed.cc/embed/tv/$id/1/1"
+    else
+        echo "https://player.autoembed.cc/movie/$id"
+    fi
+
+    # for others check the website nunflix.org
+
+
 }
 
 # Parse command-line options

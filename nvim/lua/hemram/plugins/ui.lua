@@ -90,11 +90,17 @@ return {
 					component_separators = { left = "", right = "" },
 					disabled_filetypes = {},
 					always_divide_middle = true,
-					globalstatus = true,
+					globalstatus = false,
 				},
 				sections = {
 					lualine_a = {
-						{ "mode", separator = { right = "" } },
+						{
+							"mode",
+							fmt = function(str)
+								return str:sub(1, 1)
+							end,
+							separator = { right = "" },
+						},
 					},
 					lualine_b = {
 						{
@@ -148,6 +154,13 @@ return {
 						"location",
 					},
 				},
+				inactive_sections = {
+					lualine_x = {
+						{
+							"location",
+						},
+					},
+				},
 				extensions = { "fugitive", "quickfix", "trouble", "lazy", "mason", recon_lualine_extension },
 			})
 		end,
@@ -155,11 +168,12 @@ return {
 	{
 		"nvim-tree/nvim-web-devicons",
 		config = function()
-			local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+			local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 			for type, icon in pairs(signs) do
 				local hl = "DiagnosticSign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl, name = hl })
 			end
+			--,
 			require("nvim-web-devicons").setup({
 				default = true,
 				override = {},
@@ -266,10 +280,10 @@ return {
 	},
 	{
 		"folke/noice.nvim",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
-		},
+        event = "VeryLazy",
+        keys = {
+            { "<leader>n", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+        },
 		config = function()
 			require("noice").setup({
 				lsp = {
@@ -398,16 +412,16 @@ return {
 			end, { desc = "recon 4" })
 		end,
 	},
-	{
-		"rest-nvim/rest.nvim",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			opts = function(_, opts)
-				opts.ensure_installed = opts.ensure_installed or {}
-				table.insert(opts.ensure_installed, "http")
-			end,
-		},
-	},
+	-- {
+	-- 	"rest-nvim/rest.nvim",
+	-- 	dependencies = {
+	-- 		"nvim-treesitter/nvim-treesitter",
+	-- 		opts = function(_, opts)
+	-- 			opts.ensure_installed = opts.ensure_installed or {}
+	-- 			table.insert(opts.ensure_installed, "http")
+	-- 		end,
+	-- 	},
+	-- },
 	{
 		"stevearc/dressing.nvim",
 	},

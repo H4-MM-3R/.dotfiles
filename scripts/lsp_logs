@@ -1,0 +1,220 @@
+#!/usr/bin/env bash
+
+LOG_FILE="${1:-${NVIM_LOG_FILE:-${XDG_STATE_HOME:-$HOME/.local/state}/nvim/lsp.log}}"
+[[ -f $LOG_FILE ]] || { echo "❌ Neovim LSP log not found at: $LOG_FILE"; exit 1; }
+
+# Make the variable visible to child processes (fzf preview subshell)
+export LOG_FILE
+
+set -euo pipefail
+
+# Format log into: <NR> \t <meta> \t <message>
+# Field 1 (NR)  : Original line number in the file – we use it later to fetch the full line.
+# Field 2 (meta): Timestamp / file info (the first tab-separated field in the log).
+# Field 3 (msg) : The second tab-separated field – usually a short message.
+
+# Generic printer used by all specialised preview functions
+print_parts() {
+  local p1="$1" p2="$2" p3="$3"
+
+   printf "%s\n" "$p1"
+   printf "%s\n" "$p2"
+
+  if [[ -n $p3 ]]; then
+    pretty_json "$p3"
+  fi
+}
+
+print_error() {
+  local p1="$1" p2="$2" p3="$3"
+
+  printf "%s\n" "$p1"
+  printf "%s\n" "$p2"
+  printf "%s\n" "$p3"
+}
+
+# Return colourised tag string for INFO/ERROR/DEBUG/START
+colorize_tag() {
+  case "$1" in
+    INFO)  printf "\033[32m[INFO]\033[0m"  ;;
+    ERROR) printf "\033[31m[ERROR]\033[0m" ;;
+    DEBUG) printf "\033[33m[DEBUG]\033[0m" ;;
+    START) printf "\033[36m[START]\033[0m" ;;
+    *)     printf "[%s]" "$1"          ;;
+  esac
+}
+
+# Pretty-print JSON or Lua-style tables using jq if possible.
+pretty_json() {
+  local payload="$1"
+  [[ -z $payload ]] && return
+
+  if command -v jq >/dev/null 2>&1; then
+    # Attempt raw JSON parse first
+    if echo "$payload" | jq -C . 2>/dev/null; then
+      return
+    fi
+
+    # Convert common Lua-table style to JSON and retry ( Perl regex )
+    local converted
+    converted=$(echo "$payload" | sed 's/vim\.empty_dict()/{}/g' | luajson encode)
+
+    if echo "$converted" | jq -C . 2>/dev/null; then
+      return
+    fi
+  fi
+
+  # Fallback: raw output
+  printf "%s\n" "$converted"
+}
+
+preview_info() {
+  local p1="$1" p2="$2" p3="$3"
+  # Extract timestamp inside second bracket of p1
+  local ts=""
+  if [[ $p1 =~ \[[A-Z]+\]\[([^]]+)\] ]]; then
+    ts="${BASH_REMATCH[1]}"
+  fi
+
+  if [[ $p2 == *"Starting RPC client"* ]]; then
+    # Starting
+    printf "%s - %s\n" "$ts" "Starting RPC client"
+    pretty_json "$p3"
+  elif [[ $p2 == *"exit_handler"* ]]; then
+    # Exiting
+    printf "%s - Exiting\n" "$ts"
+    pretty_json "$p3"
+  elif [[ $p3 == *"server_capabilities"* ]]; then
+    # Capabilities message may have payload in p3
+    printf "%s\n" "$ts"
+    IFS=$'\t' read -r p4 p5 <<< "$p3"
+    pretty_json "$p5"
+  else
+    # Generic log message
+    p2=$(echo "$p2" | sed 's/\\t/\t/g; s/\\n/\n/g')
+    printf "%s\n\n%s\n" "$ts" "$p2"
+  fi
+}
+
+preview_error() {
+  local p1="$1" p2="$2" p3="$3"
+  # Extract timestamp inside second bracket of p1
+  local ts=""
+  if [[ $p1 =~ \[[A-Z]+\]\[([^]]+)\] ]]; then
+    ts="${BASH_REMATCH[1]}"
+  fi
+
+  # Decode escaped tabs/newlines in message like other types
+  p2=$(echo "$p2" | sed 's/\\t/\t/g; s/\\n/\n/g')
+
+  printf "%s\n\n%s\n" "$ts" "$p2"
+  pretty_json "$p3"
+}
+preview_debug() { print_parts "$@"; }
+preview_start()  { print_parts "$@"; }
+
+# Simplified preview for [START] lines: show timestamp and message only.
+preview_start_block() {
+  local start_line=$1
+  local raw
+  raw=$(sed -n "${start_line}p" "$LOG_FILE") || return
+
+  # Extract timestamp and trailing message
+  if [[ $raw =~ \[[A-Z]+\]\[([^]]+)\]\ (.*) ]]; then
+    local ts="${BASH_REMATCH[1]}"
+    local msg="${BASH_REMATCH[2]}"
+    printf "%s - %s\n" "$ts" "$msg"
+  else
+    # Fallback to printing the raw line
+    echo "$raw"
+  fi
+}
+
+default_preview() { print_parts "$@"; }
+
+# Helper used by fzf preview to display the raw log line and, when possible,
+# pretty-print the JSON payload using jq.
+preview_log_line() {
+  # The first argument is expected to be the (padded) numeric line number.
+  local line_nr="$1"
+  # Trim spaces that were inserted by printf for padding
+  line_nr=${line_nr//[[:space:]]/}
+
+  # Validate
+  [[ $line_nr =~ ^[0-9]+$ ]] || { echo "Invalid selection"; return; }
+
+  local raw
+  raw=$(sed -n "${line_nr}p" "$LOG_FILE") || return
+
+  # Split the line by tab into parts
+  IFS=$'\t' read -r part1 part2 part3 <<< "$raw"
+
+  # Determine the log type from the first bracketed tag, e.g. [INFO]
+  local level="OTHER"
+  if [[ $part1 =~ \[([A-Z]+)\] ]]; then
+    level=${BASH_REMATCH[1]}
+  fi
+
+  case $level in
+    INFO)  preview_info  "$part1" "$part2" "$part3" ;;
+    ERROR) preview_error "$part1" "$part2" "$part3" ;;
+    DEBUG) preview_debug "$part1" "$part2" "$part3" ;;
+    WARN)  preview_debug  "$part1" "$part2" "$part3" ;;
+    START) preview_start_block "$line_nr" ;;
+    *)     default_preview "$part1" "$part2" "$part3" ;;
+  esac
+}
+
+# Export so that it is visible to the subshell spawned by fzf
+export -f preview_log_line print_parts preview_info preview_error preview_debug preview_start preview_start_block default_preview colorize_tag pretty_json print_error
+
+# Main function to process the log file and generate fzf input
+process_log() {
+    awk -F $'\t' '
+    function color_tag(tag) {
+      if(tag=="INFO") return "\033[32m [INFO]\033[0m";
+      if(tag=="ERROR") return "\033[31m[ERROR]\033[0m";
+      if(tag=="DEBUG") return "\033[33m[DEBUG]\033[0m";
+      if(tag=="START") return "\033[36m[START]\033[0m";
+      return "["tag"]";
+    }
+    {
+      tag="OTHER";
+      if($1 ~ /^\[[A-Z]+\]/){ if(match($1, /^\[([A-Z]+)\]/, m)) tag=m[1]; }
+      colored=color_tag(tag);
+
+      if(tag=="INFO"){
+         if($2 ~ /Starting RPC client/){ out=colored" --> \033[32m\"STARTING\"\033[0m"; }
+         else if($2 ~ /exit_handler/){ out=colored" --> \033[32m\"EXITING\"\033[0m"; }
+         else if($3 ~ /server_capabilities/){ out=colored" --> \033[32m\"CAPABILITIES\"\033[0m"; }
+         else { out=colored" --> \033[32m"$2"\033[0m"; }
+      } else if(tag=="ERROR"){
+         out=colored" --> \033[31m\"Error Occured\"\033[0m";
+      } else if(tag=="DEBUG"){
+         if($2 ~ /rpc.send/){
+            method=""; if(match($3, /method[[:space:]=:]*"([^"]+)"/, mm)) method=mm[1];
+            if(method!="") out=colored" --> Sent : \033[33m"method"\033[0m"; else out=colored" --> Sent";
+         } else if($2 ~ /rpc.receive/){
+            method=""; if(match($3, /method[[:space:]=:]*"([^"]+)"/, mm)) method=mm[1];
+            if(method!="") out=colored" --> Recv : \033[33m"method"\033[0m"; else out=colored" --> Recv";
+         } else if($2 ~ /LSP\[/){ next; }
+         else { out=colored"\t\033[33m"$2"\033[0m"; }
+      } else if(tag=="START"){
+         out=colored;
+      } else {
+         out=colored"\t"$2;
+      }
+
+      printf("%6d\t%s\n", NR, out);
+    }' "$LOG_FILE"
+}
+export -f process_log
+
+process_log |
+    fzf --ansi --no-sort \
+        --delimiter=$'\t' \
+        --with-nth=2,3 \
+        --header "Press CTRL-R to reload logs" \
+        --bind "ctrl-r:reload(bash -c 'export -f process_log; process_log')" \
+        --preview-window=right:70%:wrap \
+        --preview 'bash -c "preview_log_line {1}"'
