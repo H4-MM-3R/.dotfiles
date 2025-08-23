@@ -1,9 +1,9 @@
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 ### --- ###
 ### ENV ###
@@ -24,6 +24,10 @@ export LESSCHARSET="utf-8"
 export BAT_PAGER="less -RF"
 export COLORTERM="truecolor"
 export TERM="xterm-256color"
+export EDITOR="nvim"
+export ANDROID_HOME="$HOME/android"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$PATH"
 # export XDG_RUNTIME_DIR=/run/user/$UID
 # export DBUS_SESSION_BUS_ADDRESS=unix:path=$XDG_RUNTIME_DIR/bus
 # export DISPLAY=192.168.48.1:0
@@ -79,6 +83,8 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit light matthieusb/zsh-sdkman
+zinit light jeffreytse/zsh-vi-mode
 
 ### ------- ###
 ### ALIASES ###
@@ -113,11 +119,13 @@ alias td="tmux detach"
 alias gs="git status"
 alias gb="git_branches"
 alias gl="git_logs"
+alias g="git_lazy"
 alias hawk_tuah="git push"
 alias lg="lazygit"
 
 # Other
 alias qr="qrgenerator"
+alias reload="sudo update-binfmts --disable cli"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
@@ -163,3 +171,21 @@ eval "$(zoxide init zsh)"
 
 # Competitive Coding flags
 # ulimit -s unlimited
+eval "$(~/.local/bin/mise activate)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+
+
+# Lazy loading of SDKMAN to avoid startup time slowdown
+# sdk() {
+#     if [[ "$(which sdk | wc -l)" -le 10 ]]; then
+#         unset -f sdk
+#         source "$SDKMAN_DIR/bin/sdkman-init.sh"
+#     fi
+#     sdk "$@"
+# }
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# opencode
+export PATH=/home/hemram/.opencode/bin:$PATH

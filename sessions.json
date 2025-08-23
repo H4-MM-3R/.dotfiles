@@ -1,0 +1,39 @@
+{
+  "sessions": {
+    "hemram": [
+      { "name": "zsh", "cmd": "nvim" },
+      { "name": "terminal",   "cmd": "figlet 'aww shit here we go again'" }
+    ],
+    "algodeck": [
+      { "name": "server",   "cmd": "cd site && python -m http.server" }
+    ],
+    "portfolio": [
+      { "name": "dev",      "cmd": "npm run dev" }
+    ],
+    "Portfolio": [
+      { "name": "dev",      "cmd": "npm run dev" }
+    ],
+    "portfolio-vite": [
+      { "name": "dev",      "cmd": "npm run dev" }
+    ],
+    "beauty-contest": [
+      { "name": "run",      "cmd": "go run main.go" }
+    ],
+    "mtype": [
+      { "name": "fe",       "cmd": "npm run dev-fe" }
+    ],
+    "kotlin-lsp": [
+        { "name": "zsh", "cmd": "nvim" },
+        { "name": "terminal", "cmd": "clear" },
+        { "name": "git", "cmd": "lazygit" },
+        { "name": "logs", "cmd": "lsp_logs" }
+    ]
+  },
+  "config_sessions": {},
+  "learn_sessions": {
+    "_learn_motion": [
+      { "name": "dev", "cmd": "cd animations.dev && npm run dev" }
+    ]
+  }
+}
+
