@@ -1,27 +1,34 @@
 #!/usr/bin/env bash
 
 hydrate() {
-	local session_name=$1
-	local session_type=$2
-	local sessions_file=/home/hemram/.config/sessions.json
+    local session_name="$1"
+    local session_type="$2"
+    local sessions_file="/home/hemram/.config/sessions.json"
 
-	if [[ ! -f "$sessions_file" ]]; then
-		return 1
-	fi
+    [[ -f "$sessions_file" ]] || return 1
 
-	local session_command=$(jq -r ".${session_type}[\"${session_name}\"] // empty" "$sessions_file")
+    local windows_json
+    windows_json=$(jq -c ".\"${session_type}\"[\"${session_name}\"] // empty" "$sessions_file")
+    [[ -n "$windows_json" ]] || return 0
 
-	terminal_exists=$(tmux list-windows -t "$session_name" -F '#{window_name}' 2>/dev/null | grep -c 'terminal')
+    win_exists() {
+        tmux list-windows -t "$session_name" -F '#{window_name}' 2>/dev/null | grep -Fxq "$1"
+    }
 
-	if [[ -z "$session_command" ]]; then
-		return 0
-	fi
+    echo "$windows_json" | jq -c '.[]' | while read -r win; do
+        local window_name cmd
+        window_name=$(jq -r '.name' <<<"$win")
+        cmd=$(jq -r '.cmd' <<<"$win")
 
-	if [[ $terminal_exists -eq 0 ]]; then
-		tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
-		eval "tmux send-keys -t ${session_name}:terminal ${session_command}"
-		eval "tmux send-keys -t ${session_name}:zsh nvim Enter"
-	fi
+        # Create window if missing
+        if ! win_exists "$window_name"; then
+            tmux new-window -t "$session_name" -n "$window_name" -c "$session"
+        fi
+
+        # Send the command
+        tmux send-keys -t "${session_name}:${window_name}" "$cmd" C-m
+    done
+    tmux select-window -t "$session_name:0"
 }
 
 tmux_has_exact_session() {
@@ -33,7 +40,12 @@ tmux_has_exact_session() {
 	return $?
 }
 
-session=$(fdfind --hidden --type d --min-depth 0 --max-depth 1 . ~/learn/pending ~/learn/completed | fzf --header 'Select Course' --border-label 'Learning Session')
+session=$(fdfind --hidden --type d --min-depth 0 --max-depth 1 . ~/learn/pending | fzf \
+    --header 'Select Course (ALT-T: Toggle pending/completed)' \
+    --border-label 'Learning Session [Pending]' \
+    --bind 'alt-t:transform:[[ $FZF_BORDER_LABEL =~ "\[Pending\]" ]] &&
+                echo "change-border-label(Learning Session [Completed])+reload( fdfind --hidden --type d --min-depth 0 --max-depth 1 . ~/learn/completed )" ||
+                echo "change-border-label(Learning Session [Pending])+reload( fdfind --hidden --type d --min-depth 0 --max-depth 1 . ~/learn/pending )"')
 
 if [ -z "$session" ]; then
 	exit 1
@@ -45,9 +57,6 @@ if [[ -z $TMUX ]]; then
 	tmux new-session -s "$session_name" -c "$session" -d
 	hydrate "$session_name" "learn_sessions"
 	tmux attach -t "$session_name"
-	if [[ $terminal_exists -eq 0 ]]; then
-		tmux new-window -t "$session_name" -d -c "$session" -n 'terminal'
-	fi
 	exit 0
 fi
 

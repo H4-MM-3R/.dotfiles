@@ -53,7 +53,7 @@ find_dirs() {
     fdfind --hidden --type d \
         --exclude .git --exclude .logs --exclude .vscode --exclude .github \
         --min-depth 0 --max-depth 1 . \
-        /home ~ ~/test ~/web3 ~/.local ~/.local/bin ~/.local/share/nvim/lazy ~/junkyard ~/learn ~/git-repos ~/git-repos/dumpyard ~/gsoc \
+        /home ~ ~/test ~/.local ~/.local/bin ~/.local/share/nvim/lazy ~/learn ~/git-repos ~/git-repos/dumpyard \
         ~/git-repos/dumpyard/DesignPatterns/src
 }
 
