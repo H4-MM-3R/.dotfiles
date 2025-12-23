@@ -1,7 +1,7 @@
 -- local client = nil
 -- return {}
 
-vim.lsp.set_log_level("debug")
+vim.lsp.log.set_level("debug")
 
  -- vim.api.nvim_create_autocmd("FileType", {
  -- 	pattern = "kotlin",
@@ -39,8 +39,9 @@ if not root_dir then
 end
 
 vim.lsp.config['kotlinlsp'] = {
-    -- cmd = { '/home/hemram/git-repos/kotlin-lsp/lsp-dist/kotlin-lsp-1.8/bin/kotlin-lsp' },
-    cmd = vim.lsp.rpc.connect('0.0.0.0', tonumber(2090)),
+    cmd = { '/home/hemram/git-repos/kotlin-lsp/lsp-dist/kotlin-lsp-2.0/bin/kotlin-lsp' },
+    -- cmd = { '/home/hemram/git-repos/Unblockt/server/build/install/server/bin/server', '/home/hemram/.cache/unblockt/logs' },
+    -- cmd = vim.lsp.rpc.connect('0.0.0.0', tonumber(2090)),
     filetypes = { 'kotlin' },
     root_dir = root_dir
 }

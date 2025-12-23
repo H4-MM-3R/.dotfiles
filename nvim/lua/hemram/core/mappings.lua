@@ -99,7 +99,14 @@ map("n", "<leader>lf", "<Cmd>Lspsaga finder<CR>", opts)
 -- map("n", "<leader>ls", "<Cmd>Telescope lsp_document_symbols<CR>", opts)
 map("n", "]d", "<Cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 map("n", "[d", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-map("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
+map("n", "K", function()
+    vim.lsp.buf.hover({
+        config = {
+            border = "single",
+        },
+        border = "single",
+    })
+end, opts)
 map("n", "<leader>ld", "<Cmd>Lspsaga show_buf_diagnostics<CR>", opts)
 map("n", "<leader>lp", "<Cmd>Lspsaga peek_definition<CR>", opts)
 map("n", "<leader>lg", "<Cmd>Lspsaga goto_definition<CR>", opts)

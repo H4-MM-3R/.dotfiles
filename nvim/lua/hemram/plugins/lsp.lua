@@ -18,6 +18,7 @@ return {
 			},
 		},
 		config = function()
+            vim.lsp.buf.hover()
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 				border = "rounded",
 			})
@@ -34,7 +35,7 @@ return {
 			--     vim.lsp.handlers = handlers
 			-- end
 
-			require("lspconfig").lua_ls.setup({
+            vim.lsp.config('lua_ls', {
 				capabilities = capabilities,
 				settings = {
 					Lua = {
@@ -61,36 +62,36 @@ return {
 					},
 				},
 				handlers = handlers,
-			})
-			-- require("lspconfig").dockerls.setup({
+            })
+			-- vim.lsp.config("dockerls", {
 			-- 	capabilities = capabilities,
 			-- 	handlers = handlers,
 			-- })
-			-- require("lspconfig").rust_analyzer.setup({
+			-- vim.lsp.config("rust_analyzer", {
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = handlers,
 			-- })
-			require("lspconfig").bashls.setup({
+			vim.lsp.config("bashls", {
 				capabilities = capabilities,
 				handlers = handlers,
 			})
-			require("lspconfig").pyright.setup({
+			vim.lsp.config("pyright", {
 				capabilities = capabilities,
 				handlers = handlers,
 			})
-			-- require("lspconfig").yamlls.setup({
+			-- vim.lsp.config("yamlls", {
 			-- 	capabilities = capabilities,
 			-- 	handlers = handlers,
 			-- })
-			require("lspconfig").jsonls.setup({
+			vim.lsp.config("jsonls", {
 				capabilities = capabilities,
 				handlers = handlers,
 			})
-			require("lspconfig").clangd.setup({
+			vim.lsp.config("clangd", {
 				capabilities = capabilities,
 				handlers = handlers,
 			})
-			-- require("lspconfig").ts_ls.setup({
+			-- vim.lsp.config("ts_ls", {
 			-- 	capabilities = capabilities,
 			-- 	handlers = handlers,
 			-- 	settings = {
@@ -133,31 +134,31 @@ return {
 			-- 		},
 			-- 	},
 			-- })
-			require("lspconfig").vtsls.setup({
+			vim.lsp.config("vtsls", {
 				capabilities = capabilities_new,
 				handlers = handlers,
 			})
-			require("lspconfig").tailwindcss.setup({
+			vim.lsp.config("tailwindcss", {
 				capabilities = capabilities_new,
 				handlers = handlers,
 			})
-			require("lspconfig").cssmodules_ls.setup({
+			vim.lsp.config("cssmodules_ls", {
 				capabilities = capabilities_new,
 				handlers = handlers,
 			})
-			-- require("lspconfig").lemminx.setup({
+			-- vim.lsp.config("lemminx", {
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = handlers,
 			-- })
-			require("lspconfig").cssls.setup({
+			vim.lsp.config("cssls", {
 				capabilities = capabilities_new,
 				handlers = handlers,
 			})
-			require("lspconfig").emmet_language_server.setup({
+			vim.lsp.config("emmet_language_server", {
 				capabilities = capabilities_new,
 				handlers = handlers,
 			})
-			-- require("lspconfig").omnisharp.setup({
+			-- vim.lsp.config("omnisharp", {
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = {
 			-- 		["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" }),
@@ -177,7 +178,7 @@ return {
 			-- 	filetypes = { "cs", "vb", "csproj", "sln", "slnx", "props", "csx", "targets" },
 			-- 	cmd = { "dotnet", "/home/hemram/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
 			-- })
-			-- require("lspconfig").angularls.setup({
+			-- vim.lsp.config("angularls", {
 			-- 	on_attach = function(client)
 			-- 		client.server_capabilities.renameProvider = false
 			-- 	end,
@@ -188,29 +189,29 @@ return {
 			-- 		new_config.cmd = angular_cmd
 			-- 	end,
 			-- })
-			require("lspconfig").gopls.setup({
+			vim.lsp.config("gopls", {
 				capabilities = capabilities_new,
 				handlers = handlers,
 				cmd = { "gopls" },
 			})
-			-- require("lspconfig").jdtls.setup({
+			-- vim.lsp.config("jdtls", {
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = handlers,
 			-- })
-			-- require("lspconfig").solidity_ls.setup({
+			-- vim.lsp.config("solidity_ls", {
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = handlers,
 			-- })
-			require("lspconfig").ruby_lsp.setup({
+			vim.lsp.config("ruby_lsp", {
 				capabilities = capabilities_new,
 				handlers = handlers,
 			})
-			-- require("lspconfig").kotlin_language_server.setup({
+			-- vim.lsp.config("kotlin_language_server", {
 			--     -- capabilities = capabilities_new,
 			--     capabilities = capabilities,
 			--     handlers = handlers,
 			-- })
-			-- require("lspconfig").kotlin_lsp.setup({
+			-- vim.lsp.config("kotlin_lsp", {
 			-- 	capabilities = capabilities_new,
 			-- 	handlers = handlers,
    --              cmd = { "kotlin-lsp", "--stdio", "--warning-mode=none" },
@@ -623,7 +624,6 @@ return {
 					"black",
 					"xmlformat",
 					"stylua",
-					"ktfmt",
 				},
 				automatic_installation = true,
 			})

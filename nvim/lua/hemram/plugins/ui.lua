@@ -18,17 +18,28 @@ return {
 			},
 		},
 	},
-	{
-		"norcalli/nvim-colorizer.lua",
-		event = "VeryLazy",
-		config = function()
-			local colorizer = require("colorizer")
-
-			colorizer.setup({
-				"*",
-			})
-		end,
-	},
+    {
+        "brenoprata10/nvim-highlight-colors",
+        event = "VeryLazy",
+        config = function()
+            require('nvim-highlight-colors').setup({})
+            -- :HighlightColors On
+            -- :HighlightColors Off
+            -- :HighlightColors Toggle
+            -- :HighlightColors IsActive
+        end
+    },
+	-- {
+	-- 	"norcalli/nvim-colorizer.lua",
+	-- 	event = "VeryLazy",
+	-- 	config = function()
+	-- 		local colorizer = require("colorizer")
+	--
+	-- 		colorizer.setup({
+	-- 			"*",
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = {
