@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+INFO_ONLY=false
+for arg in "$@"; do
+  case "$arg" in
+    -i|--info) INFO_ONLY=true ;;
+  esac
+done
+
+URL="https://public.zwayam.com/jobs/search"
+
+FILTER_CRI='{"numericRange":{"from":1,"to":30},"paginationStartNo":0,"selectedCall":"sort","sortCriteria":{"name":"modifiedDate","isAscending":false},"facetSelectionString":{"Location":["bangalore,karnataka","bangalore, karnataka, india"],"Function":["Technology"]}}'
+
+# Single source of truth: job extraction + filter
+# - Some fields may be missing; minYearOfExperience may be number or string or null
+JQ_FILTER='
+  .data.data[]
+  | ._source
+  | select(
+      (.minYearOfExperience? // empty)
+      | (if type=="string" then tonumber? else . end)
+      | (if . == null then 999999 else . end)
+      | . < 3
+    )
+'
+
+RESPONSE="$(curl -s "$URL" \
+  -X POST \
+  -H 'accept: application/json, text/plain, */*' \
+  -H 'origin: https://www.flipkartcareers.com' \
+  -H 'referer: https://www.flipkartcareers.com/' \
+  -H 'user-agent: Mozilla/5.0' \
+  -H 'sec-fetch-site: cross-site' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -F "filterCri=$FILTER_CRI" \
+  -F 'domain=www.flipkartcareers.com' \
+  -F 'companyId=MTUxMTA='
+)"
+
+if $INFO_ONLY; then
+  COUNT="$(echo "$RESPONSE" | jq "[ $JQ_FILTER ] | length")"
+  echo "Flipkart Jobs: $COUNT"
+  exit 0
+fi
+
+# Interactive mode
+echo "$RESPONSE" |
+jq -c "$JQ_FILTER" |
+jq -r '[.jobTitle // "(no title)", (tojson)] | @tsv' |
+fzf \
+  --prompt="Flipkart Jobs (<3 YOE) > " \
+  --height=80% \
+  --layout=reverse \
+  --border \
+  --with-nth=1 \
+  --delimiter=$'\t' \
+  --preview 'echo {2} | jq -C --sort-keys "{jobTitle, experienceUIField, jdSkillsKnownList, mandatorySkills, metaKeywords, minYearOfExperience}"' \
+  --preview-window=right:60%:wrap |
+cut -f2 |
+jq '{
+  Description,
+  experienceUIField,
+  fulfilled,
+  isRequisition,
+  jdSkillsKnown,
+  jdSkillsKnownList,
+  jobPriority,
+  jobSpecificQuestions,
+  jobTestSelecteds,
+  jobTitle,
+  mandatorySkills,
+  metaKeywords,
+  minYearOfExperience
+}'
+

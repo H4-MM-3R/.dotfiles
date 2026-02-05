@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPTS_DIR="${HOME}/.local/bin/scripts/jobs"
+PATTERN='jobs_*'
+
+usage() {
+  cat <<'EOF'
+Usage:
+  job            # pick a company job script via fzf and run it
+  job -i|--info  # run all jobs_* scripts with -i and show counts
+  job -h|--help  # show help
+EOF
+}
+
+die() { echo "job: $*" >&2; exit 1; }
+need_cmd() { command -v "$1" >/dev/null 2>&1 || die "missing dependency: $1"; }
+
+MODE="pick"
+if [[ $# -gt 0 ]]; then
+  case "${1:-}" in
+    -i|--info) MODE="info" ;;
+    -h|--help) usage; exit 0 ;;
+    *) die "unknown option: $1 (use -h for help)" ;;
+  esac
+fi
+
+# Gather candidate scripts
+shopt -s nullglob
+scripts=( "${SCRIPTS_DIR}"/${PATTERN} )
+shopt -u nullglob
+
+candidates=()
+for path in "${scripts[@]:-}"; do
+  [[ -f "$path" ]] || continue
+  [[ -x "$path" ]] || continue
+  base="$(basename "$path")"
+  [[ "$base" == jobs_* ]] || continue
+  candidates+=( "$path" )
+done
+
+((${#candidates[@]} > 0)) || die "no executable job scripts found in ${SCRIPTS_DIR} matching ${PATTERN}"
+
+if [[ "$MODE" == "pick" ]]; then
+  need_cmd fzf
+  selection="$(
+    printf '%s\n' "${candidates[@]}" |
+      awk -F/ '{print $NF}' |
+      sed 's/^jobs_//' |
+      fzf --prompt="Jobs > " --height=80% --layout=reverse --border
+  )"
+  [[ -n "${selection:-}" ]] || exit 0
+  exec "${SCRIPTS_DIR}/jobs_${selection}"
+fi
+
+# MODE == info
+need_cmd awk
+need_cmd sort
+
+results=()
+
+for path in "${candidates[@]}"; do
+  base="$(basename "$path")"
+  company="${base#jobs_}"
+
+  out=""
+  status=0
+  if ! out="$("$path" -i 2>&1)"; then
+    status=$?
+  fi
+
+  if [[ $status -ne 0 ]]; then
+    results+=( "$(printf '%s\t%s\t%s' "$company" "ERR" "exit=$status")" )
+    continue
+  fi
+
+  count="$(
+    printf '%s\n' "$out" | awk '
+      { while (match($0, /[0-9]+/)) { last=substr($0, RSTART, RLENGTH); $0=substr($0, RSTART+RLENGTH) } }
+      END { if (last != "") print last; }
+    '
+  )"
+
+  if [[ -z "${count:-}" ]]; then
+    results+=( "$(printf '%s\t%s' "$company" "ERR")" )
+  else
+    results+=( "$(printf '%s\t%s' "$company" "$count")" )
+  fi
+done
+
+{
+  printf '%s\n' "${results[@]}"
+} |
+awk -F'\t' '{ key=($2=="ERR"?-1:$2+0); printf "%d\t%s\n", key, $0 }' |
+sort -t$'\t' -k1,1nr -k2,2 |
+cut -f2- |
+column -t -s $'\t'
+

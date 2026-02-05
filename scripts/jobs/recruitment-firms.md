@@ -1,0 +1,7 @@
+- [x] zwayam 
+- zoho recruit  ( useless)
+- manatal       ( useless )
+- ICIMS     ( useless )
+- [-] recruitment crm
+- [-] Workday
+- [-] Greenhouse

@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+INFO_ONLY=false
+
+for arg in "$@"; do
+  case "$arg" in
+    -i|--info)
+      INFO_ONLY=true
+      ;;
+  esac
+done
+
+URL="https://www.uber.com/api/loadSearchJobsResults?localeCode=en"
+
+
+      # {
+      #   "country": "IND",
+      #   "city": "Bangalore",
+      #   "region": "Karnātaka"
+      # },
+      # {
+      #   "country": "IND",
+      #   "city": "Hyderabad",
+      #   "region": "Telangāna"
+      # }
+
+PAYLOAD=$(cat << 'EOF'
+{
+  "params": {
+    "location": [
+      {
+        "country": "NLD",
+        "city": "Amsterdam"
+      },
+    ],
+    "department": [
+      "Engineering"
+    ]
+  }
+}
+EOF
+)
+
+# Common jq filter (single source of truth)
+JQ_FILTER='.data.results[]
+  | select(.level? and ((.level | tostring | .[0:1] | tonumber) <= 4))'
+
+RESPONSE=$(curl -s "$URL" \
+  -X POST \
+  -H 'accept: */*' \
+  -H 'content-type: application/json' \
+  -H 'origin: https://www.uber.com' \
+  -H 'referer: https://www.uber.com/us/en/careers/list/' \
+  -H 'user-agent: Mozilla/5.0' \
+  -H 'x-csrf-token: x' \
+  --data-raw "$PAYLOAD"
+)
+
+if $INFO_ONLY; then
+  COUNT=$(echo "$RESPONSE" | jq "[ $JQ_FILTER ] | length")
+  echo "Uber Jobs: $COUNT"
+  exit 0
+fi
+
+# Interactive mode
+echo "$RESPONSE" |
+jq -c "$JQ_FILTER" |
+jq -r '[.title, (tojson)] | @tsv' |
+fzf \
+  --prompt="Uber Jobs > " \
+  --height=80% \
+  --layout=reverse \
+  --border \
+  --with-nth=1 \
+  --delimiter=$'\t' \
+  --preview 'echo {2} | jq -C --sort-keys "{title, department, otherLevels, isPipeline, statusName, team, level, timeType, type, programAndPlatform, featured, uniqueSkills, location}"' \
+  --preview-window=right:60%:wrap |
+cut -f2 |
+jq .
+
